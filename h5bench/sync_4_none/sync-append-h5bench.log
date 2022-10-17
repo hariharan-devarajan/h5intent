@@ -1,0 +1,21 @@
+2022-10-04 15:09:17,403 h5bench - INFO - Starting h5bench Suite
+2022-10-04 15:09:17,428 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-append
+2022-10-04 15:09:17,433 h5bench - INFO - Lustre support not detected
+2022-10-04 15:09:17,434 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 15:09:17,434 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 15:09:17,434 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 15:09:17,435 h5bench - INFO - h5bench [write-unlimited] - Starting
+2022-10-04 15:09:17,435 h5bench - INFO - h5bench [write-unlimited] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-append/3c78b176/
+2022-10-04 15:09:17,436 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:09:17,436 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_write_unlimited /p/gpfs1/iopp/temp/h5bench/sync-append/3c78b176/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-append/test.h5
+2022-10-04 15:09:40,447 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-append/3c78b176)
+2022-10-04 15:09:40,448 h5bench - INFO - Runtime: 23.0118117 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:09:40,448 h5bench - INFO - h5bench [write-unlimited] - Complete
+2022-10-04 15:09:40,448 h5bench - INFO - h5bench [append] - Starting
+2022-10-04 15:09:40,448 h5bench - INFO - h5bench [append] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-append/05413142/
+2022-10-04 15:09:40,448 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:09:40,449 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_append /p/gpfs1/iopp/temp/h5bench/sync-append/05413142/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-append/test.h5
+2022-10-04 15:10:05,380 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-append/05413142)
+2022-10-04 15:10:05,381 h5bench - INFO - Runtime: 24.9325454 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:10:05,381 h5bench - INFO - h5bench [append] - Complete
+2022-10-04 15:10:05,381 h5bench - INFO - Finishing h5bench Suite

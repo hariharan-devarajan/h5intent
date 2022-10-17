@@ -1,0 +1,1 @@
+{"mpi": {"command": "jsrun", "configuration": "-r 1 -c 16 -a 16 "}, "vol": {}, "file-system": {}, "directory": "/p/gpfs1/iopp/temp/h5bench/sync-exerciser", "benchmarks": [{"benchmark": "exerciser", "configuration": {"numdims": "2", "minels": "8 8", "nsizes": "3", "bufmult": "2 2", "dimranks": "8 4"}}]}

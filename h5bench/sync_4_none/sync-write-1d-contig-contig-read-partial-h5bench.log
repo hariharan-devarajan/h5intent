@@ -1,0 +1,41 @@
+2022-10-04 14:40:35,504 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:40:35,521 h5bench - INFO - Lustre support not detected
+2022-10-04 14:40:35,522 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:40:35,522 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:40:35,522 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:40:35,522 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 14:40:35,522 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/e17b271c/
+2022-10-04 14:40:35,523 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 14:40:35,523 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/e17b271c/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
+2022-10-04 14:40:41,772 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/e17b271c)
+2022-10-04 14:40:41,772 h5bench - INFO - Runtime: 6.2494371 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:40:41,772 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 14:40:41,773 h5bench - INFO - h5bench [read] - Starting
+2022-10-04 14:40:41,773 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/258deaea/
+2022-10-04 14:40:41,773 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 14:40:41,774 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_read /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/258deaea/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
+2022-10-04 14:40:46,525 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/258deaea)
+2022-10-04 14:40:46,526 h5bench - INFO - Runtime: 4.7526515 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:40:46,526 h5bench - INFO - h5bench [read] - Complete
+2022-10-04 14:40:46,526 h5bench - INFO - Finishing h5bench Suite
+2022-10-04 15:11:28,443 h5bench - INFO - Starting h5bench Suite
+2022-10-04 15:11:28,486 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial
+2022-10-04 15:11:28,491 h5bench - INFO - Lustre support not detected
+2022-10-04 15:11:28,492 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 15:11:28,492 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 15:11:28,492 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 15:11:28,492 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 15:11:28,492 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d96a0308/
+2022-10-04 15:11:28,493 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:11:28,494 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d96a0308/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
+2022-10-04 15:11:35,097 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d96a0308)
+2022-10-04 15:11:35,097 h5bench - INFO - Runtime: 6.6038437 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:11:35,097 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 15:11:35,098 h5bench - INFO - h5bench [read] - Starting
+2022-10-04 15:11:35,098 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d1e50a56/
+2022-10-04 15:11:35,098 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:11:35,099 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_read /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d1e50a56/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
+2022-10-04 15:11:40,103 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d1e50a56)
+2022-10-04 15:11:40,104 h5bench - INFO - Runtime: 5.0057085 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:11:40,104 h5bench - INFO - h5bench [read] - Complete
+2022-10-04 15:11:40,104 h5bench - INFO - Finishing h5bench Suite

@@ -1,0 +1,24 @@
+2022-10-04 14:17:30,482 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:17:30,495 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 14:17:30,500 h5bench - INFO - Lustre support not detected
+2022-10-04 14:17:30,501 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:17:30,502 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:17:30,502 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:17:30,502 h5bench - INFO - h5bench [overwrite] - Starting
+2022-10-04 14:17:30,502 h5bench - INFO - h5bench [overwrite] - DIR: /p/gpfs1/iopp/temp/h5bench/1409df32/
+2022-10-04 14:17:30,507 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:17:30,508 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_overwrite /p/gpfs1/iopp/temp/h5bench/1409df32/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:17:33,500 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.13.1) MPI-process 0:
+2022-10-04 14:17:33,500 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/1409df32/stderr for detailed log
+2022-10-04 14:18:58,862 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:18:58,867 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 14:18:58,872 h5bench - INFO - Lustre support not detected
+2022-10-04 14:18:58,873 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:18:58,873 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:18:58,874 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:18:58,874 h5bench - INFO - h5bench [overwrite] - Starting
+2022-10-04 14:18:58,874 h5bench - INFO - h5bench [overwrite] - DIR: /p/gpfs1/iopp/temp/h5bench/ece82971/
+2022-10-04 14:18:58,879 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:18:58,879 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_overwrite /p/gpfs1/iopp/temp/h5bench/ece82971/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:19:01,966 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.13.1) MPI-process 37:
+2022-10-04 14:19:01,967 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/ece82971/stderr for detailed log

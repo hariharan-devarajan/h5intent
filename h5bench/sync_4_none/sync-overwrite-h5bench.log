@@ -1,0 +1,24 @@
+2022-10-04 14:41:14,899 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:41:14,946 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-overwrite
+2022-10-04 14:41:14,952 h5bench - INFO - Lustre support not detected
+2022-10-04 14:41:14,952 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:41:14,953 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:41:14,953 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:41:14,953 h5bench - INFO - h5bench [overwrite] - Starting
+2022-10-04 14:41:14,953 h5bench - INFO - h5bench [overwrite] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-overwrite/c1958ca4/
+2022-10-04 14:41:14,955 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 14:41:14,956 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_overwrite /p/gpfs1/iopp/temp/h5bench/sync-overwrite/c1958ca4/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-overwrite/test.h5
+2022-10-04 14:41:15,591 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.13.1) MPI-process 2:
+2022-10-04 14:41:15,591 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/sync-overwrite/c1958ca4/stderr for detailed log
+2022-10-04 15:10:54,239 h5bench - INFO - Starting h5bench Suite
+2022-10-04 15:10:54,258 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-overwrite
+2022-10-04 15:10:54,262 h5bench - INFO - Lustre support not detected
+2022-10-04 15:10:54,263 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 15:10:54,264 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 15:10:54,264 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 15:10:54,264 h5bench - INFO - h5bench [overwrite] - Starting
+2022-10-04 15:10:54,264 h5bench - INFO - h5bench [overwrite] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-overwrite/220fd341/
+2022-10-04 15:10:54,265 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:10:54,265 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_overwrite /p/gpfs1/iopp/temp/h5bench/sync-overwrite/220fd341/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-overwrite/test.h5
+2022-10-04 15:10:55,470 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.13.1) MPI-process 3:
+2022-10-04 15:10:55,470 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/sync-overwrite/220fd341/stderr for detailed log

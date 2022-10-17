@@ -1,0 +1,28 @@
+2022-10-12 20:41:38,305 h5bench - INFO - Starting h5bench Suite
+2022-10-12 20:41:38,317 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited
+2022-10-12 20:41:38,320 h5bench - INFO - Lustre support not detected
+2022-10-12 20:41:38,321 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-12 20:41:38,322 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-12 20:41:38,322 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-12 20:41:38,322 h5bench - INFO - h5bench [write-unlimited] - Starting
+2022-10-12 20:41:38,322 h5bench - INFO - h5bench [write-unlimited] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/972c9063/
+2022-10-12 20:41:38,324 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-12 20:41:38,324 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write_unlimited /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/972c9063/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5
+2022-10-12 20:41:38,802 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/972c9063/stderr for detailed log)
+2022-10-12 20:41:38,802 h5bench - INFO - Runtime: 0.4785848 seconds (elapsed time, includes allocation wait time)
+2022-10-12 20:41:38,803 h5bench - INFO - h5bench [write-unlimited] - Complete
+2022-10-12 20:41:38,803 h5bench - INFO - Finishing h5bench Suite
+2022-10-12 21:15:05,816 h5bench - INFO - Starting h5bench Suite
+2022-10-12 21:15:05,822 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited
+2022-10-12 21:15:05,826 h5bench - INFO - Lustre support not detected
+2022-10-12 21:15:05,827 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-12 21:15:05,827 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-12 21:15:05,827 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-12 21:15:05,827 h5bench - INFO - h5bench [write-unlimited] - Starting
+2022-10-12 21:15:05,827 h5bench - INFO - h5bench [write-unlimited] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/37b05197/
+2022-10-12 21:15:05,829 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-12 21:15:05,830 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write_unlimited /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/37b05197/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5
+2022-10-12 21:15:29,209 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/37b05197)
+2022-10-12 21:15:29,210 h5bench - INFO - Runtime: 23.3806131 seconds (elapsed time, includes allocation wait time)
+2022-10-12 21:15:29,210 h5bench - INFO - h5bench [write-unlimited] - Complete
+2022-10-12 21:15:29,210 h5bench - INFO - Finishing h5bench Suite

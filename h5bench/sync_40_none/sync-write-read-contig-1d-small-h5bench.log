@@ -1,0 +1,21 @@
+2022-10-04 14:19:17,876 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:19:17,890 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 14:19:17,894 h5bench - INFO - Lustre support not detected
+2022-10-04 14:19:17,895 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:19:17,896 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:19:17,896 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:19:17,896 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 14:19:17,896 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/e70b7cce/
+2022-10-04 14:19:17,901 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:19:17,901 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_write /p/gpfs1/iopp/temp/h5bench/e70b7cce/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:21:25,268 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/e70b7cce)
+2022-10-04 14:21:25,268 h5bench - INFO - Runtime: 127.3674872 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:21:25,269 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 14:21:25,269 h5bench - INFO - h5bench [read] - Starting
+2022-10-04 14:21:25,269 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/019758e5/
+2022-10-04 14:21:25,272 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:21:25,272 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_read /p/gpfs1/iopp/temp/h5bench/019758e5/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:21:31,081 h5bench - ERROR - Return: 255 (check /p/gpfs1/iopp/temp/h5bench/019758e5/stderr for detailed log)
+2022-10-04 14:21:31,087 h5bench - INFO - Runtime: 5.8149605 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:21:31,088 h5bench - INFO - h5bench [read] - Complete
+2022-10-04 14:21:31,088 h5bench - INFO - Finishing h5bench Suite

@@ -1,0 +1,43 @@
+2022-10-12 20:39:09,464 h5bench - INFO - Starting h5bench Suite
+2022-10-12 20:41:12,945 h5bench - INFO - Starting h5bench Suite
+2022-10-12 20:41:12,952 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-amrex
+2022-10-12 20:41:12,960 h5bench - INFO - Lustre support not detected
+2022-10-12 20:41:12,961 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-12 20:41:12,961 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-12 20:41:12,961 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-12 20:41:12,961 h5bench - INFO - h5bench [amrex] - Starting
+2022-10-12 20:41:12,961 h5bench - INFO - h5bench [amrex] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-amrex/373524ae/
+2022-10-12 20:41:12,963 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-12 20:41:12,965 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_amrex_sync /p/gpfs1/iopp/temp/h5bench/sync-amrex/373524ae/amrex.ini
+2022-10-12 20:41:13,456 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/sync-amrex/373524ae/stderr for detailed log)
+2022-10-12 20:41:13,456 h5bench - INFO - Runtime: 0.4930646 seconds (elapsed time, includes allocation wait time)
+2022-10-12 20:41:13,457 h5bench - INFO - h5bench [amrex] - Complete
+2022-10-12 20:41:13,457 h5bench - INFO - Finishing h5bench Suite
+2022-10-12 20:47:46,235 h5bench - INFO - Starting h5bench Suite
+2022-10-12 20:47:46,239 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-amrex
+2022-10-12 20:47:46,244 h5bench - INFO - Lustre support not detected
+2022-10-12 20:47:46,244 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-12 20:47:46,244 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-12 20:47:46,244 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-12 20:47:46,245 h5bench - INFO - h5bench [amrex] - Starting
+2022-10-12 20:47:46,245 h5bench - INFO - h5bench [amrex] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-amrex/bd9a2eee/
+2022-10-12 20:47:46,247 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-12 20:47:46,248 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_amrex_sync /p/gpfs1/iopp/temp/h5bench/sync-amrex/bd9a2eee/amrex.ini
+2022-10-12 20:47:46,718 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/sync-amrex/bd9a2eee/stderr for detailed log)
+2022-10-12 20:47:46,718 h5bench - INFO - Runtime: 0.4711237 seconds (elapsed time, includes allocation wait time)
+2022-10-12 20:47:46,719 h5bench - INFO - h5bench [amrex] - Complete
+2022-10-12 20:47:46,719 h5bench - INFO - Finishing h5bench Suite
+2022-10-12 20:59:14,327 h5bench - INFO - Starting h5bench Suite
+2022-10-12 20:59:14,337 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-amrex
+2022-10-12 20:59:14,346 h5bench - INFO - Lustre support not detected
+2022-10-12 20:59:14,346 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-12 20:59:14,346 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-12 20:59:14,346 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-12 20:59:14,346 h5bench - INFO - h5bench [amrex] - Starting
+2022-10-12 20:59:14,347 h5bench - INFO - h5bench [amrex] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-amrex/c4129cc6/
+2022-10-12 20:59:14,349 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-12 20:59:14,350 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_amrex_sync /p/gpfs1/iopp/temp/h5bench/sync-amrex/c4129cc6/amrex.ini
+2022-10-12 20:59:27,805 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-amrex/c4129cc6)
+2022-10-12 20:59:27,806 h5bench - INFO - Runtime: 13.4568048 seconds (elapsed time, includes allocation wait time)
+2022-10-12 20:59:27,806 h5bench - INFO - h5bench [amrex] - Complete
+2022-10-12 20:59:27,806 h5bench - INFO - Finishing h5bench Suite

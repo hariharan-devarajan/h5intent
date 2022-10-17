@@ -1,0 +1,62 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_9dbe1e3e2e16fa30ebf3b9a27578dccc'
+2022-10-04 15:11:28,443 h5bench - INFO - Starting h5bench Suite
+2022-10-04 15:11:28,486 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial
+2022-10-04 15:11:28,491 h5bench - INFO - Lustre support not detected
+2022-10-04 15:11:28,492 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 15:11:28,492 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 15:11:28,492 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 15:11:28,492 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 15:11:28,492 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d96a0308/
+2022-10-04 15:11:28,493 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:11:28,494 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d96a0308/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
+2022-10-04 15:11:35,097 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d96a0308)
+2022-10-04 15:11:35,097 h5bench - INFO - Runtime: 6.6038437 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:11:35,097 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 15:11:35,098 h5bench - INFO - h5bench [read] - Starting
+2022-10-04 15:11:35,098 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d1e50a56/
+2022-10-04 15:11:35,098 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:11:35,099 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_read /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d1e50a56/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
+2022-10-04 15:11:40,103 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/d1e50a56)
+2022-10-04 15:11:40,104 h5bench - INFO - Runtime: 5.0057085 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:11:40,104 h5bench - INFO - h5bench [read] - Complete
+2022-10-04 15:11:40,104 h5bench - INFO - Finishing h5bench Suite
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 3985361: <sync-write-1d-contig-contig-read-partial> in cluster <lassen> Done
+
+Job <sync-write-1d-contig-contig-read-partial> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Tue Oct  4 14:56:32 2022
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Tue Oct  4 15:11:17 2022
+                            <40*lassen554>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/applications/h5bench/build> was used as the working directory.
+Started at Tue Oct  4 15:11:17 2022
+Terminated at Tue Oct  4 15:11:40 2022
+Results reported at Tue Oct  4 15:11:40 2022
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+./h5bench --debug /usr/workspace/iopp/software/iopp/apps/h5bench/sync_4_none/sync-write-1d-contig-contig-read-partial.json
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.30 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   23 sec.
+    Turnaround time :                            908 sec.
+
+The output (if any) is above this job summary.
+

@@ -1,0 +1,14 @@
+2022-10-04 15:09:46,817 h5bench - INFO - Starting h5bench Suite
+2022-10-04 15:09:46,833 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-e3sm
+2022-10-04 15:09:46,838 h5bench - INFO - Lustre support not detected
+2022-10-04 15:09:46,839 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 15:09:46,839 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 15:09:46,839 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 15:09:46,839 h5bench - INFO - h5bench [e3sm] - Starting
+2022-10-04 15:09:46,839 h5bench - INFO - h5bench [e3sm] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-e3sm/4bd5dda6/
+2022-10-04 15:09:46,840 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:09:46,840 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_e3sm -k   -r 25  -o /p/gpfs1/iopp/temp/h5bench/sync-e3sm/4bd5dda6/test.h5  -a hdf5 -x blob /p/gpfs1/iopp/temp/h5bench/sync-e3sm/../../../e3sm/datasets/f_case_866x72_16p.nc
+2022-10-04 15:09:48,011 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-e3sm/4bd5dda6)
+2022-10-04 15:09:48,011 h5bench - INFO - Runtime: 1.1711423 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:09:48,012 h5bench - INFO - h5bench [e3sm] - Complete
+2022-10-04 15:09:48,012 h5bench - INFO - Finishing h5bench Suite

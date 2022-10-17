@@ -1,0 +1,42 @@
+2022-10-12 20:41:29,147 h5bench - INFO - Starting h5bench Suite
+2022-10-12 20:41:29,215 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-openpmd
+2022-10-12 20:41:29,233 h5bench - INFO - Lustre support not detected
+2022-10-12 20:41:29,234 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-12 20:41:29,234 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-12 20:41:29,234 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-12 20:41:29,234 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-12 20:41:29,234 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/5f9300b4/
+2022-10-12 20:41:29,255 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-12 20:41:29,255 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_openpmd_write /p/gpfs1/iopp/temp/h5bench/sync-openpmd/5f9300b4/openpmd.input
+2022-10-12 20:41:29,844 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/sync-openpmd/5f9300b4/stderr for detailed log)
+2022-10-12 20:41:29,844 h5bench - INFO - Runtime: 0.5894098 seconds (elapsed time, includes allocation wait time)
+2022-10-12 20:41:29,845 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-12 20:41:29,845 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-12 20:41:29,845 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/614a9993/
+2022-10-12 20:41:29,845 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-12 20:41:29,848 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_openpmd_read /p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db sy
+2022-10-12 20:41:30,263 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/sync-openpmd/614a9993/stderr for detailed log)
+2022-10-12 20:41:30,264 h5bench - INFO - Runtime: 0.4157622 seconds (elapsed time, includes allocation wait time)
+2022-10-12 20:41:30,264 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-12 20:41:30,264 h5bench - INFO - Finishing h5bench Suite
+2022-10-12 21:14:42,967 h5bench - INFO - Starting h5bench Suite
+2022-10-12 21:14:43,003 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-openpmd
+2022-10-12 21:14:43,007 h5bench - INFO - Lustre support not detected
+2022-10-12 21:14:43,008 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-12 21:14:43,008 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-12 21:14:43,008 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-12 21:14:43,008 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-12 21:14:43,008 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/9f86e73d/
+2022-10-12 21:14:43,013 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-12 21:14:43,014 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_openpmd_write /p/gpfs1/iopp/temp/h5bench/sync-openpmd/9f86e73d/openpmd.input
+2022-10-12 21:14:53,368 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-openpmd/9f86e73d)
+2022-10-12 21:14:53,368 h5bench - INFO - Runtime: 10.3553405 seconds (elapsed time, includes allocation wait time)
+2022-10-12 21:14:53,368 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-12 21:14:53,369 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-12 21:14:53,369 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/e4e88524/
+2022-10-12 21:14:53,370 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-12 21:14:53,372 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_openpmd_read /p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db sy
+2022-10-12 21:14:54,400 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-openpmd/e4e88524)
+2022-10-12 21:14:54,400 h5bench - INFO - Runtime: 1.0299475 seconds (elapsed time, includes allocation wait time)
+2022-10-12 21:14:54,400 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-12 21:14:54,400 h5bench - INFO - Finishing h5bench Suite

@@ -1,0 +1,27 @@
+2022-10-04 14:43:09,777 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:43:09,792 h5bench - INFO - Lustre support not detected
+2022-10-04 14:43:09,793 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:43:09,793 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:43:09,793 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:43:09,794 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 14:43:09,794 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/f9ca3372/
+2022-10-04 14:43:09,794 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 14:43:09,795 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/f9ca3372/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5
+2022-10-04 14:43:30,628 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/f9ca3372)
+2022-10-04 14:43:30,629 h5bench - INFO - Runtime: 20.8345299 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:43:30,629 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 14:43:30,629 h5bench - INFO - Finishing h5bench Suite
+2022-10-04 15:11:48,686 h5bench - INFO - Starting h5bench Suite
+2022-10-04 15:11:48,690 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved
+2022-10-04 15:11:48,695 h5bench - INFO - Lustre support not detected
+2022-10-04 15:11:48,696 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 15:11:48,696 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 15:11:48,696 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 15:11:48,697 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 15:11:48,697 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/e2d08394/
+2022-10-04 15:11:48,702 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:11:48,703 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/e2d08394/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5
+2022-10-04 15:12:09,378 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/e2d08394)
+2022-10-04 15:12:09,378 h5bench - INFO - Runtime: 20.6759739 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:12:09,378 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 15:12:09,379 h5bench - INFO - Finishing h5bench Suite

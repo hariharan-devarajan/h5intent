@@ -1,0 +1,82 @@
+2022-10-04 13:57:58,743 h5bench - INFO - Starting h5bench Suite
+2022-10-04 13:57:58,761 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 13:57:58,766 h5bench - INFO - Lustre support not detected
+2022-10-04 13:57:58,767 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 13:57:58,767 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 13:57:58,767 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 13:57:58,767 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 13:57:58,767 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/3be8a207/
+2022-10-04 13:57:58,773 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-04 13:57:58,794 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/3be8a207/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 13:57:59,322 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/3be8a207/stderr for detailed log)
+2022-10-04 13:57:59,323 h5bench - INFO - Runtime: 0.5491915 seconds (elapsed time, includes allocation wait time)
+2022-10-04 13:57:59,323 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 13:57:59,323 h5bench - INFO - h5bench [read] - Starting
+2022-10-04 13:57:59,323 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/f74d46aa/
+2022-10-04 13:57:59,334 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-04 13:57:59,335 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/f74d46aa/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 13:57:59,701 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/f74d46aa/stderr for detailed log)
+2022-10-04 13:57:59,701 h5bench - INFO - Runtime: 0.3677227 seconds (elapsed time, includes allocation wait time)
+2022-10-04 13:57:59,702 h5bench - INFO - h5bench [read] - Complete
+2022-10-04 13:57:59,702 h5bench - INFO - Finishing h5bench Suite
+2022-10-04 13:59:46,141 h5bench - INFO - Starting h5bench Suite
+2022-10-04 13:59:46,150 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 13:59:46,155 h5bench - INFO - Lustre support not detected
+2022-10-04 13:59:46,156 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 13:59:46,156 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 13:59:46,157 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 13:59:46,157 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 13:59:46,157 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/28167cb9/
+2022-10-04 13:59:46,162 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-04 13:59:46,163 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/28167cb9/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 13:59:46,757 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/28167cb9/stderr for detailed log)
+2022-10-04 13:59:46,757 h5bench - INFO - Runtime: 0.5950277 seconds (elapsed time, includes allocation wait time)
+2022-10-04 13:59:46,757 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 13:59:46,758 h5bench - INFO - h5bench [read] - Starting
+2022-10-04 13:59:46,758 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/595fb177/
+2022-10-04 13:59:46,791 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-04 13:59:46,792 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/595fb177/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 13:59:47,159 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/595fb177/stderr for detailed log)
+2022-10-04 13:59:47,161 h5bench - INFO - Runtime: 0.3689845 seconds (elapsed time, includes allocation wait time)
+2022-10-04 13:59:47,161 h5bench - INFO - h5bench [read] - Complete
+2022-10-04 13:59:47,161 h5bench - INFO - Finishing h5bench Suite
+2022-10-04 14:10:15,716 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:10:15,719 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 14:10:15,724 h5bench - INFO - Lustre support not detected
+2022-10-04 14:10:15,725 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:10:15,725 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:10:15,725 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:10:15,725 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 14:10:15,725 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/0c4d1440/
+2022-10-04 14:10:15,730 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-04 14:10:15,731 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/0c4d1440/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:10:16,242 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/0c4d1440/stderr for detailed log)
+2022-10-04 14:10:16,243 h5bench - INFO - Runtime: 0.5127044 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:10:16,243 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 14:10:16,243 h5bench - INFO - h5bench [read] - Starting
+2022-10-04 14:10:16,243 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/dcd844c8/
+2022-10-04 14:10:16,253 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-04 14:10:16,254 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/dcd844c8/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:10:16,615 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/dcd844c8/stderr for detailed log)
+2022-10-04 14:10:16,616 h5bench - INFO - Runtime: 0.3620300 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:10:16,616 h5bench - INFO - h5bench [read] - Complete
+2022-10-04 14:10:16,616 h5bench - INFO - Finishing h5bench Suite
+2022-10-04 14:13:05,457 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:13:05,461 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 14:13:05,467 h5bench - INFO - Lustre support not detected
+2022-10-04 14:13:05,467 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:13:05,468 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:13:05,468 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:13:05,468 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 14:13:05,468 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/52c3460d/
+2022-10-04 14:13:05,472 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-04 14:13:05,473 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/52c3460d/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:15:24,886 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/52c3460d)
+2022-10-04 14:15:24,886 h5bench - INFO - Runtime: 139.4141235 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:15:24,886 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 14:15:24,887 h5bench - INFO - h5bench [read] - Starting
+2022-10-04 14:15:24,887 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/0e3bae22/
+2022-10-04 14:15:24,890 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-10-04 14:15:24,891 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/0e3bae22/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:15:56,289 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.13.1) MPI-process 0:
+2022-10-04 14:15:56,290 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/0e3bae22/stderr for detailed log

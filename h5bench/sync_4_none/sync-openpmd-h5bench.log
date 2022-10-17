@@ -1,0 +1,21 @@
+2022-10-04 15:10:54,775 h5bench - INFO - Starting h5bench Suite
+2022-10-04 15:10:54,791 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-openpmd
+2022-10-04 15:10:54,796 h5bench - INFO - Lustre support not detected
+2022-10-04 15:10:54,797 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 15:10:54,797 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 15:10:54,797 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 15:10:54,798 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-04 15:10:54,798 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/198a7edd/
+2022-10-04 15:10:54,798 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:10:54,799 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_openpmd_write /p/gpfs1/iopp/temp/h5bench/sync-openpmd/198a7edd/openpmd.input
+2022-10-04 15:11:05,490 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-openpmd/198a7edd)
+2022-10-04 15:11:05,491 h5bench - INFO - Runtime: 10.6928778 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:11:05,492 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-04 15:11:05,492 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-04 15:11:05,492 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/26f0ec85/
+2022-10-04 15:11:05,492 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 
+2022-10-04 15:11:05,494 h5bench - INFO - jsrun -r 1 -c 4 -a 4  h5bench_openpmd_read /p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db sy
+2022-10-04 15:11:06,378 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-openpmd/26f0ec85)
+2022-10-04 15:11:06,379 h5bench - INFO - Runtime: 0.8853133 seconds (elapsed time, includes allocation wait time)
+2022-10-04 15:11:06,379 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-04 15:11:06,379 h5bench - INFO - Finishing h5bench Suite

@@ -1,0 +1,1 @@
+{"mpi": {"command": "jsrun", "configuration": "-r 1 -c 40 -a 40 "}, "vol": {}, "file-system": {}, "directory": "/p/gpfs1/iopp/temp/h5bench", "benchmarks": [{"benchmark": "e3sm", "file": "test.h5", "configuration": {"k": "", "r": "25", "o": "ON", "netcdf": "../../e3sm/datasets/f_case_866x72_16p.nc"}}]}

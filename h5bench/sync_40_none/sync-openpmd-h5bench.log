@@ -1,0 +1,42 @@
+2022-10-04 14:17:27,988 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:17:28,009 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 14:17:28,014 h5bench - INFO - Lustre support not detected
+2022-10-04 14:17:28,015 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:17:28,015 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:17:28,015 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:17:28,016 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-04 14:17:28,016 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/393a86d6/
+2022-10-04 14:17:28,021 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:17:28,021 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_openpmd_write /p/gpfs1/iopp/temp/h5bench/393a86d6/openpmd.input
+2022-10-04 14:17:30,978 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/393a86d6)
+2022-10-04 14:17:30,978 h5bench - INFO - Runtime: 2.9571497 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:17:30,978 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-04 14:17:30,978 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-04 14:17:30,978 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/e09139ed/
+2022-10-04 14:17:30,983 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:17:30,984 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_openpmd_read /p/gpfs1/iopp/temp/h5bench/8a_parallel_3Db sy
+2022-10-04 14:17:34,048 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/e09139ed)
+2022-10-04 14:17:34,049 h5bench - INFO - Runtime: 3.0655508 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:17:34,049 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-04 14:17:34,049 h5bench - INFO - Finishing h5bench Suite
+2022-10-04 14:18:58,121 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:18:58,127 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 14:18:58,132 h5bench - INFO - Lustre support not detected
+2022-10-04 14:18:58,133 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:18:58,133 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:18:58,133 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:18:58,133 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-04 14:18:58,133 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/2bd9a4e0/
+2022-10-04 14:18:58,165 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:18:58,202 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_openpmd_write /p/gpfs1/iopp/temp/h5bench/2bd9a4e0/openpmd.input
+2022-10-04 14:19:00,972 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/2bd9a4e0)
+2022-10-04 14:19:00,972 h5bench - INFO - Runtime: 2.8057861 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:19:00,972 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-04 14:19:00,972 h5bench - INFO - h5bench [openpmd] - Starting
+2022-10-04 14:19:00,972 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/1a6e221e/
+2022-10-04 14:19:00,978 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:19:00,980 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_openpmd_read /p/gpfs1/iopp/temp/h5bench/8a_parallel_3Db sy
+2022-10-04 14:19:03,389 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/1a6e221e)
+2022-10-04 14:19:03,390 h5bench - INFO - Runtime: 2.4109204 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:19:03,390 h5bench - INFO - h5bench [openpmd] - Complete
+2022-10-04 14:19:03,390 h5bench - INFO - Finishing h5bench Suite

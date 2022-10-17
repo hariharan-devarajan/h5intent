@@ -1,0 +1,19 @@
+2022-10-04 14:19:20,750 h5bench - INFO - Starting h5bench Suite
+2022-10-04 14:19:20,768 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench
+2022-10-04 14:19:20,773 h5bench - INFO - Lustre support not detected
+2022-10-04 14:19:20,774 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib64:/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-10-04 14:19:20,774 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-10-04 14:19:20,774 h5bench - DEBUG - LD_PRELOAD: 
+2022-10-04 14:19:20,774 h5bench - INFO - h5bench [write] - Starting
+2022-10-04 14:19:20,775 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/6d61e4cd/
+2022-10-04 14:19:20,779 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:19:20,780 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_write /p/gpfs1/iopp/temp/h5bench/6d61e4cd/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:20:13,141 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/6d61e4cd)
+2022-10-04 14:20:13,142 h5bench - INFO - Runtime: 52.3625553 seconds (elapsed time, includes allocation wait time)
+2022-10-04 14:20:13,142 h5bench - INFO - h5bench [write] - Complete
+2022-10-04 14:20:13,142 h5bench - INFO - h5bench [read] - Starting
+2022-10-04 14:20:13,143 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/495c9ecf/
+2022-10-04 14:20:13,145 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2022-10-04 14:20:13,146 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_read /p/gpfs1/iopp/temp/h5bench/495c9ecf/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/test.h5
+2022-10-04 14:20:41,025 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.13.1) MPI-process 1:
+2022-10-04 14:20:41,026 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/495c9ecf/stderr for detailed log
