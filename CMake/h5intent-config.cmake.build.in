@@ -1,0 +1,20 @@
+set(H5INTENT_FOUND TRUE)
+
+# Include directories
+set(H5INTENT_INCLUDE_DIRS "@CMAKE_INCLUDE_OUTPUT_DIRECTORY@")
+if (NOT IS_DIRECTORY "${H5INTENT_INCLUDE_DIRS}")
+    set(H5INTENT_FOUND FALSE)
+endif ()
+#message(STATUS "H5INTENT_INCLUDE_DIRS: " ${H5INTENT_INCLUDE_DIRS})
+get_filename_component(H5INTENT_ROOT_DIR ${H5INTENT_INCLUDE_DIRS}/.. ABSOLUTE)
+#message(STATUS "H5INTENT_ROOT_DIR: " ${H5INTENT_ROOT_DIR})
+set(H5INTENT_LIBRARY_PATH "@CMAKE_LIBRARY_OUTPUT_DIRECTORY@")
+set(H5INTENT_LIBRARIES "-L${H5INTENT_LIBRARY_PATH} -lcpp-logger")
+#message(STATUS "H5INTENT_LIBRARIES: " ${H5INTENT_LIBRARIES})
+set(H5INTENT_DEFINITIONS "")
+if (NOT TARGET cpp-logger::cpp-logger)
+    add_library(cpp-logger::cpp-logger ALIAS cpp-logger)
+    include(FindPackageHandleStandardArgs)
+    find_package_handle_standard_args(cpp-logger
+            REQUIRED_VARS H5INTENT_FOUND H5INTENT_INCLUDE_DIRS H5INTENT_LIBRARIES)
+endif ()
