@@ -249,6 +249,7 @@ hid_t h5intent_register(void) {
 void *h5intent_dataset_create(void *obj, const H5VL_loc_params_t *loc_params,
                             const char *name, hid_t lcpl_id, hid_t type_id, hid_t space_id, hid_t dcpl_id,
                             hid_t dapl_id, hid_t dxpl_id, void **req) {
+    H5INTENT_LOGPRINT("Creating dataset %s", name);
     H5Intent_t *dset;
     H5Intent_t *o = (H5Intent_t *) obj;
     void *under;
@@ -264,6 +265,7 @@ void *h5intent_dataset_create(void *obj, const H5VL_loc_params_t *loc_params,
 
 static void *h5intent_dataset_open(void *obj, const H5VL_loc_params_t *loc_params,
                                  const char *name, hid_t dapl_id, hid_t dxpl_id, void **req) {
+    H5INTENT_LOGPRINT("Opening file %s", name);
     H5Intent_t *dset;
     H5Intent_t *o = (H5Intent_t *) obj;
     void *under;
@@ -378,7 +380,7 @@ h5intent_file_create(const char *name, unsigned flags, hid_t fcpl_id, hid_t fapl
 
     /* Release copy of our VOL info */
     h5intent_info_free(info);
-    H5INTENT_LOGPRINT("Opening file %s", name);
+    H5INTENT_LOGPRINT("Creating file %s", name);
     return ((void *) file);
 }
 
@@ -420,6 +422,7 @@ static void *h5intent_file_open(const char *name, unsigned flags, hid_t fapl_id,
 
     /* Release copy of our VOL info */
     h5intent_info_free(info);
+    H5INTENT_LOGPRINT("Opening file %s", name);
 
     return ((void *) file);
 }
