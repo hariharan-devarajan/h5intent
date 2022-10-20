@@ -1,32 +1,47 @@
-/*-------------------------------------------------------------------------
-*
-* Created: h5intent_vol.h
-* Oct 2022
-* Hariharan Devarajan <hariharandev1@llnl.gov>
-*
-* Purpose:Defines the H5intent VOL Plugin
-*
-*-------------------------------------------------------------------------
-*/
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Copyright by The HDF Group.                                               *
+ * All rights reserved.                                                      *
+ *                                                                           *
+ * This file is part of HDF5.  The full HDF5 copyright notice, including     *
+ * terms governing use, modification, and redistribution, is contained in    *
+ * the COPYING file, which can be found at the root of the source code       *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
+ * If you do not have access to either file, you may request a copy from     *
+ * help@hdfgroup.org.                                                        *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef H5INTENT_H5INTENT_VOL_H
-#define H5INTENT_H5INTENT_VOL_H
-#include "H5public.h"
-#include "H5Rpublic.h"
+/*
+ * Purpose:	The public header file for the pass-through VOL connector.
+ */
+
+#ifndef H5VLintent_H
+#define H5VLintent_H
+
+/* Public headers needed by this file */
+#include <H5VLpublic.h> /* Virtual Object Layer                 */
+
+/* Identifier for the pass-through VOL connector */
+#define H5VL_INTENT (H5VL_intent_register())
+
+/* Characteristics of the pass-through VOL connector */
+#define H5VL_INTENT_NAME    "intent"
+#define H5VL_INTENT_VALUE   1 /* VOL connector ID */
+#define H5VL_INTENT_VERSION 0
+
+/* Pass-through VOL connector info */
+typedef struct H5VL_intent_info_t {
+    hid_t under_vol_id;   /* VOL ID for under VOL */
+    void *under_vol_info; /* VOL info for under VOL */
+} H5VL_intent_info_t;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-#define H5INTENT 555
-/**
- * This method implements the setting of vol driver inside application's fapl.
- *
- * @param fapl_id
- * @return vol_id
- */
-H5_DLL hid_t H5Pset_fapl_h5intent_vol(hid_t fapl_id);
+
+H5_DLL hid_t H5VL_intent_register(void);
 
 #ifdef __cplusplus
 }
 #endif
-#endif //H5INTENT_H5INTENT_VOL_H
+
+#endif /* H5VLintent_H */

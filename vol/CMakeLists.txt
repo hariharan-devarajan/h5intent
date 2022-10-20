@@ -1,21 +1,21 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(VOL_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/h5intent/h5intent_vol.c)
-set(VOL_PRIVATE_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/src/h5intent/h5intent_vol_private.h)
+set(VOL_PRIVATE_HEADER )
 set(VOL_PUBLIC_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/include/h5intent/h5intent_vol.h)
-add_library(h5intent SHARED ${VOL_SRC})
+add_library(h5intent SHARED ${VOL_SRC} ${VOL_PUBLIC_HEADER})
 
-target_sources(h5intent PRIVATE ${VOL_SRC} )
-target_include_directories(${PROJECT_NAME}
-        PRIVATE
-        # where the library itself will look for its internal headers
-        ${CMAKE_CURRENT_SOURCE_DIR}/src
-        PUBLIC
-        # where top-level project will look for the library's public headers
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        # where external projects will look for the library's public headers
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-        )
+#target_sources(h5intent PRIVATE ${VOL_SRC} ${VOL_PUBLIC_HEADER})
+#target_include_directories(${PROJECT_NAME}
+#        PRIVATE
+#        # where the library itself will look for its internal headers
+#        ${CMAKE_CURRENT_SOURCE_DIR}/src
+#        PUBLIC
+#        # where top-level project will look for the library's public headers
+#        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#        # where external projects will look for the library's public headers
+#        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+#        )
 
 find_package(HDF5 COMPONENTS C REQUIRED)
 if (${HDF5_FOUND})
@@ -35,7 +35,7 @@ else ()
     message(FATAL_ERROR "-- [H5Intent] mpi is needed for ${PROJECT_NAME} build")
 endif ()
 
-
+target_compile_definitions(h5intent PRIVATE ENABLE_INTENT_LOGGING)
 target_link_libraries(h5intent ${DEPENDENCY_LIB})
 
 # the variant with PUBLIC_HEADER property unfortunately does not preserve the folder structure
@@ -51,3 +51,6 @@ foreach (header ${VOL_PUBLIC_HEADER})
     file(COPY ${header}
             DESTINATION "${CMAKE_INCLUDE_OUTPUT_DIRECTORY}/${header_directory_path}")
 endforeach ()
+
+
+add_subdirectory(test)

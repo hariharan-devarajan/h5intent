@@ -24,6 +24,8 @@ if (${CPP_LOGGER_FOUND})
 else ()
     message(FATAL_ERROR "-- [H5Intent] cpp-logger is needed for ${PROJECT_NAME} build")
 endif ()
+enable_testing()
+include(CTest)
 add_subdirectory(vol)
 #------------------------------------------------------------------------------
 # Setup install and output Directories
