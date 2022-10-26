@@ -20,30 +20,30 @@ ABT_DIR = os.getenv('ABT_DIR')
 ASYNC_DIR = os.getenv('ASYNC_DIR')
 
 if HDF5_DIR is None:
-	print('HDF5_DIR enviroment variable is not set!')
-	exit(-1)
+    print('HDF5_DIR enviroment variable is not set!')
+    exit(-1)
 
 if ABT_DIR is None:
-	print('ABT_DIR enviroment variable is not set!')
-	exit(-1)
+    print('ABT_DIR enviroment variable is not set!')
+    exit(-1)
 
 if ASYNC_DIR is None:
-	print('ASYNC_DIR enviroment variable is not set!')
-	exit(-1)
+    print('ASYNC_DIR enviroment variable is not set!')
+    exit(-1)
 
 with open(ARGS.setup, 'r') as f:
     data = json.load(f, object_pairs_hook=collections.OrderedDict)
 
 data['vol']['library'] = '{}:{}:{}'.format(
-	'/'.join([ASYNC_DIR, 'lib']),
-	'/'.join([ABT_DIR, 'lib']),
-	'/'.join([HDF5_DIR, 'lib'])
+    '/'.join([ASYNC_DIR, 'lib']),
+    '/'.join([ABT_DIR, 'lib']),
+    '/'.join([HDF5_DIR, 'lib'])
 )
 
 data['vol']['preload'] = '{}:{}:{}'.format(
-	'/'.join([ASYNC_DIR, 'lib', 'libh5async.so']),
-	'/'.join([ABT_DIR, 'lib', 'libabt.so']),
-	'/'.join([HDF5_DIR, 'lib', 'libhdf5.so'])
+    '/'.join([ASYNC_DIR, 'lib', 'libh5async.so']),
+    '/'.join([ABT_DIR, 'lib', 'libabt.so']),
+    '/'.join([HDF5_DIR, 'lib', 'libhdf5.so'])
 )
 
 data['vol']['path'] = '/'.join([ASYNC_DIR, 'lib'])

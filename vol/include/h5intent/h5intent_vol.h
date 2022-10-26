@@ -24,14 +24,14 @@
 #define H5VL_INTENT (H5VL_intent_register())
 
 /* Characteristics of the pass-through VOL connector */
-#define H5VL_INTENT_NAME    "intent"
-#define H5VL_INTENT_VALUE   1 /* VOL connector ID */
+#define H5VL_INTENT_NAME "intent"
+#define H5VL_INTENT_VALUE 1 /* VOL connector ID */
 #define H5VL_INTENT_VERSION 0
 
 /* Pass-through VOL connector info */
 typedef struct H5VL_intent_info_t {
-    hid_t under_vol_id;   /* VOL ID for under VOL */
-    void *under_vol_info; /* VOL info for under VOL */
+  hid_t under_vol_id;   /* VOL ID for under VOL */
+  void *under_vol_info; /* VOL info for under VOL */
 } H5VL_intent_info_t;
 
 #ifdef __cplusplus

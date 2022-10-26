@@ -17,6 +17,57 @@ set(H5INTENT_PACKAGE_TARNAME "${H5INTENT_PACKAGE}")
 
 add_subdirectory(external/cpp-logger)
 find_package(cpp-logger REQUIRED)
+
+set(H5_INTENT_SRC src/h5intent/configuration_loader.cpp)
+set(H5_INTENT_PUBLIC_HEADER )
+set(H5_INTENT_PRIVATE_HEADER include/h5intent/configuration_loader.h)
+include_directories(include)
+include_directories(src)
+add_library(${PROJECT_NAME} SHARED)
+target_sources(${PROJECT_NAME} PRIVATE ${H5_INTENT_SRC} ${H5_INTENT_PRIVATE_HEADER} ${H5_INTENT_PUBLIC_HEADER})
+target_include_directories(${PROJECT_NAME}
+        PRIVATE
+        # where the library itself will look for its internal headers
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        PUBLIC
+        # where top-level project will look for the library's public headers
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        # where external projects will look for the library's public headers
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+        )
+set(DEPENDENCY_LIB "")
+find_package(nlohmann_json 3.10.5 REQUIRED)
+if (nlohmann_json_FOUND)
+    message(STATUS "[H5Intent] found nlohmann_json at ${nlohmann_json_INCLUDE_DIRS}")
+    include_directories(${nlohmann_json_INCLUDE_DIRS})
+    set(DEPENDENCY_LIB ${DEPENDENCY_LIB} nlohmann_json::nlohmann_json)
+else ()
+    message(FATAL_ERROR "-- [H5Intent] nlohmann_json is needed for ${PROJECT_NAME} build")
+endif ()
+find_package(MPI COMPONENTS CXX REQUIRED)
+if (MPI_FOUND)
+    message(STATUS "[H5Intent] found mpi at ${MPI_CXX_INCLUDE_DIRS}")
+    include_directories(${MPI_CXX_INCLUDE_DIRS})
+    set(DEPENDENCY_LIB ${DEPENDENCY_LIB} ${MPI_CXX_LIBRARIES})
+else ()
+    message(FATAL_ERROR "-- [H5Intent] mpi is needed for ${PROJECT_NAME} build")
+endif ()
+
+target_link_libraries(${PROJECT_NAME} ${DEPENDENCY_LIB})
+# the variant with PUBLIC_HEADER property unfortunately does not preserve the folder structure
+#set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${public_headers}")
+# so instead we iterate through public headers and install them "manually"
+foreach (header ${H5_INTENT_PUBLIC_HEADER})
+    file(RELATIVE_PATH header_file_path "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}" "${header}")
+    get_filename_component(header_directory_path "${header_file_path}" DIRECTORY)
+    install(
+            FILES ${header}
+            DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${header_directory_path}"
+    )
+    file(COPY ${header}
+            DESTINATION "${CMAKE_INCLUDE_OUTPUT_DIRECTORY}/${header_directory_path}")
+endforeach ()
+
 if (${CPP_LOGGER_FOUND})
     include_directories(${CPP_LOGGER_INCLUDE_DIRS})
     set(DEPENDENCY_LIB ${DEPENDENCY_LIB} ${CPP_LOGGER_LIBRARIES})

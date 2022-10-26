@@ -1,1 +1,27 @@
-{"mpi": {"command": "jsrun", "configuration": "-r 1 -c 32 -a 32 "}, "vol": {}, "file-system": {}, "directory": "/p/gpfs1/iopp/temp/h5bench/sync-amrex", "benchmarks": [{"benchmark": "amrex", "file": "amrex", "configuration": {"ncells": "64", "max_grid_size": "8", "nlevs": "1", "ncomp": "6", "nppc": "2", "nplotfile": "2", "nparticlefile": "2", "sleeptime": "2", "restart_check": "1", "mode": "SYNC"}}]}
+{
+  "mpi": {
+    "command": "jsrun",
+    "configuration": "-r 1 -c 32 -a 32 "
+  },
+  "vol": {},
+  "file-system": {},
+  "directory": "/p/gpfs1/iopp/temp/h5bench/sync-amrex",
+  "benchmarks": [
+    {
+      "benchmark": "amrex",
+      "file": "amrex",
+      "configuration": {
+        "ncells": "64",
+        "max_grid_size": "8",
+        "nlevs": "1",
+        "ncomp": "6",
+        "nppc": "2",
+        "nplotfile": "2",
+        "nparticlefile": "2",
+        "sleeptime": "2",
+        "restart_check": "1",
+        "mode": "SYNC"
+      }
+    }
+  ]
+}

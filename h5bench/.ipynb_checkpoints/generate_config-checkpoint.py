@@ -2,9 +2,13 @@ import argparse
 import os
 import shutil
 import json
+
+
 def clean_dir(dirname):
     if os.path.exists(dirname) and os.path.isdir(dirname):
         shutil.rmtree(dirname)
+
+
 def str2bool(v):
     if isinstance(v, bool):
         return v
@@ -15,14 +19,18 @@ def str2bool(v):
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
+
 def parse_args():
     parser = argparse.ArgumentParser(description='Generate H5Bench Config')
-    parser.add_argument("-ppn", "--processes-per-node", default=1, type=int, help="Number of processes per node in job.")
+    parser.add_argument("-ppn", "--processes-per-node", default=1, type=int,
+                        help="Number of processes per node in job.")
     parser.add_argument("-s", "--sync", default=True, type=str2bool, help="sync mode. y/n")
     parser.add_argument("-d", "--data-dir", default="./data", type=str, help="Directory to produce logs and data")
     parser.add_argument("-sd", "--sample-dir", default="./samples", type=str, help="Original samples from h5bench")
     parser.add_argument("-p", "--profiler", default="", type=str, help="Profiler SO")
     return parser.parse_args()
+
+
 def main():
     args = parse_args()
     env = ""
@@ -55,12 +63,12 @@ def main():
             configuration['mpi'] = mpi
             configuration['vol'] = vol
             configuration['file-system'] = filesystem
-            configuration['directory'] = os.path.join(args.data_dir,only_name)
+            configuration['directory'] = os.path.join(args.data_dir, only_name)
             destination = os.path.join(new_sample_dir, filename)
             with open(destination, 'w') as file:
                 json.dump(configuration, file)
             print(f"written configuration for file {filename}")
-            
+
 
 if __name__ == '__main__':
     main()

@@ -1,9 +1,9 @@
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(VOL_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/h5intent/h5intent_vol.c)
-set(VOL_PRIVATE_HEADER )
+set(VOL_PRIVATE_HEADER)
 set(VOL_PUBLIC_HEADER ${CMAKE_CURRENT_SOURCE_DIR}/include/h5intent/h5intent_vol.h)
-add_library(h5intent SHARED ${VOL_SRC} ${VOL_PUBLIC_HEADER})
+add_library(h5intent_vol SHARED ${VOL_SRC} ${VOL_PUBLIC_HEADER})
 
 #target_sources(h5intent PRIVATE ${VOL_SRC} ${VOL_PUBLIC_HEADER})
 #target_include_directories(${PROJECT_NAME}
@@ -16,7 +16,7 @@ add_library(h5intent SHARED ${VOL_SRC} ${VOL_PUBLIC_HEADER})
 #        # where external projects will look for the library's public headers
 #        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 #        )
-
+set(DEPENDENCY_LIB "")
 find_package(HDF5 COMPONENTS C REQUIRED)
 if (${HDF5_FOUND})
     message(STATUS "[H5Intent] found hdf5 at ${HDF5_INCLUDE_DIRS}")
@@ -35,8 +35,9 @@ else ()
     message(FATAL_ERROR "-- [H5Intent] mpi is needed for ${PROJECT_NAME} build")
 endif ()
 
-target_compile_definitions(h5intent PRIVATE ENABLE_INTENT_LOGGING)
-target_link_libraries(h5intent ${DEPENDENCY_LIB})
+
+target_compile_definitions(h5intent_vol PRIVATE ENABLE_INTENT_LOGGING)
+target_link_libraries(h5intent_vol ${DEPENDENCY_LIB})
 
 # the variant with PUBLIC_HEADER property unfortunately does not preserve the folder structure
 #set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${public_headers}")
