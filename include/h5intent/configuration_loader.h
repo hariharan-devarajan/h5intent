@@ -9,13 +9,15 @@
 
 
 #include <nlohmann/json.hpp>
-
+#include <h5intent/property_dds.h>
 using json = nlohmann::json;
-
+namespace h5intent {
 class ConfigurationLoader {
  public:
+  HDF5Properties properties;
   void load_configuration(const std::string& configuration_file);
 };
+}
 #else
 void load_configuration(const char* file);
 #endif

@@ -6,7 +6,9 @@
 #define H5INTENT_PROPERTY_DDS_H
 
 #include <hdf5.h>
-
+#include <nlohmann/json.hpp>
+#include <string>
+using json = nlohmann::json;
 namespace h5intent {
 struct DatasetAccessProperties {
   union append_flush {
@@ -47,7 +49,7 @@ struct DatasetAccessProperties {
     unsigned pixels_per_block;
   } szip;
 };
-
+#include <string>
 struct DatasetTransferProperties {
   union mpiio {
     bool use;
@@ -61,6 +63,8 @@ struct DatasetTransferProperties {
     bool use;
     size_t size;
     std::string expression;
+    buffer():expression(){}
+    ~buffer(){};
   } buffer;
   union edc_check {
     bool use;
@@ -107,10 +111,14 @@ struct FileAccessProperties {
     std::string logfile;
     unsigned long long flags;
     size_t buf_size;
+    log():logfile(){}
+    ~log(){};
   } log;
   union mpiio {
     bool use;
     std::string comm;
+    mpiio():comm(){}
+    ~mpiio(){};
   } mpiio;
   union split {
     bool use;
@@ -192,6 +200,15 @@ struct ObjectCreationProperties {
   union track_times {
     bool use;
   } track_times;
+};
+
+struct HDF5Properties {
+  DatasetAccessProperties dAccess;
+  DatasetTransferProperties dTransfer;
+  FileAccessProperties fAccess;
+  FileCreationProperties fcreation;
+  MapAccessProperties mAccess;
+  ObjectCreationProperties oCreation;
 };
 
 #define TO_JSON(CAT, ATTR) j[#CAT][#ATTR] = p.CAT.ATTR
@@ -364,6 +381,71 @@ inline void from_json(const json& j, DatasetTransferProperties& p) {
   FROM_JSON_ARRAY(dataset_io_hyperslab_selection, count, rank);
   FROM_JSON_ARRAY(dataset_io_hyperslab_selection, block, rank);
 }
+inline void to_json(json& j, const H5AC_cache_config_t& p) {
+  j = json();
+  TO_JSON_D(version);
+  TO_JSON_D(rpt_fcn_enabled);
+  TO_JSON_D(open_trace_file);
+  TO_JSON_D(close_trace_file);
+  TO_JSON_D(trace_file_name);
+  TO_JSON_D(evictions_enabled);
+  TO_JSON_D(set_initial_size);
+  TO_JSON_D(initial_size);
+  TO_JSON_D(min_clean_fraction);
+  TO_JSON_D(max_size);
+  TO_JSON_D(min_size);
+  TO_JSON_D(epoch_length);
+  TO_JSON_D(incr_mode);
+  TO_JSON_D(lower_hr_threshold);
+  TO_JSON_D(increment);
+  TO_JSON_D(apply_max_increment);
+  TO_JSON_D(max_increment);
+  TO_JSON_D(flash_incr_mode);
+  TO_JSON_D(flash_multiple);
+  TO_JSON_D(flash_threshold);
+  TO_JSON_D(decr_mode);
+  TO_JSON_D(upper_hr_threshold);
+  TO_JSON_D(decrement);
+  TO_JSON_D(apply_max_decrement);
+  TO_JSON_D(max_decrement);
+  TO_JSON_D(epochs_before_eviction);
+  TO_JSON_D(apply_empty_reserve);
+  TO_JSON_D(empty_reserve);
+  TO_JSON_D(dirty_bytes_threshold);
+  TO_JSON_D(metadata_write_strategy);
+}
+inline void from_json(const json& j, H5AC_cache_config_t& p) {
+  FROM_JSON_D(version);
+  FROM_JSON_D(rpt_fcn_enabled);
+  FROM_JSON_D(open_trace_file);
+  FROM_JSON_D(close_trace_file);
+  FROM_JSON_D(trace_file_name);
+  FROM_JSON_D(evictions_enabled);
+  FROM_JSON_D(set_initial_size);
+  FROM_JSON_D(initial_size);
+  FROM_JSON_D(min_clean_fraction);
+  FROM_JSON_D(max_size);
+  FROM_JSON_D(min_size);
+  FROM_JSON_D(epoch_length);
+  FROM_JSON_D(incr_mode);
+  FROM_JSON_D(lower_hr_threshold);
+  FROM_JSON_D(increment);
+  FROM_JSON_D(apply_max_increment);
+  FROM_JSON_D(max_increment);
+  FROM_JSON_D(flash_incr_mode);
+  FROM_JSON_D(flash_multiple);
+  FROM_JSON_D(flash_threshold);
+  FROM_JSON_D(decr_mode);
+  FROM_JSON_D(upper_hr_threshold);
+  FROM_JSON_D(decrement);
+  FROM_JSON_D(apply_max_decrement);
+  FROM_JSON_D(max_decrement);
+  FROM_JSON_D(epochs_before_eviction);
+  FROM_JSON_D(apply_empty_reserve);
+  FROM_JSON_D(empty_reserve);
+  FROM_JSON_D(dirty_bytes_threshold);
+  FROM_JSON_D(metadata_write_strategy);
+}
 inline void to_json(json& j, const FileAccessProperties& p) {
   j = json();
   /*core*/
@@ -514,70 +596,84 @@ inline void from_json(const json& j, FileAccessProperties& p) {
   FROM_JSON(page_buffer, min_meta_per);
   FROM_JSON(page_buffer, min_raw_per);
 }
-inline void to_json(json& j, const H5AC_cache_config_t& p) {
+inline void to_json(json& j, const FileCreationProperties& p) {
   j = json();
-  TO_JSON_D(version);
-  TO_JSON_D(rpt_fcn_enabled);
-  TO_JSON_D(open_trace_file);
-  TO_JSON_D(close_trace_file);
-  TO_JSON_D(trace_file_name);
-  TO_JSON_D(evictions_enabled);
-  TO_JSON_D(set_initial_size);
-  TO_JSON_D(initial_size);
-  TO_JSON_D(min_clean_fraction);
-  TO_JSON_D(max_size);
-  TO_JSON_D(min_size);
-  TO_JSON_D(epoch_length);
-  TO_JSON_D(incr_mode);
-  TO_JSON_D(lower_hr_threshold);
-  TO_JSON_D(increment);
-  TO_JSON_D(apply_max_increment);
-  TO_JSON_D(max_increment);
-  TO_JSON_D(flash_incr_mode);
-  TO_JSON_D(flash_multiple);
-  TO_JSON_D(flash_threshold);
-  TO_JSON_D(decr_mode);
-  TO_JSON_D(upper_hr_threshold);
-  TO_JSON_D(decrement);
-  TO_JSON_D(apply_max_decrement);
-  TO_JSON_D(max_decrement);
-  TO_JSON_D(epochs_before_eviction);
-  TO_JSON_D(apply_empty_reserve);
-  TO_JSON_D(empty_reserve);
-  TO_JSON_D(dirty_bytes_threshold);
-  TO_JSON_D(metadata_write_strategy);
+  /*file_space*/
+  j["file_space"] = json();
+  TO_JSON(file_space, use);
+  TO_JSON(file_space, file_space_page_size);
+  TO_JSON(file_space, strategy);
+  TO_JSON(file_space, persist);
+  TO_JSON(file_space, threshold);
+
+  /*istore*/
+  j["istore"] = json();
+  TO_JSON(istore, use);
+  TO_JSON(istore, ik);
+
+  /*sizes*/
+  j["sizes"] = json();
+  TO_JSON(sizes, use);
+  TO_JSON(sizes, sizeof_addr);
+  TO_JSON(sizes, sizeof_size);
 }
-inline void from_json(const json& j, H5AC_cache_config_t& p) {
-  FROM_JSON_D(version);
-  FROM_JSON_D(rpt_fcn_enabled);
-  FROM_JSON_D(open_trace_file);
-  FROM_JSON_D(close_trace_file);
-  FROM_JSON_D(trace_file_name);
-  FROM_JSON_D(evictions_enabled);
-  FROM_JSON_D(set_initial_size);
-  FROM_JSON_D(initial_size);
-  FROM_JSON_D(min_clean_fraction);
-  FROM_JSON_D(max_size);
-  FROM_JSON_D(min_size);
-  FROM_JSON_D(epoch_length);
-  FROM_JSON_D(incr_mode);
-  FROM_JSON_D(lower_hr_threshold);
-  FROM_JSON_D(increment);
-  FROM_JSON_D(apply_max_increment);
-  FROM_JSON_D(max_increment);
-  FROM_JSON_D(flash_incr_mode);
-  FROM_JSON_D(flash_multiple);
-  FROM_JSON_D(flash_threshold);
-  FROM_JSON_D(decr_mode);
-  FROM_JSON_D(upper_hr_threshold);
-  FROM_JSON_D(decrement);
-  FROM_JSON_D(apply_max_decrement);
-  FROM_JSON_D(max_decrement);
-  FROM_JSON_D(epochs_before_eviction);
-  FROM_JSON_D(apply_empty_reserve);
-  FROM_JSON_D(empty_reserve);
-  FROM_JSON_D(dirty_bytes_threshold);
-  FROM_JSON_D(metadata_write_strategy);
+inline void from_json(const json& j, FileCreationProperties& p) {
+  /*file_space*/
+  FROM_JSON(file_space, use);
+  FROM_JSON(file_space, file_space_page_size);
+  FROM_JSON(file_space, strategy);
+  FROM_JSON(file_space, persist);
+  FROM_JSON(file_space, threshold);
+
+  /*istore*/
+  FROM_JSON(istore, use);
+  FROM_JSON(istore, ik);
+
+  /*sizes*/
+  FROM_JSON(sizes, use);
+  FROM_JSON(sizes, sizeof_addr);
+  FROM_JSON(sizes, sizeof_size);
+}
+inline void to_json(json& j, const MapAccessProperties& p) {
+  j = json();
+  /*map_iterate*/
+  j["map_iterate"] = json();
+  TO_JSON(map_iterate, use);
+  TO_JSON(map_iterate, key_prefetch_size);
+  TO_JSON(map_iterate, key_alloc_size);
+}
+inline void from_json(const json& j, MapAccessProperties& p) {
+  /*map_iterate*/
+  FROM_JSON(map_iterate, use);
+  FROM_JSON(map_iterate, key_prefetch_size);
+  FROM_JSON(map_iterate, key_alloc_size);
+}
+inline void to_json(json& j, const ObjectCreationProperties& p) {
+  j = json();
+  /*track_times*/
+  j["track_times"] = json();
+  TO_JSON(track_times, use);
+}
+inline void from_json(const json& j, ObjectCreationProperties& p) {
+  /*track_times*/
+  FROM_JSON(track_times, use);
+}
+inline void to_json(json& j, const HDF5Properties& p) {
+  j = json();
+  TO_JSON_D(dAccess);
+  TO_JSON_D(dTransfer);
+  TO_JSON_D(fAccess);
+  TO_JSON_D(fcreation);
+  TO_JSON_D(mAccess);
+  TO_JSON_D(oCreation);
+}
+inline void from_json(const json& j, HDF5Properties& p) {
+  FROM_JSON_D(dAccess);
+  FROM_JSON_D(dTransfer);
+  FROM_JSON_D(fAccess);
+  FROM_JSON_D(fcreation);
+  FROM_JSON_D(mAccess);
+  FROM_JSON_D(oCreation);
 }
 }
 
