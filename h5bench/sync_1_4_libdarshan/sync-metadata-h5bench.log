@@ -1,28 +1,14 @@
-2022-10-12 20:41:19,454 h5bench - INFO - Starting h5bench Suite
-2022-10-12 20:41:19,478 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-metadata
-2022-10-12 20:41:19,482 h5bench - INFO - Lustre support not detected
-2022-10-12 20:41:19,483 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
-2022-10-12 20:41:19,483 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2022-10-12 20:41:19,483 h5bench - DEBUG - LD_PRELOAD: 
-2022-10-12 20:41:19,483 h5bench - INFO - h5bench [metadata] - Starting
-2022-10-12 20:41:19,483 h5bench - INFO - h5bench [metadata] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-metadata/5a301460/
-2022-10-12 20:41:19,485 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
-2022-10-12 20:41:19,487 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_exerciser /p/gpfs1/iopp/temp/h5bench/sync-metadata/5a301460/hdf5_iotest.ini
-2022-10-12 20:41:19,969 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/sync-metadata/5a301460/stderr for detailed log)
-2022-10-12 20:41:19,969 h5bench - INFO - Runtime: 0.4834414 seconds (elapsed time, includes allocation wait time)
-2022-10-12 20:41:19,969 h5bench - INFO - h5bench [metadata] - Complete
-2022-10-12 20:41:19,969 h5bench - INFO - Finishing h5bench Suite
-2022-10-12 21:14:44,828 h5bench - INFO - Starting h5bench Suite
-2022-10-12 21:14:44,833 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-metadata
-2022-10-12 21:14:44,839 h5bench - INFO - Lustre support not detected
-2022-10-12 21:14:44,839 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
-2022-10-12 21:14:44,839 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2022-10-12 21:14:44,840 h5bench - DEBUG - LD_PRELOAD: 
-2022-10-12 21:14:44,840 h5bench - INFO - h5bench [metadata] - Starting
-2022-10-12 21:14:44,840 h5bench - INFO - h5bench [metadata] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-metadata/e488f0a3/
-2022-10-12 21:14:44,842 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
-2022-10-12 21:14:44,843 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_exerciser /p/gpfs1/iopp/temp/h5bench/sync-metadata/e488f0a3/hdf5_iotest.ini
-2022-10-12 21:14:45,383 h5bench - ERROR - Return: 255 (check /p/gpfs1/iopp/temp/h5bench/sync-metadata/e488f0a3/stderr for detailed log)
-2022-10-12 21:14:45,383 h5bench - INFO - Runtime: 0.5414689 seconds (elapsed time, includes allocation wait time)
-2022-10-12 21:14:45,383 h5bench - INFO - h5bench [metadata] - Complete
-2022-10-12 21:14:45,384 h5bench - INFO - Finishing h5bench Suite
+2022-11-02 19:16:21,438 h5bench - INFO - Starting h5bench Suite
+2022-11-02 19:16:21,480 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-metadata
+2022-11-02 19:16:21,485 h5bench - INFO - Lustre support not detected
+2022-11-02 19:16:21,486 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-11-02 19:16:21,487 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-11-02 19:16:21,487 h5bench - DEBUG - LD_PRELOAD: 
+2022-11-02 19:16:21,487 h5bench - INFO - h5bench [metadata] - Starting
+2022-11-02 19:16:21,487 h5bench - INFO - h5bench [metadata] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-metadata/51415c7c/
+2022-11-02 19:16:21,490 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-11-02 19:16:21,491 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_exerciser /p/gpfs1/iopp/temp/h5bench/sync-metadata/51415c7c/hdf5_iotest.ini
+2022-11-02 19:16:22,227 h5bench - ERROR - Return: 255 (check /p/gpfs1/iopp/temp/h5bench/sync-metadata/51415c7c/stderr for detailed log)
+2022-11-02 19:16:22,227 h5bench - INFO - Runtime: 0.7371109 seconds (elapsed time, includes allocation wait time)
+2022-11-02 19:16:22,228 h5bench - INFO - h5bench [metadata] - Complete
+2022-11-02 19:16:22,228 h5bench - INFO - Finishing h5bench Suite

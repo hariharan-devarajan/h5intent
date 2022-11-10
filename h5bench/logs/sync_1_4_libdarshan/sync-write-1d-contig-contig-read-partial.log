@@ -1,66 +1,66 @@
 /etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
-BBATH is set to '/mnt/bb_ab6c76699a335df26a2e2cce6da99c68'
+BBATH is set to '/mnt/bb_7e4d6e260ce78ccd705a9563647e2d5d'
 enabled_darshan
-DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/iopp/apps/h5bench//darshan-logs/sync_1_4_libdarshan/sync-write-1d-contig-contig-read-partial
-/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/iopp/apps/h5bench
-2022-10-12 21:14:47,867 h5bench - INFO - Starting h5bench Suite
-2022-10-12 21:14:47,937 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial
-2022-10-12 21:14:47,941 h5bench - INFO - Lustre support not detected
-2022-10-12 21:14:47,941 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
-2022-10-12 21:14:47,941 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2022-10-12 21:14:47,942 h5bench - DEBUG - LD_PRELOAD: 
-2022-10-12 21:14:47,942 h5bench - INFO - h5bench [write] - Starting
-2022-10-12 21:14:47,942 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/87992407/
-2022-10-12 21:14:47,943 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
-2022-10-12 21:14:47,944 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/87992407/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
-2022-10-12 21:14:54,633 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/87992407)
-2022-10-12 21:14:54,633 h5bench - INFO - Runtime: 6.6899109 seconds (elapsed time, includes allocation wait time)
-2022-10-12 21:14:54,634 h5bench - INFO - h5bench [write] - Complete
-2022-10-12 21:14:54,634 h5bench - INFO - h5bench [read] - Starting
-2022-10-12 21:14:54,634 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/fbdc7391/
-2022-10-12 21:14:54,634 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
-2022-10-12 21:14:54,635 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/fbdc7391/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
-2022-10-12 21:14:59,475 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/fbdc7391)
-2022-10-12 21:14:59,475 h5bench - INFO - Runtime: 4.8409209 seconds (elapsed time, includes allocation wait time)
-2022-10-12 21:14:59,475 h5bench - INFO - h5bench [read] - Complete
-2022-10-12 21:14:59,475 h5bench - INFO - Finishing h5bench Suite
-/usr/workspace/iopp/software/iopp/apps/h5bench
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_1_4_libdarshan/sync-write-1d-contig-contig-read-partial
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+2022-11-02 19:16:22,930 h5bench - INFO - Starting h5bench Suite
+2022-11-02 19:16:22,962 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial
+2022-11-02 19:16:22,966 h5bench - INFO - Lustre support not detected
+2022-11-02 19:16:22,967 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-11-02 19:16:22,967 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-11-02 19:16:22,967 h5bench - DEBUG - LD_PRELOAD: 
+2022-11-02 19:16:22,968 h5bench - INFO - h5bench [write] - Starting
+2022-11-02 19:16:22,968 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/86f94946/
+2022-11-02 19:16:22,970 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-11-02 19:16:22,970 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/86f94946/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
+2022-11-02 19:16:29,400 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/86f94946)
+2022-11-02 19:16:29,400 h5bench - INFO - Runtime: 6.4302597 seconds (elapsed time, includes allocation wait time)
+2022-11-02 19:16:29,400 h5bench - INFO - h5bench [write] - Complete
+2022-11-02 19:16:29,401 h5bench - INFO - h5bench [read] - Starting
+2022-11-02 19:16:29,401 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/1a52deb5/
+2022-11-02 19:16:29,401 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-11-02 19:16:29,402 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/1a52deb5/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/test.h5
+2022-11-02 19:16:34,198 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-partial/1a52deb5)
+2022-11-02 19:16:34,199 h5bench - INFO - Runtime: 4.7980561 seconds (elapsed time, includes allocation wait time)
+2022-11-02 19:16:34,199 h5bench - INFO - h5bench [read] - Complete
+2022-11-02 19:16:34,200 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
 logout
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@lassen710>
-Subject: Job 4069463: <sync-write-1d-contig-contig-read-partial> in cluster <lassen> Done
+Subject: Job 4149851: <sync-write-1d-contig-contig-read-partial> in cluster <lassen> Done
 
-Job <sync-write-1d-contig-contig-read-partial> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Wed Oct 12 21:14:25 2022
-Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Wed Oct 12 21:14:28 2022
-                            <40*lassen263>
+Job <sync-write-1d-contig-contig-read-partial> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Wed Nov  2 19:16:00 2022
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Wed Nov  2 19:16:02 2022
+                            <40*lassen800>
 </g/g92/haridev> was used as the home directory.
-</usr/workspace/iopp/software/iopp/apps/h5bench> was used as the working directory.
-Started at Wed Oct 12 21:14:28 2022
-Terminated at Wed Oct 12 21:15:25 2022
-Results reported at Wed Oct 12 21:15:25 2022
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Wed Nov  2 19:16:02 2022
+Terminated at Wed Nov  2 19:16:55 2022
+Results reported at Wed Nov  2 19:16:55 2022
 
 Your job looked like:
 
 ------------------------------------------------------------
 # LSBATCH: User input
-/usr/workspace/iopp/software/iopp/apps/h5bench//main.sh /usr/workspace/iopp/software/iopp/apps/h5bench/sync_1_4_libdarshan/sync-write-1d-contig-contig-read-partial.json sync_1_4_libdarshan 1
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /usr/workspace/iopp/software/h5intent/h5bench/sync_1_4_libdarshan//sync-write-1d-contig-contig-read-partial.json sync_1_4_libdarshan 1
 ------------------------------------------------------------
 
 Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   0.27 sec.
+    CPU time :                                   0.19 sec.
     Max Memory :                                 59 MB
-    Average Memory :                             54.71 MB
+    Average Memory :                             52.57 MB
     Total Requested Memory :                     -
     Delta Memory :                               -
     Max Swap :                                   1425 MB
     Max Processes :                              4
     Max Threads :                                27
-    Run time :                                   57 sec.
-    Turnaround time :                            60 sec.
+    Run time :                                   52 sec.
+    Turnaround time :                            55 sec.
 
 The output (if any) is above this job summary.
 

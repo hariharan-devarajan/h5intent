@@ -4,13 +4,13 @@ CASE=$2
 DARSHAN=$3
 
 H5BENCH_DIR=/usr/workspace/iopp/applications/h5bench/build
-IOPP_DIR=/usr/workspace/iopp/software/iopp/apps/h5bench/
+IOPP_DIR=/usr/workspace/iopp/software/h5intent/h5bench/
 
-export LD_LIBRARY_PATH=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:$LD_LIBRARY_PATH
 
 source /usr/workspace/iopp/install_scripts/bin/iopp-init
 source /usr/workspace/iopp/install_scripts/bin/spack-init
-spack env activate -p /usr/workspace/iopp/software/spack-env/h5bench
+spack env activate -p h5bench
 
 export PATH=$H5BENCH_DIR:$PATH
 

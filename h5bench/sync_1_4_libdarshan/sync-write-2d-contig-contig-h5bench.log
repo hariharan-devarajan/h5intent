@@ -1,28 +1,14 @@
-2022-10-12 20:41:32,224 h5bench - INFO - Starting h5bench Suite
-2022-10-12 20:41:32,243 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig
-2022-10-12 20:41:32,247 h5bench - INFO - Lustre support not detected
-2022-10-12 20:41:32,248 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
-2022-10-12 20:41:32,248 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2022-10-12 20:41:32,248 h5bench - DEBUG - LD_PRELOAD: 
-2022-10-12 20:41:32,249 h5bench - INFO - h5bench [write] - Starting
-2022-10-12 20:41:32,249 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/357960ff/
-2022-10-12 20:41:32,251 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
-2022-10-12 20:41:32,252 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/357960ff/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/test.h5
-2022-10-12 20:41:32,693 h5bench - ERROR - Return: 127 (check /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/357960ff/stderr for detailed log)
-2022-10-12 20:41:32,693 h5bench - INFO - Runtime: 0.4426806 seconds (elapsed time, includes allocation wait time)
-2022-10-12 20:41:32,694 h5bench - INFO - h5bench [write] - Complete
-2022-10-12 20:41:32,694 h5bench - INFO - Finishing h5bench Suite
-2022-10-12 21:14:55,317 h5bench - INFO - Starting h5bench Suite
-2022-10-12 21:14:55,347 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig
-2022-10-12 21:14:55,352 h5bench - INFO - Lustre support not detected
-2022-10-12 21:14:55,353 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
-2022-10-12 21:14:55,353 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2022-10-12 21:14:55,353 h5bench - DEBUG - LD_PRELOAD: 
-2022-10-12 21:14:55,353 h5bench - INFO - h5bench [write] - Starting
-2022-10-12 21:14:55,353 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/63d746ca/
-2022-10-12 21:14:55,355 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so
-2022-10-12 21:14:55,356 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack-env/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/63d746ca/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/test.h5
-2022-10-12 21:15:01,945 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/63d746ca)
-2022-10-12 21:15:01,946 h5bench - INFO - Runtime: 6.5907388 seconds (elapsed time, includes allocation wait time)
-2022-10-12 21:15:01,946 h5bench - INFO - h5bench [write] - Complete
-2022-10-12 21:15:01,946 h5bench - INFO - Finishing h5bench Suite
+2022-11-02 19:16:24,699 h5bench - INFO - Starting h5bench Suite
+2022-11-02 19:16:24,726 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig
+2022-11-02 19:16:24,731 h5bench - INFO - Lustre support not detected
+2022-11-02 19:16:24,732 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2022-11-02 19:16:24,732 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2022-11-02 19:16:24,732 h5bench - DEBUG - LD_PRELOAD: 
+2022-11-02 19:16:24,732 h5bench - INFO - h5bench [write] - Starting
+2022-11-02 19:16:24,732 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/55c2f22c/
+2022-11-02 19:16:24,735 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2022-11-02 19:16:24,735 h5bench - INFO - jsrun -r 1 -c 4 -a 4 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/55c2f22c/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/test.h5
+2022-11-02 19:16:31,250 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig/55c2f22c)
+2022-11-02 19:16:31,251 h5bench - INFO - Runtime: 6.5155602 seconds (elapsed time, includes allocation wait time)
+2022-11-02 19:16:31,251 h5bench - INFO - h5bench [write] - Complete
+2022-11-02 19:16:31,251 h5bench - INFO - Finishing h5bench Suite

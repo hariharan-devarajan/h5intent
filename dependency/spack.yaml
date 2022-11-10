@@ -4,6 +4,7 @@ spack:
   - hdf5@1.13.2
   - mpi
   - nlohmann-json@3.10.5
+  - darshan-util@3.4.0
   concretizer:
     unify: true
   view: true

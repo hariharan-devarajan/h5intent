@@ -3,7 +3,7 @@ CONF_DIR=$1
 NODES=$2
 DARSHAN=$3
 TIME="0:30"
-IOPP_DIR=/usr/workspace/iopp/software/iopp/apps/h5bench/
+IOPP_DIR=/usr/workspace/iopp/software/h5intent/h5bench/
 CASE=`basename $CONF_DIR`
 LOGS=$IOPP_DIR/logs/$CASE
 
