@@ -31,7 +31,7 @@
         "close": {
           "use": true,
           "evict": true,
-          "degree": "H5F_CLOSE_WEAK"
+          "degree": "H5F_CLOSE_STRONG"
         },
         "file_image": {
           "use": true,
