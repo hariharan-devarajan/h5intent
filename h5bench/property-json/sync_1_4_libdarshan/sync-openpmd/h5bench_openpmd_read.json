@@ -116,7 +116,12 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0,
+            0,
+            0
+          ],
+          "ndims": 3
         },
         "mem_manager": {
           "use": false
@@ -200,7 +205,12 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0,
+            0,
+            0
+          ],
+          "ndims": 3
         },
         "mem_manager": {
           "use": false
@@ -284,7 +294,12 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0,
+            0,
+            0
+          ],
+          "ndims": 3
         },
         "mem_manager": {
           "use": false
@@ -364,7 +379,10 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0
+          ],
+          "ndims": 1
         },
         "mem_manager": {
           "use": false
@@ -440,7 +458,12 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0,
+            0,
+            0
+          ],
+          "ndims": 3
         },
         "mem_manager": {
           "use": false
@@ -524,7 +547,12 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0,
+            0,
+            0
+          ],
+          "ndims": 3
         },
         "mem_manager": {
           "use": false
@@ -608,7 +636,12 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            512,
+            4,
+            512
+          ],
+          "ndims": 3
         },
         "mem_manager": {
           "use": false
@@ -688,7 +721,10 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0
+          ],
+          "ndims": 1
         },
         "mem_manager": {
           "use": false
@@ -764,7 +800,12 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0,
+            0,
+            0
+          ],
+          "ndims": 3
         },
         "mem_manager": {
           "use": false
@@ -844,7 +885,10 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0
+          ],
+          "ndims": 1
         },
         "mem_manager": {
           "use": false
@@ -920,7 +964,12 @@
         },
         "hyper_vector": {
           "use": true,
-          "size": 4194304
+          "size": [
+            0,
+            0,
+            0
+          ],
+          "ndims": 3
         },
         "mem_manager": {
           "use": false
