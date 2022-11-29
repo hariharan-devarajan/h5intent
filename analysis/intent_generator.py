@@ -363,7 +363,8 @@ class IntentGenerator:
             }
             dataset.transfer.hyper_vector = {
                 'use': True,
-                'size': h5d_df_c['H5D_DATASPACE_NPOINTS'][ind]
+                'size': boundary,
+                'ndims':ndims
             }
             # TODO(hari): Check if datatype of dataset is variable on runtime.
             dataset.transfer.mem_manager = {
