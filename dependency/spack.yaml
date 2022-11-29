@@ -5,6 +5,7 @@ spack:
   - mpi
   - nlohmann-json@3.10.5
   - darshan-util@3.4.0
+  - catch2@3.0.1
   concretizer:
     unify: true
   view: true

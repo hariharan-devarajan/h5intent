@@ -15,6 +15,13 @@ namespace h5intent {
 class ConfigurationLoader {
  public:
   HDF5Properties properties;
+  ConfigurationLoader() = default;
+  ConfigurationLoader(const ConfigurationLoader& other) = default;
+  ConfigurationLoader(ConfigurationLoader&& other)= default;
+  ConfigurationLoader& operator=(const ConfigurationLoader& other) {
+    this->properties = other.properties;
+    return *this;
+  }
   void load_configuration(const std::string& configuration_file);
 };
 }

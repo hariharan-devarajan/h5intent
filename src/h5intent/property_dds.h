@@ -6,6 +6,7 @@
 #define H5INTENT_PROPERTY_DDS_H
 
 #include <hdf5.h>
+
 #include <nlohmann/json.hpp>
 #include <string>
 using json = nlohmann::json;
@@ -39,8 +40,8 @@ struct DatasetAccessProperties {
   } layout;
   union chunk {
     bool use;
-    int max_ndims;
-    hsize_t* dims;
+    int ndims;
+    hsize_t* dim;
     unsigned opts;
   } chunk;
   union szip {
@@ -48,8 +49,46 @@ struct DatasetAccessProperties {
     unsigned options_mask;
     unsigned pixels_per_block;
   } szip;
+  DatasetAccessProperties()
+      : append_flush(),
+        chunk_cache(),
+        virtual_view(),
+        filter_avail(),
+        gzip(),
+        layout(),
+        chunk(),
+        szip() {}
+  DatasetAccessProperties(const DatasetAccessProperties& other)
+      : append_flush(other.append_flush),
+        chunk_cache(other.chunk_cache),
+        virtual_view(other.virtual_view),
+        filter_avail(other.filter_avail),
+        gzip(other.gzip),
+        layout(other.layout),
+        chunk(other.chunk),
+        szip(other.szip) {}
+  DatasetAccessProperties(const DatasetAccessProperties&& other)
+      : append_flush(other.append_flush),
+        chunk_cache(other.chunk_cache),
+        virtual_view(other.virtual_view),
+        filter_avail(other.filter_avail),
+        gzip(other.gzip),
+        layout(other.layout),
+        chunk(other.chunk),
+        szip(other.szip) {}
+
+  DatasetAccessProperties& operator=(const DatasetAccessProperties& other) {
+    this->append_flush = other.append_flush;
+    this->chunk_cache = other.chunk_cache;
+    this->virtual_view = other.virtual_view;
+    this->filter_avail = other.filter_avail;
+    this->gzip = other.gzip;
+    this->layout = other.layout;
+    this->chunk = other.chunk;
+    this->szip = other.szip;
+    return *this;
+  }
 };
-#include <string>
 struct DatasetTransferProperties {
   union mpiio {
     bool use;
@@ -59,16 +98,26 @@ struct DatasetTransferProperties {
     unsigned num_chunk_per_proc;
     unsigned percent_num_proc_per_chunk;
   } mpiio;
-  union buffer {
+  struct buffer {
     bool use;
     size_t size;
     std::string expression;
-    buffer():expression(){}
+    buffer() : use(), size(), expression() {}
+    buffer(const buffer& other)
+        : use(other.use), size(other.size), expression(other.expression) {}
+    buffer(const buffer&& other)
+        : use(other.use), size(other.size), expression(other.expression) {}
+    buffer& operator=(const buffer& other) {
+      this->use = other.use;
+      this->size = other.size;
+      this->expression = other.expression;
+      return *this;
+    }
     ~buffer(){};
   } buffer;
   union edc_check {
     bool use;
-    H5Z_EDC_t check;
+    bool check;
   } edc_check;
   union hyper_vector {
     bool use;
@@ -87,6 +136,37 @@ struct DatasetTransferProperties {
     hsize_t* count;
     hsize_t* block;
   } dataset_io_hyperslab_selection;
+  DatasetTransferProperties()
+      : mpiio(),
+        buffer(),
+        edc_check(),
+        hyper_vector(),
+        mem_manager(),
+        dataset_io_hyperslab_selection() {}
+  DatasetTransferProperties(const DatasetTransferProperties& other)
+      : mpiio(other.mpiio),
+        buffer(other.buffer),
+        edc_check(other.edc_check),
+        hyper_vector(other.hyper_vector),
+        mem_manager(other.mem_manager),
+        dataset_io_hyperslab_selection(other.dataset_io_hyperslab_selection) {}
+  DatasetTransferProperties(const DatasetTransferProperties&& other)
+      : mpiio(other.mpiio),
+        buffer(other.buffer),
+        edc_check(other.edc_check),
+        hyper_vector(other.hyper_vector),
+        mem_manager(other.mem_manager),
+        dataset_io_hyperslab_selection(other.dataset_io_hyperslab_selection) {}
+
+  DatasetTransferProperties& operator=(const DatasetTransferProperties& other) {
+    this->mpiio = other.mpiio;
+    this->buffer = other.buffer;
+    this->edc_check = other.edc_check;
+    this->hyper_vector = other.hyper_vector;
+    this->mem_manager = other.mem_manager;
+    this->dataset_io_hyperslab_selection = other.dataset_io_hyperslab_selection;
+    return *this;
+  }
 };
 
 struct FileAccessProperties {
@@ -106,18 +186,42 @@ struct FileAccessProperties {
     hsize_t memb_size;
     hid_t memb_fapl_id;
   } family;
-  union log {
+  struct log {
     bool use;
     std::string logfile;
     unsigned long long flags;
     size_t buf_size;
-    log():logfile(){}
+    log() : use(), logfile(), flags(), buf_size() {}
+    log(const log& other)
+        : use(other.use),
+          logfile(other.logfile),
+          flags(other.flags),
+          buf_size(other.buf_size) {}
+    log(const log&& other)
+        : use(other.use),
+          logfile(other.logfile),
+          flags(other.flags),
+          buf_size(other.buf_size) {}
+    log& operator=(const log& other) {
+      this->use = other.use;
+      this->logfile = other.logfile;
+      this->flags = other.flags;
+      this->buf_size = other.buf_size;
+      return *this;
+    }
     ~log(){};
   } log;
-  union mpiio {
+  struct mpiio {
     bool use;
     std::string comm;
-    mpiio():comm(){}
+    mpiio() : use(), comm() {}
+    mpiio(const mpiio& other) : use(other.use), comm(other.comm) {}
+    mpiio(const mpiio&& other) : use(other.use), comm(other.comm) {}
+    mpiio& operator=(const mpiio& other) {
+      this->use = other.use;
+      this->comm = other.comm;
+      return *this;
+    }
     ~mpiio(){};
   } mpiio;
   union split {
@@ -137,10 +241,20 @@ struct FileAccessProperties {
     bool use;
     size_t page_size;
   } write_tracking;
-  union close {
+  struct close {
     bool use;
     bool evict;
-    H5F_close_degree_t degree;
+    std::string degree;
+    close() : use(), evict(),degree() {}
+    close(const close& other) : use(other.use), evict(other.evict), degree(other.degree) {}
+    close(const close&& other) : use(other.use), evict(other.evict), degree(other.degree)  {}
+    close& operator=(const close& other) {
+      this->use = other.use;
+      this->evict = other.evict;
+      this->degree = other.degree;
+      return *this;
+    }
+    ~close(){};
   } close;
   union file_image {
     bool use;
@@ -167,6 +281,67 @@ struct FileAccessProperties {
     unsigned min_meta_per;
     unsigned min_raw_per;
   } page_buffer;
+  FileAccessProperties()
+      : core(),
+        direct(),
+        family(),
+        log(),
+        mpiio(),
+        split(),
+        stdio(),
+        cache(),
+        write_tracking(),
+        close(),
+        file_image(),
+        optimizations(),
+        metadata(),
+        page_buffer() {}
+  FileAccessProperties(const FileAccessProperties& other)
+      : core(other.core),
+        direct(other.direct),
+        family(other.family),
+        log(other.log),
+        mpiio(other.mpiio),
+        split(other.split),
+        stdio(other.stdio),
+        cache(other.cache),
+        write_tracking(other.write_tracking),
+        close(other.close),
+        file_image(other.file_image),
+        optimizations(other.optimizations),
+        metadata(other.metadata),
+        page_buffer(other.page_buffer) {}
+  FileAccessProperties(const FileAccessProperties&& other)
+      : core(other.core),
+        direct(other.direct),
+        family(other.family),
+        log(other.log),
+        mpiio(other.mpiio),
+        split(other.split),
+        stdio(other.stdio),
+        cache(other.cache),
+        write_tracking(other.write_tracking),
+        close(other.close),
+        file_image(other.file_image),
+        optimizations(other.optimizations),
+        metadata(other.metadata),
+        page_buffer(other.page_buffer) {}
+  FileAccessProperties& operator=(const FileAccessProperties& other) {
+    this->core = other.core;
+    this->direct = other.direct;
+    this->family = other.family;
+    this->log = other.log;
+    this->mpiio = other.mpiio;
+    this->split = other.split;
+    this->stdio = other.stdio;
+    this->cache = other.cache;
+    this->write_tracking = other.write_tracking;
+    this->close = other.close;
+    this->optimizations = other.optimizations;
+    this->metadata = other.metadata;
+    this->page_buffer = other.page_buffer;
+    return *this;
+  }
 };
 
 struct FileCreationProperties {
@@ -186,6 +361,21 @@ struct FileCreationProperties {
     size_t sizeof_addr;
     size_t sizeof_size;
   } sizes;
+  FileCreationProperties() : file_space(), istore(), sizes() {}
+  FileCreationProperties(const FileCreationProperties& other)
+      : file_space(other.file_space),
+        istore(other.istore),
+        sizes(other.sizes) {}
+  FileCreationProperties(const FileCreationProperties&& other)
+      : file_space(other.file_space),
+        istore(other.istore),
+        sizes(other.sizes) {}
+  FileCreationProperties& operator=(const FileCreationProperties& other) {
+    this->file_space = other.file_space;
+    this->istore = other.istore;
+    this->sizes = other.sizes;
+    return *this;
+  }
 };
 
 struct MapAccessProperties {
@@ -194,31 +384,108 @@ struct MapAccessProperties {
     size_t key_prefetch_size;
     size_t key_alloc_size;
   } map_iterate;
+  MapAccessProperties() : map_iterate() {}
+  MapAccessProperties(const MapAccessProperties& other)
+      : map_iterate(other.map_iterate) {}
+  MapAccessProperties(const MapAccessProperties&& other)
+      : map_iterate(other.map_iterate) {}
+  MapAccessProperties& operator=(const MapAccessProperties& other) {
+    this->map_iterate = other.map_iterate;
+    return *this;
+  }
 };
 
 struct ObjectCreationProperties {
   union track_times {
     bool use;
   } track_times;
+
+  ObjectCreationProperties() : track_times() {}
+  ObjectCreationProperties(const ObjectCreationProperties& other)
+      : track_times(other.track_times) {}
+  ObjectCreationProperties(const ObjectCreationProperties&& other)
+      : track_times(other.track_times) {}
+  ObjectCreationProperties& operator=(const ObjectCreationProperties& other) {
+    this->track_times = other.track_times;
+    return *this;
+  }
+};
+
+struct DatasetProperties {
+  DatasetAccessProperties access;
+  DatasetTransferProperties transfer;
+  DatasetProperties() : access(), transfer() {}
+  DatasetProperties(const DatasetProperties& other)
+      : access(other.access), transfer(other.transfer) {}
+  DatasetProperties(const DatasetProperties&& other)
+      : access(other.access), transfer(other.transfer) {}
+  DatasetProperties& operator=(const DatasetProperties& other) {
+    this->access = other.access;
+    this->transfer = other.transfer;
+    return *this;
+  }
+};
+struct FileProperties {
+  FileAccessProperties access;
+  FileCreationProperties creation;
+
+  FileProperties() : access(), creation() {}
+  FileProperties(const FileProperties& other)
+      : access(other.access), creation(other.creation) {}
+  FileProperties(const FileProperties&& other)
+      : access(other.access), creation(other.creation) {}
+  FileProperties& operator=(const FileProperties& other) {
+    this->access = other.access;
+    this->creation = other.creation;
+    return *this;
+  }
 };
 
 struct HDF5Properties {
-  DatasetAccessProperties dAccess;
-  DatasetTransferProperties dTransfer;
-  FileAccessProperties fAccess;
-  FileCreationProperties fcreation;
+  std::unordered_map<std::string,DatasetProperties> datasets;
+  std::unordered_map<std::string,FileProperties> files;
   MapAccessProperties mAccess;
   ObjectCreationProperties oCreation;
+  HDF5Properties() : datasets(), files(), mAccess(), oCreation() {}
+  HDF5Properties(const HDF5Properties& other)
+      : datasets(other.datasets),
+        files(other.files),
+        mAccess(other.mAccess),
+        oCreation(other.oCreation) {}
+  HDF5Properties(const HDF5Properties&& other)
+      : datasets(other.datasets),
+        files(other.files),
+        mAccess(other.mAccess),
+        oCreation(other.oCreation) {}
+  HDF5Properties& operator=(const HDF5Properties& other) {
+    this->datasets = other.datasets;
+    this->files = other.files;
+    this->mAccess = other.mAccess;
+    this->oCreation = other.oCreation;
+    return *this;
+  }
 };
 
 #define TO_JSON(CAT, ATTR) j[#CAT][#ATTR] = p.CAT.ATTR
-#define FROM_JSON(CAT, ATTR) j[#CAT].at(#ATTR).get_to(p.CAT.ATTR);
+#define FROM_JSON(CAT, ATTR) \
+  if (j.contains(#CAT) && !j[#CAT].is_null() && \
+      j[#CAT].contains(#ATTR) && !j[#CAT].at(#ATTR).is_null()) \
+      j[#CAT].at(#ATTR).get_to(p.CAT.ATTR);
 
 #define TO_JSON_D(ATTR) j[#ATTR] = p.ATTR
-#define FROM_JSON_D(ATTR) j.at(#ATTR).get_to(p.ATTR);
+#define FROM_JSON_D(ATTR) \
+  if (j.contains(#ATTR) && !j.at(#ATTR).is_null()) \
+    j.at(#ATTR).get_to(p.ATTR);
+#define FROM_JSON_D_V(ATTR) \
+  if (j.contains(#ATTR) && !j.at(#ATTR).is_null()) \
+    p.ATTR = j.at(#ATTR).get<decltype(p.ATTR)>();
 
-#define TO_JSON_ARRAY(CAT, ATTR, SIZE) to_json(j[#CAT][#ATTR], p.CAT.ATTR, p.CAT.SIZE)
-#define FROM_JSON_ARRAY(CAT, ATTR, SIZE) from_json(j[#CAT][#ATTR], p.CAT.ATTR, p.CAT.SIZE)
+#define TO_JSON_ARRAY(CAT, ATTR, SIZE) \
+  to_json(j[#CAT][#ATTR], p.CAT.ATTR, p.CAT.SIZE)
+#define FROM_JSON_ARRAY(CAT, ATTR, SIZE) \
+  if (j.contains(#CAT) && !j[#CAT].is_null() && \
+      j[#CAT].contains(#ATTR) && !j[#CAT].at(#ATTR).is_null()) \
+    from_json(j[#CAT][#ATTR], p.CAT.ATTR, p.CAT.SIZE)
 
 inline void to_json(json& j, const hsize_t* array, const unsigned len) {
   j = json::array();
@@ -265,7 +532,7 @@ inline void to_json(json& j, const DatasetAccessProperties& p) {
   /* chunk */
   j["chunk"] = json();
   TO_JSON(chunk, use);
-  TO_JSON_ARRAY(chunk, dims, max_ndims);
+  TO_JSON_ARRAY(chunk, dim, ndims);
   TO_JSON(chunk, opts);
 
   /* szip */
@@ -299,7 +566,7 @@ inline void from_json(const json& j, DatasetAccessProperties& p) {
 
   /* chunk */
   FROM_JSON(chunk, use);
-  FROM_JSON_ARRAY(chunk, dims, max_ndims);
+  FROM_JSON_ARRAY(chunk, dim, ndims);
   FROM_JSON(chunk, opts);
 
   /* szip */
@@ -516,7 +783,7 @@ inline void to_json(json& j, const FileAccessProperties& p) {
   /*metadata*/
   j["metadata"] = json();
   TO_JSON(metadata, use);
-  //TO_JSON(metadata, config_ptr);
+  // TO_JSON(metadata, config_ptr);
   TO_JSON(metadata, enable_logging);
   TO_JSON(metadata, meta_block_size);
   TO_JSON(metadata, enable_coll_metadata_write);
@@ -585,7 +852,7 @@ inline void from_json(const json& j, FileAccessProperties& p) {
 
   /*metadata*/
   FROM_JSON(metadata, use);
-  //FROM_JSON(metadata, config_ptr);
+  // FROM_JSON(metadata, config_ptr);
   FROM_JSON(metadata, enable_logging);
   FROM_JSON(metadata, meta_block_size);
   FROM_JSON(metadata, enable_coll_metadata_write);
@@ -658,23 +925,40 @@ inline void from_json(const json& j, ObjectCreationProperties& p) {
   /*track_times*/
   FROM_JSON(track_times, use);
 }
+
+inline void to_json(json& j, const DatasetProperties& p) {
+  j = json();
+  TO_JSON_D(access);
+  TO_JSON_D(transfer);
+}
+inline void from_json(const json& j, DatasetProperties& p) {
+  FROM_JSON_D(access);
+  FROM_JSON_D(transfer);
+}
+
+inline void to_json(json& j, const FileProperties& p) {
+  j = json();
+  TO_JSON_D(access);
+  TO_JSON_D(creation);
+}
+inline void from_json(const json& j, FileProperties& p) {
+  FROM_JSON_D(access);
+  FROM_JSON_D(creation);
+}
+
 inline void to_json(json& j, const HDF5Properties& p) {
   j = json();
-  TO_JSON_D(dAccess);
-  TO_JSON_D(dTransfer);
-  TO_JSON_D(fAccess);
-  TO_JSON_D(fcreation);
+  TO_JSON_D(datasets);
+  TO_JSON_D(files);
   TO_JSON_D(mAccess);
   TO_JSON_D(oCreation);
 }
 inline void from_json(const json& j, HDF5Properties& p) {
-  FROM_JSON_D(dAccess);
-  FROM_JSON_D(dTransfer);
-  FROM_JSON_D(fAccess);
-  FROM_JSON_D(fcreation);
+  FROM_JSON_D_V(datasets);
+  FROM_JSON_D_V(files);
   FROM_JSON_D(mAccess);
   FROM_JSON_D(oCreation);
 }
-}
+}  // namespace h5intent
 
 #endif  // H5INTENT_PROPERTY_DDS_H
