@@ -2,6 +2,7 @@ import os
 import darshan
 import numpy as np
 import json
+from pathlib import Path
 
 '''
 Constants
@@ -38,7 +39,7 @@ class DatasetAccessProperties:
         self.chunk = None
         self.szip = None
     def __repr__ (self):
-        return str(json())
+        return str(self.json())
     def json(self):
         return {
            'append_flush': self.append_flush,
@@ -52,17 +53,17 @@ class DatasetAccessProperties:
         }
 class DatasetTransferProperties:
     def __init__(self):
-        self.mpiio = None
+        self.dmpiio = None
         self.buffer = None
         self.edc_check = None
         self.hyper_vector = None
         self.mem_manager = None
         self.dataset_io_hyperslab_selection = None
     def __repr__ (self):
-        return str(json())
+        return str(self.json())
     def json (self):
         return {
-           'mpiio': self.mpiio,
+           'dmpiio': self.dmpiio,
            'buffer': self.buffer,
            'edc_check': self.edc_check,
            'hyper_vector': self.hyper_vector,
@@ -77,7 +78,7 @@ class DataSet:
         self.access = DatasetAccessProperties()
         self.transfer = DatasetTransferProperties()
     def __repr__ (self):
-        return str(json())
+        return str(self.json())
     def json (self):
         return {
            'filename': self.filename,
@@ -91,7 +92,7 @@ class FileAccessProperties:
         self.direct = None
         self.family = None
         self.log = None
-        self.mpiio = None
+        self.fmpiio = None
         self.split = None
         self.stdio = None
         self.cache = None
@@ -109,7 +110,7 @@ class FileAccessProperties:
            'direct': self.direct,
            'family': self.family,
            'log': self.log,
-           'mpiio': self.mpiio, 
+           'fmpiio': self.fmpiio, 
            'split': self.split,
            'stdio': self.stdio,
            'cache': self.cache,
@@ -187,24 +188,29 @@ class IntentGenerator:
                                       'h5d_df_fc': None,
                                       'configuration': Configuration()
                                       }
-        print(self.app)
+        #print(self.app)
         return self.app
     
     def load_apps(self):
         for app_name, value in self.app.items():
             self.load_darshan_log(app_name)
-            self.read_dataset(app_name)
-            self.read_file(app_name)
+            if self.found_hdf5:
+                self.read_dataset(app_name)
+                self.read_file(app_name)
         return self.app
     
     def write_configurations(self):
         json_files = []
         for app_name, value in self.app.items():
-            json_object = json.dumps(self.app[app_name]['configuration'], cls=NpEncoder, indent=2)
-            json_filename = f"{self.base_path}/{self.property_json}/{self.workflow}/{app_name}.json"
-            json_files.append(json_filename)
-            with open(json_filename, "w") as outfile:
-                outfile.write(json_object)
+            if self.found_hdf5:
+                json_object = json.dumps(self.app[app_name]['configuration'], cls=NpEncoder, indent=2)
+                folder = f"{self.base_path}/{self.property_json}/{self.workflow}"
+                if not os.path.exists(folder):
+                    Path(folder).mkdir(parents=True)
+                json_filename = f"{folder}/{app_name}.json"
+                json_files.append(json_filename)
+                with open(json_filename, "w") as outfile:
+                    outfile.write(json_object)
         return json_files
     
     def load_darshan_log(self, app_name):
@@ -212,22 +218,28 @@ class IntentGenerator:
         self.app[app_name]['num_processes'] = report.data['metadata']['job']['nprocs']
 
         for key, value in report.data['name_records'].items():
-            if "/p/gpfs1" in value:
+            if "/p/gpfs1" in value or "/home/haridev/temp" in value:
                 self.app[app_name]['relevant_ids'].append(key)
                 self.app[app_name]['name_to_id_map'][value] = key
-        report.mod_read_all_records('POSIX')
-        report.mod_read_all_records('STDIO')
-        report.mod_read_all_records('MPI-IO')
-        report.mod_read_all_records('H5F')
-        report.mod_read_all_records('H5D')
-        h5f_df_c = report.records['H5F'].to_df()['counters']
-        h5f_df_c = report.records['H5F'].to_df()['fcounters']
-        h5d_df_c = report.records['H5D'].to_df()['counters']
-        h5d_df_fc = report.records['H5D'].to_df()['fcounters']
-        self.app[app_name]['h5f_df_c'] = h5f_df_c[h5f_df_c['id'].isin(self.app[app_name]['relevant_ids'])]
-        self.app[app_name]['h5d_df_c'] = h5d_df_c[h5d_df_c['id'].isin(self.app[app_name]['relevant_ids'])]
-        self.app[app_name]['h5f_df_fc'] = h5f_df_fc[h5f_df_fc['id'].isin(self.app[app_name]['relevant_ids'])]
-        self.app[app_name]['h5d_df_fc'] = h5d_df_fc[h5d_df_fc['id'].isin(self.app[app_name]['relevant_ids'])]
+        print(report.modules.keys())
+        self.found_hdf5 = True
+        if "H5F" not in report.modules:
+            print(f"No HDF5 Module found for {self.workflow}")
+            self.found_hdf5 = False
+        #report.mod_read_all_records('POSIX')
+        #report.mod_read_all_records('STDIO')
+        #report.mod_read_all_records('MPI-IO')
+        if self.found_hdf5:
+            report.mod_read_all_records('H5F')
+            report.mod_read_all_records('H5D')
+            h5f_df_c = report.records['H5F'].to_df()['counters']
+            h5f_df_fc = report.records['H5F'].to_df()['fcounters']
+            h5d_df_c = report.records['H5D'].to_df()['counters']
+            h5d_df_fc = report.records['H5D'].to_df()['fcounters']
+            self.app[app_name]['h5f_df_c'] = h5f_df_c[h5f_df_c['id'].isin(self.app[app_name]['relevant_ids'])]
+            self.app[app_name]['h5d_df_c'] = h5d_df_c[h5d_df_c['id'].isin(self.app[app_name]['relevant_ids'])]
+            self.app[app_name]['h5f_df_fc'] = h5f_df_fc[h5f_df_fc['id'].isin(self.app[app_name]['relevant_ids'])]
+            self.app[app_name]['h5d_df_fc'] = h5d_df_fc[h5d_df_fc['id'].isin(self.app[app_name]['relevant_ids'])]
         self.app[app_name]['report'] = report
         return report
     
@@ -241,6 +253,7 @@ class IntentGenerator:
         for ind in h5d_df_c.index:
             ds_id = h5d_df_c['id'][ind]
             dataset_fqn = report.data['name_records'][ds_id]
+            print(dataset_fqn)
             dataset = DataSet()
             dset_split_fqn = dataset_fqn.split(":")
             dataset.filename = dset_split_fqn[0]
@@ -299,9 +312,11 @@ class IntentGenerator:
 
             if num_elements_read == h5d_df_c['H5D_DATASPACE_NPOINTS'][ind] or num_elements_written == h5d_df_c['H5D_DATASPACE_NPOINTS'][ind]:
                 rdcc_w0 = 1
+            elif num_elements_written == 0 or num_elements_read == 0:
+                rdcc_w0 = 1
             else:
-                per_re_read = h5d_df_c['H5D_DATASPACE_NPOINTS'][ind] * 1.0 /  num_elements_written
-                per_re_write = h5d_df_c['H5D_DATASPACE_NPOINTS'][ind] * 1.0 /  num_elements_read
+                per_re_read = num_elements_written * 1.0 /  (num_elements_written + num_elements_read)
+                per_re_write = num_elements_read * 1.0 /  (num_elements_written + num_elements_read)
                 rdcc_w0 = per_re_read if per_re_read > per_re_write else per_re_write
             dataset.access.chunk_cache = { 'use': True,
                                                         'rdcc_nslots':h5d_df_c['H5D_ACCESS1_COUNT'][ind],
@@ -334,15 +349,15 @@ class IntentGenerator:
             }
             procs_accessing_ds = 1
             if h5d_df_c['rank'][ind] == -1:
-                procs_accessing_ds = num_processes
+                procs_accessing_ds = self.app[app_name]['num_processes']
 
-            dataset.transfer.mpiio = {
+            dataset.transfer.dmpiio = {
                 'use': True,
                 'xfer_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
                 'coll_opt_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
                 # TODO(hari): set chunk_opt_mode
                 'num_chunk_per_proc': h5d_df_c['H5D_ACCESS1_COUNT'][ind] / procs_accessing_ds,
-                'percent_num_proc_per_chunk': procs_accessing_ds * 100 / num_processes
+                'percent_num_proc_per_chunk': procs_accessing_ds * 100 / self.app[app_name]['num_processes']
             }
             # TODO(hari): set this for specific apps where read needs to be correct
             dataset.transfer.edc_check = {
@@ -351,7 +366,8 @@ class IntentGenerator:
             }
             dataset.transfer.hyper_vector = {
                 'use': True,
-                'size': h5d_df_c['H5D_DATASPACE_NPOINTS'][ind]
+                'size': boundary,
+                'ndims':ndims
             }
             # TODO(hari): Check if datatype of dataset is variable on runtime.
             dataset.transfer.mem_manager = {
@@ -375,7 +391,7 @@ class IntentGenerator:
                 'count': count,
                 'block': chunks
             }
-            self.app[app_name]['configuration'].datasets[dataset_fqn] = dataset
+            self.app[app_name]['configuration'].datasets[dataset.dataset_name] = dataset
         self.app[app_name]['file_agg'] = file_agg
         return self.app[app_name]['configuration'], self.app[app_name]['file_agg']
     def read_file(self, app_name):
@@ -397,7 +413,7 @@ class IntentGenerator:
                     'increment': file_agg[file_id]['file_size'],
                     'backing_store': not file_agg[file_id]['read-only']
                 }
-            file_item.access.mpiio = {
+            file_item.access.fmpiio = {
                     'use': True,
                     'comm': 'MPI_COMM_WORLD' if h5f_df_c['rank'][ind] == -1 else 'MPI_COMM_SELF'
                 }
@@ -414,13 +430,13 @@ class IntentGenerator:
                     'rdcc_w0':0
                 }
             is_stride_used = False
-            for key, value in configuration.datasets.items():
-                cache = configuration.datasets[key].access.chunk_cache
+            for key, value in self.app[app_name]['configuration'].datasets.items():
+                cache = self.app[app_name]['configuration'].datasets[key].access.chunk_cache
                 file_item.access.cache['use'] = file_item.access.cache['use'] and cache['use']
                 file_item.access.cache['rdcc_nslots'] = file_item.access.cache['rdcc_nslots'] + cache['rdcc_nslots']
                 file_item.access.cache['rdcc_nbytes'] = file_item.access.cache['rdcc_nbytes'] + cache['rdcc_nbytes']
                 file_item.access.cache['rdcc_w0'] = max(file_item.access.cache['rdcc_w0'], cache['rdcc_w0'])
-                hyperslab_selection = dataset.transfer.dataset_io_hyperslab_selection
+                hyperslab_selection = self.app[app_name]['configuration'].datasets[key].transfer.dataset_io_hyperslab_selection
                 for dim in range(hyperslab_selection['rank']):
                     if hyperslab_selection['stride'][dim] > 0:
                         is_stride_used = True

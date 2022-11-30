@@ -6,27 +6,30 @@
 #define H5INTENT_CONFIGURATION_LOADER_H
 
 #ifdef __cplusplus
-
-
 #include <nlohmann/json.hpp>
 #include <h5intent/property_dds.h>
 using json = nlohmann::json;
 namespace h5intent {
-class ConfigurationLoader {
+class ConfigurationManager {
  public:
   HDF5Properties properties;
-  ConfigurationLoader() = default;
-  ConfigurationLoader(const ConfigurationLoader& other) = default;
-  ConfigurationLoader(ConfigurationLoader&& other)= default;
-  ConfigurationLoader& operator=(const ConfigurationLoader& other) {
+  ConfigurationManager() = default;
+  ConfigurationManager(const ConfigurationManager& other) = default;
+  ConfigurationManager(ConfigurationManager&& other)= default;
+  ConfigurationManager& operator=(const ConfigurationManager& other) {
     this->properties = other.properties;
     return *this;
   }
   void load_configuration(const std::string& configuration_file);
+
 };
 }
-#else
-void load_configuration(const char* file);
-#endif
 
+extern "C" {
+#endif
+void load_configuration(const char* file);
+bool get_dataset_properties(const char* dataset_name, struct DatasetProperties *properties);
+#ifdef __cplusplus
+}
+#endif
 #endif  // H5INTENT_CONFIGURATION_LOADER_H

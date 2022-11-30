@@ -11,7 +11,7 @@
         "direct": null,
         "family": null,
         "log": null,
-        "mpiio": {
+        "fmpiio": {
           "use": true,
           "comm": "MPI_COMM_WORLD"
         },
@@ -25,7 +25,7 @@
           "use": false,
           "rdcc_nslots": 160,
           "rdcc_nbytes": 2684354560,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "write_tracking": null,
         "close": {
@@ -64,7 +64,7 @@
     }
   },
   "datasets": {
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5:/Timestep_4particles": {
+    "/Timestep_4particles": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
       "dataset_name": "/Timestep_4particles",
       "access": {
@@ -79,7 +79,7 @@
           "use": true,
           "rdcc_nslots": 32,
           "rdcc_nbytes": 536870912,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -98,7 +98,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -139,7 +139,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5:/Timestep_3particles": {
+    "/Timestep_3particles": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
       "dataset_name": "/Timestep_3particles",
       "access": {
@@ -154,7 +154,7 @@
           "use": true,
           "rdcc_nslots": 32,
           "rdcc_nbytes": 536870912,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -173,7 +173,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -214,7 +214,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5:/Timestep_0particles": {
+    "/Timestep_0particles": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
       "dataset_name": "/Timestep_0particles",
       "access": {
@@ -229,7 +229,7 @@
           "use": true,
           "rdcc_nslots": 32,
           "rdcc_nbytes": 536870912,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -248,7 +248,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -289,7 +289,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5:/Timestep_2particles": {
+    "/Timestep_2particles": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
       "dataset_name": "/Timestep_2particles",
       "access": {
@@ -304,7 +304,7 @@
           "use": true,
           "rdcc_nslots": 32,
           "rdcc_nbytes": 536870912,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -323,7 +323,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -364,7 +364,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5:/Timestep_1particles": {
+    "/Timestep_1particles": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
       "dataset_name": "/Timestep_1particles",
       "access": {
@@ -379,7 +379,7 @@
           "use": true,
           "rdcc_nslots": 32,
           "rdcc_nbytes": 536870912,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -398,7 +398,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,

@@ -11,7 +11,7 @@
         "direct": null,
         "family": null,
         "log": null,
-        "mpiio": {
+        "fmpiio": {
           "use": true,
           "comm": "MPI_COMM_WORLD"
         },
@@ -64,7 +64,7 @@
     }
   },
   "datasets": {
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_1y": {
+    "/Timestep_1y": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_1y",
       "access": {
@@ -98,7 +98,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -139,7 +139,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_3pz": {
+    "/Timestep_3pz": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_3pz",
       "access": {
@@ -173,7 +173,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -214,7 +214,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_4x": {
+    "/Timestep_4x": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_4x",
       "access": {
@@ -248,7 +248,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -289,7 +289,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_1py": {
+    "/Timestep_1py": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_1py",
       "access": {
@@ -323,7 +323,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -364,7 +364,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_1id_1": {
+    "/Timestep_1id_1": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_1id_1",
       "access": {
@@ -398,7 +398,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -439,7 +439,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_2z": {
+    "/Timestep_2z": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_2z",
       "access": {
@@ -473,7 +473,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -514,7 +514,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_1pz": {
+    "/Timestep_1pz": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_1pz",
       "access": {
@@ -548,7 +548,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -589,7 +589,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_2px": {
+    "/Timestep_2px": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_2px",
       "access": {
@@ -623,7 +623,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -664,7 +664,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_0z": {
+    "/Timestep_0z": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_0z",
       "access": {
@@ -698,7 +698,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -739,7 +739,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_3x": {
+    "/Timestep_3x": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_3x",
       "access": {
@@ -773,7 +773,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -814,7 +814,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_0y": {
+    "/Timestep_0y": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_0y",
       "access": {
@@ -848,7 +848,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -889,7 +889,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_3z": {
+    "/Timestep_3z": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_3z",
       "access": {
@@ -923,7 +923,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -964,7 +964,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_1id_2": {
+    "/Timestep_1id_2": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_1id_2",
       "access": {
@@ -998,7 +998,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1039,7 +1039,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_0py": {
+    "/Timestep_0py": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_0py",
       "access": {
@@ -1073,7 +1073,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1114,7 +1114,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_3id_2": {
+    "/Timestep_3id_2": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_3id_2",
       "access": {
@@ -1148,7 +1148,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1189,7 +1189,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_4y": {
+    "/Timestep_4y": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_4y",
       "access": {
@@ -1223,7 +1223,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1264,7 +1264,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_0pz": {
+    "/Timestep_0pz": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_0pz",
       "access": {
@@ -1298,7 +1298,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1339,7 +1339,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_3id_1": {
+    "/Timestep_3id_1": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_3id_1",
       "access": {
@@ -1373,7 +1373,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1414,7 +1414,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_4px": {
+    "/Timestep_4px": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_4px",
       "access": {
@@ -1448,7 +1448,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1489,7 +1489,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_2pz": {
+    "/Timestep_2pz": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_2pz",
       "access": {
@@ -1523,7 +1523,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1564,7 +1564,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_0id_1": {
+    "/Timestep_0id_1": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_0id_1",
       "access": {
@@ -1598,7 +1598,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1639,7 +1639,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_4z": {
+    "/Timestep_4z": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_4z",
       "access": {
@@ -1673,7 +1673,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1714,7 +1714,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_4id_2": {
+    "/Timestep_4id_2": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_4id_2",
       "access": {
@@ -1748,7 +1748,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1789,7 +1789,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_1x": {
+    "/Timestep_1x": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_1x",
       "access": {
@@ -1823,7 +1823,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1864,7 +1864,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_3py": {
+    "/Timestep_3py": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_3py",
       "access": {
@@ -1898,7 +1898,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -1939,7 +1939,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_4pz": {
+    "/Timestep_4pz": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_4pz",
       "access": {
@@ -1973,7 +1973,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2014,7 +2014,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_2id_2": {
+    "/Timestep_2id_2": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_2id_2",
       "access": {
@@ -2048,7 +2048,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2089,7 +2089,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_4py": {
+    "/Timestep_4py": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_4py",
       "access": {
@@ -2123,7 +2123,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2164,7 +2164,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_1px": {
+    "/Timestep_1px": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_1px",
       "access": {
@@ -2198,7 +2198,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2239,7 +2239,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_1z": {
+    "/Timestep_1z": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_1z",
       "access": {
@@ -2273,7 +2273,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2314,7 +2314,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_0id_2": {
+    "/Timestep_0id_2": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_0id_2",
       "access": {
@@ -2348,7 +2348,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2389,7 +2389,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_2y": {
+    "/Timestep_2y": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_2y",
       "access": {
@@ -2423,7 +2423,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2464,7 +2464,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_3px": {
+    "/Timestep_3px": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_3px",
       "access": {
@@ -2498,7 +2498,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2539,7 +2539,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_2py": {
+    "/Timestep_2py": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_2py",
       "access": {
@@ -2573,7 +2573,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2614,7 +2614,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_0x": {
+    "/Timestep_0x": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_0x",
       "access": {
@@ -2648,7 +2648,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2689,7 +2689,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_2id_1": {
+    "/Timestep_2id_1": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_2id_1",
       "access": {
@@ -2723,7 +2723,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2764,7 +2764,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_3y": {
+    "/Timestep_3y": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_3y",
       "access": {
@@ -2798,7 +2798,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2839,7 +2839,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_4id_1": {
+    "/Timestep_4id_1": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_4id_1",
       "access": {
@@ -2873,7 +2873,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2914,7 +2914,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_0px": {
+    "/Timestep_0px": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_0px",
       "access": {
@@ -2948,7 +2948,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -2989,7 +2989,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5:/Timestep_2x": {
+    "/Timestep_2x": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5",
       "dataset_name": "/Timestep_2x",
       "access": {
@@ -3023,7 +3023,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,

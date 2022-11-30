@@ -102,12 +102,12 @@ int main(int argc, char** argv) {
 
   char dataset_name[256];
   for (int i = 0; i < args.iteration_; i++) {
-    sprintf(dataset_name, "/dset_%d", i);
+    sprintf(dataset_name, "/dset_%d_%d", i, rank);
     hid_t datasetId =
         H5Dcreate2(file_id, dataset_name, H5T_NATIVE_INT, dataspaceId,
                    H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 
-    int32_t* array = UniformDistribution<int32_t>(rank_, dims, 0, 1000);
+    int32_t* array = UniformDistribution<int32_t>(rank_, reinterpret_cast<size_t*>(dims), 0, 1000);
     int32_t* array2 = static_cast<int32_t*>(
         malloc(num_elements * num_elements * sizeof(int)));
     if (H5Dwrite(datasetId, H5T_NATIVE_INT, H5S_ALL, H5S_ALL, H5P_DEFAULT,

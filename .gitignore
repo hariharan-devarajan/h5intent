@@ -35,3 +35,4 @@
 /dependency/.spack-env/
 /dependency/spack.lock
 /.idea/
+/dependency/venv/

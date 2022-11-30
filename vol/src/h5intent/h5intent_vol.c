@@ -23,12 +23,26 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <cpp-logger/clogger.h>
+#define H5_INTENT_LOG_NAME "H5INTENT"
+#define H5INTENT_LOGINFO(format, ...) \
+  cpp_logger_clog(CPP_LOGGER_INFO, H5_INTENT_LOG_NAME, format, __VA_ARGS__);
+#define H5INTENT_LOGINFO_SIMPLE(format) \
+  cpp_logger_clog(CPP_LOGGER_INFO, H5_INTENT_LOG_NAME, format);
+#define H5INTENT_LOGWARN(format, ...) \
+  cpp_logger_clog(CPP_LOGGER_WARN, H5_INTENT_LOG_NAME, format, __VA_ARGS__);
+#define H5INTENT_LOGERROR(format, ...) \
+  cpp_logger_clog(CPP_LOGGER_ERROR, H5_INTENT_LOG_NAME, format, __VA_ARGS__);
+#define H5INTENT_LOGPRINT(format, ...) \
+  cpp_logger_clog(CPP_LOGGER_PRINT, H5_INTENT_LOG_NAME, format, __VA_ARGS__);
+
 /* Public HDF5 file */
 #include <hdf5.h>
 
 /* This connector's header */
-#include <h5intent/configuration_loader.h>
 #include <h5intent/h5intent_vol.h>
+
+#include "h5intent/property_dds.h"
 
 /**********/
 /* Macros */
@@ -546,15 +560,10 @@ static H5VL_intent_t *H5VL_intent_new_obj(void *under_obj, hid_t under_vol_id) {
  */
 static herr_t H5VL_intent_free_obj(H5VL_intent_t *obj) {
   hid_t err_id;
-
   err_id = H5Eget_current_stack();
-
   H5Idec_ref(obj->under_vol_id);
-
   H5Eset_current_stack(err_id);
-
   free(obj);
-
   return 0;
 } /* end H5VL__intent_free_obj() */
 
@@ -576,7 +585,6 @@ hid_t H5VL_intent_register(void) {
   /* Singleton register the intent VOL connector ID */
   if (H5VL_INTENT_g < 0)
     H5VL_INTENT_g = H5VLregister_connector(&H5VL_intent_g, H5P_DEFAULT);
-
   return H5VL_INTENT_g;
 } /* end H5VL_intent_register() */
 
@@ -594,7 +602,7 @@ hid_t H5VL_intent_register(void) {
  */
 static herr_t H5VL_intent_init(hid_t vipl_id) {
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL INIT\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL INIT");
 #endif
 
   /* Shut compiler up about unused parameter */
@@ -618,7 +626,7 @@ static herr_t H5VL_intent_init(hid_t vipl_id) {
  */
 static herr_t H5VL_intent_term(void) {
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL TERM\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL TERM");
 #endif
 
   /* Reset VOL ID */
@@ -642,7 +650,7 @@ static void *H5VL_intent_info_copy(const void *_info) {
   H5VL_intent_info_t *new_info;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL INFO Copy\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL INFO Copy");
 #endif
 
   /* Allocate new VOL info struct for the intent connector */
@@ -675,7 +683,7 @@ static herr_t H5VL_intent_info_cmp(int *cmp_value, const void *_info1,
   const H5VL_intent_info_t *info2 = (const H5VL_intent_info_t *)_info2;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL INFO Compare\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL INFO Compare");
 #endif
 
   /* Sanity checks */
@@ -715,7 +723,7 @@ static herr_t H5VL_intent_info_free(void *_info) {
   hid_t err_id;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL INFO Free\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL INFO Free");
 #endif
 
   err_id = H5Eget_current_stack();
@@ -750,7 +758,7 @@ static herr_t H5VL_intent_info_to_str(const void *_info, char **str) {
   size_t under_vol_str_len = 0;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL INFO To String\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL INFO To String");
 #endif
 
   /* Get value and string for underlying VOL connector */
@@ -794,7 +802,7 @@ static herr_t H5VL_intent_str_to_info(const char *str, void **_info) {
   void *under_vol_info = NULL;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL INFO String To Info\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL INFO String To Info");
 #endif
 
   /* Retrieve the underlying VOL connector value and info */
@@ -816,6 +824,8 @@ static herr_t H5VL_intent_str_to_info(const char *str, void **_info) {
     H5VLconnector_str_to_info(under_vol_info_str, under_vol_id,
                               &under_vol_info);
 
+    load_configuration(under_vol_info_str);
+    cpp_logger_clog_level(CPP_LOGGER_INFO, H5_INTENT_LOG_NAME);
     free(under_vol_info_str);
   } /* end else */
 
@@ -844,7 +854,7 @@ static void *H5VL_intent_get_object(const void *obj) {
   const H5VL_intent_t *o = (const H5VL_intent_t *)obj;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL Get object\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL Get object");
 #endif
 
   return H5VLget_object(o->under_object, o->under_vol_id);
@@ -865,7 +875,7 @@ static herr_t H5VL_intent_get_wrap_ctx(const void *obj, void **wrap_ctx) {
   H5VL_intent_wrap_ctx_t *new_wrap_ctx;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL WRAP CTX Get\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL WRAP CTX Get");
 #endif
 
   /* Allocate new VOL object wrapping context for the intent connector */
@@ -901,7 +911,7 @@ static void *H5VL_intent_wrap_object(void *obj, H5I_type_t obj_type,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL WRAP Object\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL WRAP Object");
 #endif
 
   /* Wrap the object with the underlying VOL */
@@ -931,7 +941,7 @@ static void *H5VL_intent_unwrap_object(void *obj) {
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL UNWRAP Object\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL UNWRAP Object");
 #endif
 
   /* Unrap the object with the underlying VOL */
@@ -960,7 +970,7 @@ static herr_t H5VL_intent_free_wrap_ctx(void *_wrap_ctx) {
   hid_t err_id;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL WRAP CTX Free\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL WRAP CTX Free");
 #endif
 
   err_id = H5Eget_current_stack();
@@ -998,7 +1008,7 @@ static void *H5VL_intent_attr_create(void *obj,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL ATTRIBUTE Create\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL ATTRIBUTE Create");
 #endif
 
   under = H5VLattr_create(o->under_object, loc_params, o->under_vol_id, name,
@@ -1034,7 +1044,7 @@ static void *H5VL_intent_attr_open(void *obj,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL ATTRIBUTE Open\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL ATTRIBUTE Open");
 #endif
 
   under = H5VLattr_open(o->under_object, loc_params, o->under_vol_id, name,
@@ -1067,7 +1077,7 @@ static herr_t H5VL_intent_attr_read(void *attr, hid_t mem_type_id, void *buf,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL ATTRIBUTE Read\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL ATTRIBUTE Read");
 #endif
 
   ret_value = H5VLattr_read(o->under_object, o->under_vol_id, mem_type_id, buf,
@@ -1096,7 +1106,7 @@ static herr_t H5VL_intent_attr_write(void *attr, hid_t mem_type_id,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL ATTRIBUTE Write\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL ATTRIBUTE Write");
 #endif
 
   ret_value = H5VLattr_write(o->under_object, o->under_vol_id, mem_type_id, buf,
@@ -1124,7 +1134,7 @@ static herr_t H5VL_intent_attr_get(void *obj, H5VL_attr_get_args_t *args,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL ATTRIBUTE Get\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL ATTRIBUTE Get");
 #endif
 
   ret_value =
@@ -1154,7 +1164,7 @@ static herr_t H5VL_intent_attr_specific(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL ATTRIBUTE Specific\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL ATTRIBUTE Specific");
 #endif
 
   ret_value = H5VLattr_specific(o->under_object, loc_params, o->under_vol_id,
@@ -1182,7 +1192,7 @@ static herr_t H5VL_intent_attr_optional(void *obj, H5VL_optional_args_t *args,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL ATTRIBUTE Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL ATTRIBUTE Optional");
 #endif
 
   ret_value =
@@ -1209,7 +1219,7 @@ static herr_t H5VL_intent_attr_close(void *attr, hid_t dxpl_id, void **req) {
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL ATTRIBUTE Close\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL ATTRIBUTE Close");
 #endif
 
   ret_value = H5VLattr_close(o->under_object, o->under_vol_id, dxpl_id, req);
@@ -1244,9 +1254,260 @@ static void *H5VL_intent_dataset_create(void *obj,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATASET Create\n");
+  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL DATASET Create");
 #endif
+  char name_fqn[256];
+  int name_size = 0;
+  H5VL_object_get_args_t args;
+  args.op_type = H5VL_OBJECT_GET_NAME;
+  args.args.get_name.buf = name_fqn;
+  args.args.get_name.buf_size = 256;
+  args.args.get_name.name_len = &name_size;
+  name_size = *args.args.get_name.name_len;
 
+  herr_t ret_value = H5VLobject_get(o->under_object, loc_params,
+                                    o->under_vol_id, &args, dxpl_id, req);
+  size_t dset_size = strlen(name);
+  strcpy(name_fqn, args.args.get_name.buf);
+  strcpy(name_fqn + name_size, name);
+  name_fqn[name_size + dset_size] = '\0';
+  struct DatasetProperties datasetProperties;
+  bool is_present = get_dataset_properties(name_fqn, &datasetProperties);
+  if (is_present) {
+#ifdef ENABLE_INTENT_LOGGING
+    H5INTENT_LOGINFO("------- INTENT VOL DATASET Found properties for dataset %s", name_fqn);
+#endif
+    if (datasetProperties.access.append_flush.use) {
+      /**
+       * TODO: Probably just a callback
+       * When a user is appending data to a dataset via H5DOappend() and the
+       * dataset’s newly extended dimension size hits a specified boundary, the
+       * library will perform the first action listed above. Upon return from
+       * the callback function, the library will then perform the second action
+       * listed above and return to the user. If no boundary is hit or set, the
+       * two actions above are not invoked. herr_t H5Pset_append_flush(hid_t
+       * dapl_id, unsigned ndims, const hsize_t boundary[], H5D_append_cb_t
+       * func, void * 	udata)
+       *
+       * Sets two actions to perform when the size of a dataset’s dimension
+       * being appended reaches a specified boundary. Parameters [in] dapl_id
+       * Dataset access property list identifier [in]	ndims	The number of
+       * elements for boundary
+       *    [in]	boundary	The dimension sizes used to determine the
+       * boundary [in]	func	The user-defined callback function [in] udata
+       * The user-defined input data Returns Returns a non-negative value if
+       * successful; otherwise returns a negative value.
+       */
+    }
+    if (datasetProperties.access.chunk.use) {
+      /**
+       * H5Pset_chunk()
+       * herr_t H5Pset_chunk(hid_t plist_id, int ndims, const hsize_t dim[])
+       * Sets the size of the chunks used to store a chunked layout dataset.
+       * Parameters
+       *    [in]	plist_id	Dataset creation property list identifier
+       *    [in]	ndims	The number of dimensions of each chunk
+       *    [in]	dim	An array defining the size, in dataset elements, of each chunk
+       * Returns
+       *    Returns a non-negative value if successful; otherwise returns a negative value.
+       *
+       * H5Pset_chunk() sets the size of the chunks used to store a chunked layout dataset.
+       * This function is only valid for dataset creation property lists.
+       * The ndims parameter currently must be the same size as the rank of the dataset.
+       * The values of the dim array define the size of the chunks to store the dataset's
+       * raw data. The unit of measure for dim values is dataset elements.
+       * As a side-effect of this function, the layout of the dataset is changed to
+       * H5D_CHUNKED, if it is not already so set.
+       */
+      herr_t status = H5Pset_chunk(dcpl_id,
+                                   datasetProperties.access.chunk.ndims,
+                                   datasetProperties.access.chunk.dim);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting chunk for dataset %s failed", name_fqn);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting chunk for dataset %s successful", name_fqn);
+      }
+      if (datasetProperties.access.chunk.opts > 0) {
+        status = H5Pset_chunk_opts(dcpl_id, datasetProperties.access.chunk.opts);
+        if (status != 0) {
+          H5INTENT_LOGERROR("DATASET setting chunk opts for dataset %s failed", name_fqn);
+        }else {
+          H5INTENT_LOGINFO("DATASET setting chunk opts for dataset %s successful", name_fqn);
+        }
+      }
+    }
+    if (datasetProperties.access.chunk_cache.use) {
+      /**
+       * H5Pset_chunk_cache()
+       * herr_t H5Pset_chunk_cache (hid_t dapl_id, size_t rdcc_nslots,
+       *                                size_t rdcc_nbytes, double rdcc_w0)
+       * Sets the raw data chunk cache parameters.
+       * Parameters
+       *    [in]	dapl_id	Dataset access property list identifier
+       *    [in]	rdcc_nslots	The number of chunk slots in the raw data
+       *                chunk cache for this dataset. Increasing this value reduces
+       *                the number of cache collisions, but slightly increases the
+       *                memory used. Due to the hashing strategy, this value should
+       *                ideally be a prime number. As a rule of thumb, this value
+       *                should be at least 10 times the number of chunks that can
+       *                fit in rdcc_nbytes bytes. For maximum performance, this
+       *                value should be set approximately 100 times that number
+       *                of chunks. The default value is 521. If the value passed
+       *                is H5D_CHUNK_CACHE_NSLOTS_DEFAULT, then the property will
+       *                not be set on dapl_id and the parameter will come from the
+       *                file access property list used to open the file.
+       *    [in]	rdcc_nbytes	The total size of the raw data chunk cache
+       *                for this dataset. In most cases increasing this number will
+       *                improve performance, as long as you have enough free memory.
+       *                The default size is 1 MB. If the value passed is
+       *                H5D_CHUNK_CACHE_NBYTES_DEFAULT, then the property will not
+       *                be set on dapl_id and the parameter will come from the file
+       *                access property list.
+       *   [in]	        rdcc_w0	The chunk preemption policy for this dataset.
+       *                This must be between 0 and 1 inclusive and indicates the
+       *                weighting according to which chunks which have been fully
+       *                read or written are penalized when determining which chunks
+       *                to flush from cache. A value of 0 means fully read or written
+       *                chunks are treated no differently than other chunks (the
+       *                preemption is strictly LRU) while a value of 1 means fully
+       *                read or written chunks are always preempted before other chunks.
+       *                If your application only reads or writes data once, this
+       *                can be safely set to 1. Otherwise, this should be set lower,
+       *                depending on how often you re-read or re-write the same data.
+       *                The default value is 0.75. If the value passed is
+       *                H5D_CHUNK_CACHE_W0_DEFAULT, then the property will not
+       *                be set on dapl_id and the parameter will come from the
+       *                file access property list.
+       * Returns
+       *    Returns a non-negative value if successful; otherwise returns a negative value.
+       *
+       * H5Pset_chunk_cache() sets the number of elements, the total number of bytes,
+       * and the preemption policy value in the raw data chunk cache on a dataset
+       * access property list. After calling this function, the values set in the
+       * property list will override the values in the file's file access property
+       * list. The raw data chunk cache inserts chunks into the cache by first
+       * computing a hash value using the address of a chunk, then using that
+       * hash value as the chunk's index into the table of cached chunks. The
+       * size of this hash table, i.e., and the number of possible hash values,
+       * is determined by the rdcc_nslots parameter. If a different chunk in the
+       * cache has the same hash value, this causes a collision, which reduces
+       * efficiency. If inserting the chunk into cache would cause the cache to
+       * be too big, then the cache is pruned according to the rdcc_w0 parameter.
+       *
+       */
+       herr_t status = H5Pset_chunk_cache(dapl_id,
+                                         datasetProperties.access.chunk_cache.rdcc_nslots,
+                                         datasetProperties.access.chunk_cache.rdcc_nbytes,
+                                         datasetProperties.access.chunk_cache.rdcc_w0);
+       if (status != 0) {
+          H5INTENT_LOGERROR("DATASET setting chunk_cache for dataset %s failed", name_fqn);
+       } else {
+          H5INTENT_LOGINFO("DATASET setting chunk_cache for dataset %s successful",
+                         name_fqn);
+       }
+    }
+    if (datasetProperties.access.filter_avail.use) {
+    }
+    if (datasetProperties.access.gzip.use) {
+    }
+    if (datasetProperties.access.layout.use) {
+      herr_t status = H5Pset_layout(dcpl_id, datasetProperties.access.layout.layout);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting layout for dataset %s failed", name_fqn);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting layout for dataset %s successful", name_fqn);
+      }
+    }
+    if (datasetProperties.access.szip.use) {
+    }
+    if (datasetProperties.access.virtual_view.use) {
+    }
+    if (datasetProperties.transfer.buffer.use) {
+    }
+    if (datasetProperties.transfer.hyper_vector.use) {
+      /**
+       * H5Pget_hyper_vector_size()
+       * herr_t H5Pget_hyper_vector_size(hid_t 	fapl_id, size_t * size)
+       * Retrieves number of I/O vectors to be read/written in hyperslab I/O.
+       * Parameters
+       *    [in]	fapl_id	Dataset transfer property list identifier
+       *    [out]	size	Number of I/O vectors to accumulate in memory
+       *    for I/O operations
+       * Returns
+       *    Returns a non-negative value if successful; otherwise
+       *    returns a negative value.
+       *
+       *    H5Pget_hyper_vector_size() retrieves the number of I/O vectors to be
+       *    accumulated in memory before being issued to the lower levels of the
+       *    HDF5 library for reading or writing the actual data.
+       *    The number of I/O vectors set in the dataset transfer property list
+       *    fapl_id is returned in size. Unless the default value is in use, size
+       *    was previously set with a call to H5Pset_hyper_vector_size().
+       */
+      herr_t status = H5Pget_hyper_vector_size(dcpl_id, datasetProperties.transfer.hyper_vector.size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting hyper_vector_size for dataset %s failed", name_fqn);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting hyper_vector_size for dataset %s successful", name_fqn);
+      }
+    }
+    if (datasetProperties.transfer.dataset_io_hyperslab_selection.use) {
+      herr_t status = H5Pset_dataset_io_hyperslab_selection(dxpl_id,
+                                            datasetProperties.transfer.dataset_io_hyperslab_selection.rank,
+                                            datasetProperties.transfer.dataset_io_hyperslab_selection.op,
+                                            datasetProperties.transfer.dataset_io_hyperslab_selection.start,
+                                            datasetProperties.transfer.dataset_io_hyperslab_selection.stride,
+                                            datasetProperties.transfer.dataset_io_hyperslab_selection.count,
+                                            datasetProperties.transfer.dataset_io_hyperslab_selection.block);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting dataset_io_hyperslab_selection for dataset %s failed", name_fqn);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting dataset_io_hyperslab_selection for dataset %s successful", name_fqn);
+      }
+    }
+    if (datasetProperties.transfer.dmpiio.use) {
+      herr_t status = H5Pset_dxpl_mpio(dxpl_id, datasetProperties.transfer.dmpiio.xfer_mode);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting H5Pset_dxpl_mpio for dataset %s failed", name_fqn);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting H5Pset_dxpl_mpio for dataset %s successful", name_fqn);
+      }
+      status = H5Pset_dxpl_mpio_collective_opt(dxpl_id, datasetProperties.transfer.dmpiio.coll_opt_mode);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting H5Pset_dxpl_mpio_collective_opt for dataset %s failed", name_fqn);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting H5Pset_dxpl_mpio_collective_opt for dataset %s successful", name_fqn);
+      }
+      status = H5Pset_dxpl_mpio_chunk_opt_num(dxpl_id, datasetProperties.transfer.dmpiio.num_chunk_per_proc);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting H5Pset_dxpl_mpio_chunk_opt_num for dataset %s failed", name_fqn);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting H5Pset_dxpl_mpio_chunk_opt_num for dataset %s successful", name_fqn);
+      }
+      status = H5Pset_dxpl_mpio_chunk_opt_ratio(dxpl_id, datasetProperties.transfer.dmpiio.percent_num_proc_per_chunk);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting H5Pset_dxpl_mpio_chunk_opt_ratio for dataset %s failed", name_fqn);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting H5Pset_dxpl_mpio_chunk_opt_ratio for dataset %s successful", name_fqn);
+      }
+      status = H5Pset_dxpl_mpio_chunk_opt(dxpl_id, datasetProperties.transfer.dmpiio.chunk_opt_mode);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting H5Pset_dxpl_mpio_chunk_opt for dataset %s failed", name_fqn);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting H5Pset_dxpl_mpio_chunk_opt for dataset %s successful", name_fqn);
+      }
+    }
+    if (datasetProperties.transfer.edc_check.use) {
+    }
+    if (datasetProperties.transfer.mem_manager.use) {
+    }
+  } else {
+#ifdef ENABLE_INTENT_LOGGING
+    H5INTENT_LOGINFO(
+        "DATASET Did not find properties for dataset %s",
+        name);
+#endif
+  }
   under = H5VLdataset_create(o->under_object, loc_params, o->under_vol_id, name,
                              lcpl_id, type_id, space_id, dcpl_id, dapl_id,
                              dxpl_id, req);
@@ -1281,7 +1542,7 @@ static void *H5VL_intent_dataset_open(void *obj,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATASET Open\n");
+  H5INTENT_LOGINFO_SIMPLE("DATASET Open");
 #endif
 
   under = H5VLdataset_open(o->under_object, loc_params, o->under_vol_id, name,
@@ -1315,7 +1576,7 @@ static herr_t H5VL_intent_dataset_read(void *dset, hid_t mem_type_id,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATASET Read\n");
+  H5INTENT_LOGINFO_SIMPLE("DATASET Read");
 #endif
 
   ret_value = H5VLdataset_read(o->under_object, o->under_vol_id, mem_type_id,
@@ -1345,7 +1606,7 @@ static herr_t H5VL_intent_dataset_write(void *dset, hid_t mem_type_id,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATASET Write\n");
+  H5INTENT_LOGINFO_SIMPLE("DATASET Write");
 #endif
 
   ret_value =
@@ -1374,7 +1635,7 @@ static herr_t H5VL_intent_dataset_get(void *dset, H5VL_dataset_get_args_t *args,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATASET Get\n");
+  H5INTENT_LOGINFO_SIMPLE("DATASET Get");
 #endif
 
   ret_value =
@@ -1404,7 +1665,7 @@ static herr_t H5VL_intent_dataset_specific(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL H5Dspecific\n");
+  H5INTENT_LOGINFO_SIMPLE("H5Dspecific");
 #endif
 
   // Save copy of underlying VOL connector ID and prov helper, in case of
@@ -1437,7 +1698,7 @@ static herr_t H5VL_intent_dataset_optional(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATASET Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("DATASET Optional");
 #endif
 
   ret_value = H5VLdataset_optional(o->under_object, o->under_vol_id, args,
@@ -1464,7 +1725,7 @@ static herr_t H5VL_intent_dataset_close(void *dset, hid_t dxpl_id, void **req) {
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATASET Close\n");
+  H5INTENT_LOGINFO_SIMPLE("DATASET Close");
 #endif
 
   ret_value = H5VLdataset_close(o->under_object, o->under_vol_id, dxpl_id, req);
@@ -1499,7 +1760,7 @@ static void *H5VL_intent_datatype_commit(void *obj,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATATYPE Commit\n");
+  H5INTENT_LOGINFO_SIMPLE("DATATYPE Commit");
 #endif
 
   under =
@@ -1536,7 +1797,7 @@ static void *H5VL_intent_datatype_open(void *obj,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATATYPE Open\n");
+  H5INTENT_LOGINFO_SIMPLE("DATATYPE Open");
 #endif
 
   under = H5VLdatatype_open(o->under_object, loc_params, o->under_vol_id, name,
@@ -1569,7 +1830,7 @@ static herr_t H5VL_intent_datatype_get(void *dt, H5VL_datatype_get_args_t *args,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATATYPE Get\n");
+  H5INTENT_LOGINFO_SIMPLE("DATATYPE Get");
 #endif
 
   ret_value =
@@ -1599,7 +1860,7 @@ static herr_t H5VL_intent_datatype_specific(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATATYPE Specific\n");
+  H5INTENT_LOGINFO_SIMPLE("DATATYPE Specific");
 #endif
 
   // Save copy of underlying VOL connector ID and prov helper, in case of
@@ -1632,7 +1893,7 @@ static herr_t H5VL_intent_datatype_optional(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATATYPE Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("DATATYPE Optional");
 #endif
 
   ret_value = H5VLdatatype_optional(o->under_object, o->under_vol_id, args,
@@ -1659,7 +1920,7 @@ static herr_t H5VL_intent_datatype_close(void *dt, hid_t dxpl_id, void **req) {
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL DATATYPE Close\n");
+  H5INTENT_LOGINFO_SIMPLE("DATATYPE Close");
 #endif
 
   assert(o->under_object);
@@ -1695,7 +1956,7 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL FILE Create\n");
+  H5INTENT_LOGINFO_SIMPLE("FILE Create");
 #endif
 
   /* Get copy of our VOL info from FAPL */
@@ -1748,7 +2009,7 @@ static void *H5VL_intent_file_open(const char *name, unsigned flags,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL FILE Open\n");
+  H5INTENT_LOGINFO_SIMPLE("FILE Open");
 #endif
 
   /* Get copy of our VOL info from FAPL */
@@ -1799,7 +2060,7 @@ static herr_t H5VL_intent_file_get(void *file, H5VL_file_get_args_t *args,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL FILE Get\n");
+  H5INTENT_LOGINFO_SIMPLE("FILE Get");
 #endif
 
   ret_value =
@@ -1847,7 +2108,7 @@ static herr_t H5VL_intent_file_specific(void *file,
   hid_t under_vol_id = -1;
   herr_t ret_value;
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL File Specific\n");
+  H5INTENT_LOGINFO_SIMPLE("File Specific");
 #endif
   ret_value =
       H5VLfile_specific(o->under_object, o->under_vol_id, args, dxpl_id, req);
@@ -1870,7 +2131,7 @@ static herr_t H5VL_intent_file_optional(void *file, H5VL_optional_args_t *args,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL File Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("File Optional");
 #endif
 
   ret_value =
@@ -1897,7 +2158,7 @@ static herr_t H5VL_intent_file_close(void *file, hid_t dxpl_id, void **req) {
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL FILE Close\n");
+  H5INTENT_LOGINFO_SIMPLE("FILE Close");
 #endif
 
   ret_value = H5VLfile_close(o->under_object, o->under_vol_id, dxpl_id, req);
@@ -1931,7 +2192,7 @@ static void *H5VL_intent_group_create(void *obj,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL GROUP Create\n");
+  H5INTENT_LOGINFO_SIMPLE("GROUP Create");
 #endif
 
   under = H5VLgroup_create(o->under_object, loc_params, o->under_vol_id, name,
@@ -1967,7 +2228,7 @@ static void *H5VL_intent_group_open(void *obj,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL GROUP Open\n");
+  H5INTENT_LOGINFO_SIMPLE("GROUP Open");
 #endif
 
   under = H5VLgroup_open(o->under_object, loc_params, o->under_vol_id, name,
@@ -2000,7 +2261,7 @@ static herr_t H5VL_intent_group_get(void *obj, H5VL_group_get_args_t *args,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL GROUP Get\n");
+  H5INTENT_LOGINFO_SIMPLE("GROUP Get");
 #endif
 
   ret_value =
@@ -2030,7 +2291,7 @@ static herr_t H5VL_intent_group_specific(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL GROUP Specific\n");
+  H5INTENT_LOGINFO_SIMPLE("GROUP Specific");
 #endif
 
   // Save copy of underlying VOL connector ID and prov helper, in case of
@@ -2062,7 +2323,7 @@ static herr_t H5VL_intent_group_optional(void *obj, H5VL_optional_args_t *args,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL GROUP Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("GROUP Optional");
 #endif
 
   ret_value =
@@ -2089,7 +2350,7 @@ static herr_t H5VL_intent_group_close(void *grp, hid_t dxpl_id, void **req) {
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL H5Gclose\n");
+  H5INTENT_LOGINFO_SIMPLE("H5Gclose");
 #endif
 
   ret_value = H5VLgroup_close(o->under_object, o->under_vol_id, dxpl_id, req);
@@ -2172,7 +2433,7 @@ static herr_t H5VL_intent_link_copy(void *src_obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL LINK Copy\n");
+  H5INTENT_LOGINFO_SIMPLE("LINK Copy");
 #endif
 
   /* Retrieve the "under" VOL id */
@@ -2219,7 +2480,7 @@ static herr_t H5VL_intent_link_move(void *src_obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL LINK Move\n");
+  H5INTENT_LOGINFO_SIMPLE("LINK Move");
 #endif
 
   /* Retrieve the "under" VOL id */
@@ -2257,7 +2518,7 @@ static herr_t H5VL_intent_link_get(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL LINK Get\n");
+  H5INTENT_LOGINFO_SIMPLE("LINK Get");
 #endif
 
   ret_value = H5VLlink_get(o->under_object, loc_params, o->under_vol_id, args,
@@ -2287,7 +2548,7 @@ static herr_t H5VL_intent_link_specific(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL LINK Specific\n");
+  H5INTENT_LOGINFO_SIMPLE("LINK Specific");
 #endif
 
   ret_value = H5VLlink_specific(o->under_object, loc_params, o->under_vol_id,
@@ -2317,7 +2578,7 @@ static herr_t H5VL_intent_link_optional(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL LINK Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("LINK Optional");
 #endif
 
   ret_value = H5VLlink_optional(o->under_object, loc_params, o->under_vol_id,
@@ -2348,7 +2609,7 @@ static void *H5VL_intent_object_open(void *obj,
   void *under;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL OBJECT Open\n");
+  H5INTENT_LOGINFO_SIMPLE("OBJECT Open");
 #endif
 
   under = H5VLobject_open(o->under_object, loc_params, o->under_vol_id,
@@ -2387,7 +2648,7 @@ static herr_t H5VL_intent_object_copy(void *src_obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL OBJECT Copy\n");
+  H5INTENT_LOGINFO_SIMPLE("OBJECT Copy");
 #endif
 
   ret_value =
@@ -2419,7 +2680,7 @@ static herr_t H5VL_intent_object_get(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL OBJECT Get\n");
+  H5INTENT_LOGINFO_SIMPLE("OBJECT Get");
 #endif
 
   ret_value = H5VLobject_get(o->under_object, loc_params, o->under_vol_id, args,
@@ -2450,7 +2711,7 @@ static herr_t H5VL_intent_object_specific(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL OBJECT Specific\n");
+  H5INTENT_LOGINFO_SIMPLE("OBJECT Specific");
 #endif
 
   // Save copy of underlying VOL connector ID and prov helper, in case of
@@ -2484,7 +2745,7 @@ static herr_t H5VL_intent_object_optional(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL OBJECT Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("OBJECT Optional");
 #endif
 
   ret_value = H5VLobject_optional(o->under_object, loc_params, o->under_vol_id,
@@ -2511,7 +2772,7 @@ herr_t H5VL_intent_introspect_get_conn_cls(void *obj, H5VL_get_conn_lvl_t lvl,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL INTROSPECT GetConnCls\n");
+  H5INTENT_LOGINFO_SIMPLE("INTROSPECT GetConnCls");
 #endif
 
   /* Check for querying this connector's class */
@@ -2546,7 +2807,7 @@ H5VL_intent_introspect_get_cap_flags(const void *_info, unsigned *cap_flags)
   herr_t ret_value;
 
 #ifdef ENABLE_ASYNC_LOGGING
-  printf("------- ASYNC VOL INTROSPECT GetCapFlags\n");
+  H5INTENT_LOGINFO_SIMPLE("------- ASYNC VOL INTROSPECT GetCapFlags");
 #endif
 
   /* Invoke the query on the underlying VOL connector */
@@ -2573,7 +2834,7 @@ herr_t H5VL_intent_introspect_opt_query(void *obj, H5VL_subclass_t cls,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL INTROSPECT OptQuery\n");
+  H5INTENT_LOGINFO_SIMPLE("INTROSPECT OptQuery");
 #endif
 
   ret_value = H5VLintrospect_opt_query(o->under_object, o->under_vol_id, cls,
@@ -2601,7 +2862,7 @@ static herr_t H5VL_intent_request_wait(void *obj, uint64_t timeout,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL REQUEST Wait\n");
+  H5INTENT_LOGINFO_SIMPLE("REQUEST Wait");
 #endif
 
   ret_value =
@@ -2632,7 +2893,7 @@ static herr_t H5VL_intent_request_notify(void *obj, H5VL_request_notify_t cb,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL REQUEST Notify\n");
+  H5INTENT_LOGINFO_SIMPLE("REQUEST Notify");
 #endif
 
   ret_value = H5VLrequest_notify(o->under_object, o->under_vol_id, cb, ctx);
@@ -2660,7 +2921,7 @@ static herr_t H5VL_intent_request_cancel(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL REQUEST Cancel\n");
+  H5INTENT_LOGINFO_SIMPLE("REQUEST Cancel");
 #endif
 
   ret_value = H5VLrequest_cancel(o->under_object, o->under_vol_id, status);
@@ -2705,7 +2966,7 @@ static herr_t H5VL_intent_request_specific(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL REQUEST Cancel\n");
+  H5INTENT_LOGINFO_SIMPLE("REQUEST Cancel");
 #endif
 
   ret_value = H5VLrequest_specific(o->under_object, o->under_vol_id, args);
@@ -2731,7 +2992,7 @@ static herr_t H5VL_intent_request_optional(void *obj,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL REQUEST Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("REQUEST Optional");
 #endif
 
   ret_value = H5VLrequest_optional(o->under_object, o->under_vol_id, args);
@@ -2755,7 +3016,7 @@ static herr_t H5VL_intent_request_free(void *obj) {
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL REQUEST Free\n");
+  H5INTENT_LOGINFO_SIMPLE("REQUEST Free");
 #endif
 
   ret_value = H5VLrequest_free(o->under_object, o->under_vol_id);
@@ -2780,7 +3041,7 @@ herr_t H5VL_intent_blob_put(void *obj, const void *buf, size_t size,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL BLOB Put\n");
+  H5INTENT_LOGINFO_SIMPLE("BLOB Put");
 #endif
 
   ret_value =
@@ -2804,7 +3065,7 @@ herr_t H5VL_intent_blob_get(void *obj, const void *blob_id, void *buf,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL BLOB Get\n");
+  H5INTENT_LOGINFO_SIMPLE("BLOB Get");
 #endif
 
   ret_value =
@@ -2828,7 +3089,7 @@ herr_t H5VL_intent_blob_specific(void *obj, void *blob_id,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL BLOB Specific\n");
+  H5INTENT_LOGINFO_SIMPLE("BLOB Specific");
 #endif
 
   ret_value =
@@ -2852,7 +3113,7 @@ herr_t H5VL_intent_blob_optional(void *obj, void *blob_id,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL BLOB Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("BLOB Optional");
 #endif
 
   ret_value =
@@ -2878,7 +3139,7 @@ static herr_t H5VL_intent_token_cmp(void *obj, const H5O_token_t *token1,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL TOKEN Compare\n");
+  H5INTENT_LOGINFO_SIMPLE("TOKEN Compare");
 #endif
 
   /* Sanity checks */
@@ -2910,7 +3171,7 @@ static herr_t H5VL_intent_token_to_str(void *obj, H5I_type_t obj_type,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL TOKEN To string\n");
+  H5INTENT_LOGINFO_SIMPLE("TOKEN To string");
 #endif
 
   /* Sanity checks */
@@ -2941,7 +3202,7 @@ static herr_t H5VL_intent_token_from_str(void *obj, H5I_type_t obj_type,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL TOKEN From string\n");
+  H5INTENT_LOGINFO_SIMPLE("TOKEN From string");
 #endif
 
   /* Sanity checks */
@@ -2970,7 +3231,7 @@ herr_t H5VL_intent_optional(void *obj, H5VL_optional_args_t *args,
   herr_t ret_value;
 
 #ifdef ENABLE_INTENT_LOGGING
-  printf("------- INTENT VOL generic Optional\n");
+  H5INTENT_LOGINFO_SIMPLE("generic Optional");
 #endif
 
   ret_value =

@@ -53,7 +53,7 @@ class DatasetAccessProperties:
         }
 class DatasetTransferProperties:
     def __init__(self):
-        self.mpiio = None
+        self.dmpiio = None
         self.buffer = None
         self.edc_check = None
         self.hyper_vector = None
@@ -63,7 +63,7 @@ class DatasetTransferProperties:
         return str(self.json())
     def json (self):
         return {
-           'mpiio': self.mpiio,
+           'dmpiio': self.dmpiio,
            'buffer': self.buffer,
            'edc_check': self.edc_check,
            'hyper_vector': self.hyper_vector,
@@ -92,7 +92,7 @@ class FileAccessProperties:
         self.direct = None
         self.family = None
         self.log = None
-        self.mpiio = None
+        self.fmpiio = None
         self.split = None
         self.stdio = None
         self.cache = None
@@ -110,7 +110,7 @@ class FileAccessProperties:
            'direct': self.direct,
            'family': self.family,
            'log': self.log,
-           'mpiio': self.mpiio, 
+           'fmpiio': self.fmpiio, 
            'split': self.split,
            'stdio': self.stdio,
            'cache': self.cache,
@@ -218,7 +218,7 @@ class IntentGenerator:
         self.app[app_name]['num_processes'] = report.data['metadata']['job']['nprocs']
 
         for key, value in report.data['name_records'].items():
-            if "/p/gpfs1" in value:
+            if "/p/gpfs1" in value or "/home/haridev/temp" in value:
                 self.app[app_name]['relevant_ids'].append(key)
                 self.app[app_name]['name_to_id_map'][value] = key
         print(report.modules.keys())
@@ -253,6 +253,7 @@ class IntentGenerator:
         for ind in h5d_df_c.index:
             ds_id = h5d_df_c['id'][ind]
             dataset_fqn = report.data['name_records'][ds_id]
+            print(dataset_fqn)
             dataset = DataSet()
             dset_split_fqn = dataset_fqn.split(":")
             dataset.filename = dset_split_fqn[0]
@@ -311,9 +312,11 @@ class IntentGenerator:
 
             if num_elements_read == h5d_df_c['H5D_DATASPACE_NPOINTS'][ind] or num_elements_written == h5d_df_c['H5D_DATASPACE_NPOINTS'][ind]:
                 rdcc_w0 = 1
+            elif num_elements_written == 0 or num_elements_read == 0:
+                rdcc_w0 = 1
             else:
-                per_re_read = h5d_df_c['H5D_DATASPACE_NPOINTS'][ind] * 1.0 /  num_elements_written
-                per_re_write = h5d_df_c['H5D_DATASPACE_NPOINTS'][ind] * 1.0 /  num_elements_read
+                per_re_read = num_elements_written * 1.0 /  (num_elements_written + num_elements_read)
+                per_re_write = num_elements_read * 1.0 /  (num_elements_written + num_elements_read)
                 rdcc_w0 = per_re_read if per_re_read > per_re_write else per_re_write
             dataset.access.chunk_cache = { 'use': True,
                                                         'rdcc_nslots':h5d_df_c['H5D_ACCESS1_COUNT'][ind],
@@ -348,7 +351,7 @@ class IntentGenerator:
             if h5d_df_c['rank'][ind] == -1:
                 procs_accessing_ds = self.app[app_name]['num_processes']
 
-            dataset.transfer.mpiio = {
+            dataset.transfer.dmpiio = {
                 'use': True,
                 'xfer_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
                 'coll_opt_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
@@ -388,7 +391,7 @@ class IntentGenerator:
                 'count': count,
                 'block': chunks
             }
-            self.app[app_name]['configuration'].datasets[dataset_fqn] = dataset
+            self.app[app_name]['configuration'].datasets[dataset.dataset_name] = dataset
         self.app[app_name]['file_agg'] = file_agg
         return self.app[app_name]['configuration'], self.app[app_name]['file_agg']
     def read_file(self, app_name):
@@ -410,7 +413,7 @@ class IntentGenerator:
                     'increment': file_agg[file_id]['file_size'],
                     'backing_store': not file_agg[file_id]['read-only']
                 }
-            file_item.access.mpiio = {
+            file_item.access.fmpiio = {
                     'use': True,
                     'comm': 'MPI_COMM_WORLD' if h5f_df_c['rank'][ind] == -1 else 'MPI_COMM_SELF'
                 }
