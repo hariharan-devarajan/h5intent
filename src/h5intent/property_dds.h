@@ -47,7 +47,7 @@ struct DatasetAccessProperties {
   } szip;
 };
 struct DatasetTransferProperties {
-  union dmpiio {
+  struct dmpiio {
     bool use;
     H5FD_mpio_xfer_t xfer_mode;
     H5FD_mpio_collective_opt_t coll_opt_mode;
@@ -60,19 +60,19 @@ struct DatasetTransferProperties {
     size_t size;
     char expression[256];
   } buffer;
-  union edc_check {
+  struct edc_check {
     bool use;
     bool check;
   } edc_check;
-  union hyper_vector {
+  struct hyper_vector {
     bool use;
+    unsigned ndims;
     hsize_t* size;
-    size_t ndims;
   } hyper_vector;
-  union mem_manager {
+  struct mem_manager {
     bool use;
   } mem_manager;
-  union dataset_io_hyperslab_selection {
+  struct dataset_io_hyperslab_selection {
     bool use;
     unsigned rank;
     H5S_seloper_t op;
@@ -84,46 +84,46 @@ struct DatasetTransferProperties {
 };
 
 struct FileAccessProperties {
-  union core {
+  struct core {
     bool use;
     size_t increment;
     hbool_t backing_store;
   } core;
-  union direct {
+  struct direct {
     bool use;
     size_t alignment;
     size_t block_size;
     size_t cbuf_size;
   } direct;
-  union family {
+  struct family {
     bool use;
     hsize_t memb_size;
     hid_t memb_fapl_id;
   } family;
-  union log {
+  struct log {
     bool use;
     char logfile[256];
     unsigned long long flags;
     size_t buf_size;
   } log;
-  union fmpiio {
+  struct fmpiio {
     bool use;
     char comm[256];
   } fmpiio;
-  union split {
+  struct split {
     bool use;
   } split;
-  union stdio {
+  struct stdio {
     bool use;
   } stdio;
-  union cache {
+  struct cache {
     bool use;
     int mdc_nelmts;
     size_t rdcc_nslots;
     size_t rdcc_nbytes;
     double rdcc_w0;
   } cache;
-  union write_tracking {
+  struct write_tracking {
     bool use;
     size_t page_size;
   } write_tracking;
@@ -132,11 +132,11 @@ struct FileAccessProperties {
     bool evict;
     char degree[256];
   } close;
-  union file_image {
+  struct file_image {
     bool use;
     size_t buf_len;
   } file_image;
-  union optimizations {
+  struct optimizations {
     bool use;
     bool file_locking;
     unsigned gc_ref;
@@ -144,14 +144,14 @@ struct FileAccessProperties {
     hsize_t small_data_block_size;
     bool enable_object_flush_cb;
   } optimizations;
-  union metadata {
+  struct metadata {
     bool use;
     H5AC_cache_config_t config_ptr;
     bool enable_logging;  // H5Pset_mdc_log_options
     hsize_t meta_block_size;
     bool enable_coll_metadata_write;  // H5Pset_coll_metadata_write
   } metadata;
-  union page_buffer {
+  struct page_buffer {
     bool use;
     size_t buf_size;
     unsigned min_meta_per;
@@ -160,18 +160,18 @@ struct FileAccessProperties {
 };
 
 struct FileCreationProperties {
-  union file_space {
+  struct file_space {
     bool use;
     hsize_t file_space_page_size;
     H5F_fspace_strategy_t strategy;
     hbool_t persist;
     hsize_t threshold;
   } file_space;
-  union istore {
+  struct istore {
     bool use;
     unsigned ik;
   } istore;
-  union sizes {
+  struct sizes {
     bool use;
     size_t sizeof_addr;
     size_t sizeof_size;
@@ -179,7 +179,7 @@ struct FileCreationProperties {
 };
 
 struct MapAccessProperties {
-  union map_iterate {
+  struct map_iterate {
     bool use;
     size_t key_prefetch_size;
     size_t key_alloc_size;
@@ -187,7 +187,7 @@ struct MapAccessProperties {
 };
 
 struct ObjectCreationProperties {
-  union track_times {
+  struct track_times {
     bool use;
   } track_times;
 };
@@ -263,11 +263,12 @@ inline void to_json(json& j, hsize_t* array, const unsigned len) {
     j.push_back(array[i]);
   }
 }
-inline void from_json(const json& j, hsize_t*& array, int len) {
+inline void from_json(const json& j, hsize_t*& array, int expected_length) {
   auto vec = j.get<std::vector<hsize_t>>();
-  len = vec.size();
-  array = new hsize_t[len];
-  for (int i = 0; i < len; ++i) {
+  int actual_length = vec.size();
+  assert(actual_length == expected_length);
+  array = new hsize_t[actual_length];
+  for (int i = 0; i < actual_length; ++i) {
     array[i] = vec[i];
   }
 }
@@ -385,6 +386,7 @@ inline void to_json(json& j, const DatasetTransferProperties& p) {
   j["dataset_io_hyperslab_selection"] = json();
   TO_JSON(dataset_io_hyperslab_selection, use);
   TO_JSON(dataset_io_hyperslab_selection, rank);
+  TO_JSON(dataset_io_hyperslab_selection, op);
   TO_JSON_ARRAY(dataset_io_hyperslab_selection, start, rank);
   TO_JSON_ARRAY(dataset_io_hyperslab_selection, stride, rank);
   TO_JSON_ARRAY(dataset_io_hyperslab_selection, count, rank);
@@ -419,6 +421,7 @@ inline void from_json(const json& j, DatasetTransferProperties& p) {
   /*dataset_io_hyperslab_selection*/
   FROM_JSON(dataset_io_hyperslab_selection, use);
   FROM_JSON(dataset_io_hyperslab_selection, rank);
+  FROM_JSON(dataset_io_hyperslab_selection, op);
   FROM_JSON_ARRAY(dataset_io_hyperslab_selection, start, rank);
   FROM_JSON_ARRAY(dataset_io_hyperslab_selection, stride, rank);
   FROM_JSON_ARRAY(dataset_io_hyperslab_selection, count, rank);

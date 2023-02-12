@@ -47,12 +47,30 @@ foreach (example ${examples})
 endforeach ()
 
 add_subdirectory(h5bench)
-add_test(NAME h5bench_sync-write-1d-contig-contig COMMAND
-        #mpirun -n 4
-        ${CMAKE_BINARY_DIR}/bin/h5bench_write
-        /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig/9f8c17e6/h5bench.cfg
-        /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig/test.h5)
+function(h5bench_test test_name exec)
+    add_test(NAME h5bench_${test_name} COMMAND
+            mpirun -n 4
+            ${CMAKE_BINARY_DIR}/bin/${exec}
+            /p/gpfs1/iopp/temp/h5bench/${test_name}/9f8c17e6/h5bench.cfg
+            /p/gpfs1/iopp/temp/h5bench/${test_name}/test.h5)
 
-set_property(TEST h5bench_sync-write-1d-contig-contig APPEND PROPERTY ENVIRONMENT "LD_LIBRARY_PATH=$ENV{LD_LIBRARY_PATH}:${CMAKE_BINARY_DIR}/lib")
-set_property(TEST h5bench_sync-write-1d-contig-contig APPEND PROPERTY ENVIRONMENT "HDF5_PLUGIN_PATH=${CMAKE_BINARY_DIR}/lib")
-set_property(TEST h5bench_sync-write-1d-contig-contig APPEND PROPERTY ENVIRONMENT "HDF5_VOL_CONNECTOR=intent under_vol=0:under_info={${CMAKE_SOURCE_DIR}/h5bench/property-json/sync_1_4_libdarshan/sync-write-1d-contig-contig/h5bench_write.json}")
+    add_test(NAME h5bench_${test_name}_h5intent COMMAND
+            mpirun -n 4
+            ${CMAKE_BINARY_DIR}/bin/${exec}
+            /p/gpfs1/iopp/temp/h5bench/${test_name}/9f8c17e6/h5bench.cfg
+            /p/gpfs1/iopp/temp/h5bench/${test_name}/test.h5)
+    set_property(TEST h5bench_${test_name}_h5intent APPEND PROPERTY ENVIRONMENT "LD_LIBRARY_PATH=$ENV{LD_LIBRARY_PATH}:${CMAKE_BINARY_DIR}/lib")
+    set_property(TEST h5bench_${test_name}_h5intent APPEND PROPERTY ENVIRONMENT "HDF5_PLUGIN_PATH=${CMAKE_BINARY_DIR}/lib")
+    set_property(TEST h5bench_${test_name}_h5intent APPEND PROPERTY ENVIRONMENT "HDF5_VOL_CONNECTOR=intent under_vol=0:under_info={${CMAKE_SOURCE_DIR}/h5bench/property-json/sync_1_4_libdarshan/${test_name}/${exec}.json}")
+endfunction()
+h5bench_test(sync-write-1d-contig-contig h5bench_write)
+
+#add_test(NAME h5bench_sync-write-1d-contig-contig COMMAND
+#        #mpirun -n 4
+#        ${CMAKE_BINARY_DIR}/bin/h5bench_write
+#        /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig/9f8c17e6/h5bench.cfg
+#        /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig/test.h5)
+#
+#set_property(TEST h5bench_sync-write-1d-contig-contig APPEND PROPERTY ENVIRONMENT "LD_LIBRARY_PATH=$ENV{LD_LIBRARY_PATH}:${CMAKE_BINARY_DIR}/lib")
+#set_property(TEST h5bench_sync-write-1d-contig-contig APPEND PROPERTY ENVIRONMENT "HDF5_PLUGIN_PATH=${CMAKE_BINARY_DIR}/lib")
+#set_property(TEST h5bench_sync-write-1d-contig-contig APPEND PROPERTY ENVIRONMENT "HDF5_VOL_CONNECTOR=intent under_vol=0:under_info={${CMAKE_SOURCE_DIR}/h5bench/property-json/sync_1_4_libdarshan/sync-write-1d-contig-contig/h5bench_write.json}")

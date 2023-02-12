@@ -293,7 +293,7 @@ class IntentGenerator:
             chunks = [0]*ndims
             stride = [0]*ndims
             start = [0]*ndims
-            count = [h5d_df_c['H5D_ACCESS1_COUNT'][ind]]*ndims
+            count = [1]*ndims
             ts = 1
             for dim_ind in range(0,ndims):
                 end_dim = 5 - dim_ind
@@ -385,7 +385,7 @@ class IntentGenerator:
             dataset.transfer.dataset_io_hyperslab_selection = {
                 'use': True,
                 'rank': ndims,
-                'op': ops,
+                'op': 1, # H5S_SELECT_OR
                 'start': start,
                 'stride': stride,
                 'count': count,

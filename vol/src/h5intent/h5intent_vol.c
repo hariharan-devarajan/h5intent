@@ -41,6 +41,7 @@
 
 /* This connector's header */
 #include <h5intent/h5intent_vol.h>
+#include <unistd.h>
 
 #include "h5intent/property_dds.h"
 
@@ -819,13 +820,13 @@ static herr_t H5VL_intent_str_to_info(const char *str, void **_info) {
         (char *)malloc((size_t)(under_vol_info_end - under_vol_info_start));
     memcpy(under_vol_info_str, under_vol_info_start + 1,
            (size_t)((under_vol_info_end - under_vol_info_start) - 1));
-    *(under_vol_info_str + (under_vol_info_end - under_vol_info_start)) = '\0';
+    *(under_vol_info_str + (under_vol_info_end - under_vol_info_start - 1)) = '\0';
 
     H5VLconnector_str_to_info(under_vol_info_str, under_vol_id,
                               &under_vol_info);
-
+    //sleep(30);
     load_configuration(under_vol_info_str);
-    cpp_logger_clog_level(CPP_LOGGER_INFO, H5_INTENT_LOG_NAME);
+    cpp_logger_clog_level(CPP_LOGGER_ERROR, H5_INTENT_LOG_NAME);
     free(under_vol_info_str);
   } /* end else */
 
@@ -1426,25 +1427,35 @@ static void *H5VL_intent_dataset_create(void *obj,
     }
     if (datasetProperties.transfer.hyper_vector.use) {
       /**
-       * H5Pget_hyper_vector_size()
-       * herr_t H5Pget_hyper_vector_size(hid_t 	fapl_id, size_t * size)
-       * Retrieves number of I/O vectors to be read/written in hyperslab I/O.
+       * H5Pset_hyper_vector_size()
+       * herr_t H5Pset_hyper_vector_size(hid_t 	fapl_id, size_t size)
+       * Sets number of I/O vectors to be read/written in hyperslab I/O.
        * Parameters
        *    [in]	fapl_id	Dataset transfer property list identifier
-       *    [out]	size	Number of I/O vectors to accumulate in memory
+       *    [in]	size	Number of I/O vectors to accumulate in memory
        *    for I/O operations
        * Returns
        *    Returns a non-negative value if successful; otherwise
        *    returns a negative value.
        *
-       *    H5Pget_hyper_vector_size() retrieves the number of I/O vectors to be
+       *    H5Pset_hyper_vector_size() sets the number of I/O vectors to be
        *    accumulated in memory before being issued to the lower levels of the
        *    HDF5 library for reading or writing the actual data.
-       *    The number of I/O vectors set in the dataset transfer property list
-       *    fapl_id is returned in size. Unless the default value is in use, size
-       *    was previously set with a call to H5Pset_hyper_vector_size().
-       */
-      herr_t status = H5Pget_hyper_vector_size(dcpl_id, datasetProperties.transfer.hyper_vector.size);
+       *
+       *    The I/O vectors are hyperslab offset and length pairs and are
+       *    generated during hyperslab I/O. The number of I/O vectors is
+       *    passed in size to be set in the dataset transfer property list
+       *    plist_id. size must be greater than 1 (one).
+       *
+       *    H5Pset_hyper_vector_size() is an I/O optimization function;
+       *    increasing vector_size should provide better performance, but
+       *    the library will use more memory during hyperslab I/O.
+       *    The default value of size is 1024.]
+       **/
+      hsize_t total_size = 1;
+      for(int index = 0; index<datasetProperties.transfer.hyper_vector.ndims;++index)
+        total_size *= datasetProperties.transfer.hyper_vector.size[index];
+      herr_t status = H5Pset_hyper_vector_size(dxpl_id, total_size);
       if (status != 0) {
         H5INTENT_LOGERROR("DATASET setting hyper_vector_size for dataset %s failed", name_fqn);
       } else {
@@ -1452,6 +1463,32 @@ static void *H5VL_intent_dataset_create(void *obj,
       }
     }
     if (datasetProperties.transfer.dataset_io_hyperslab_selection.use) {
+      /**
+       * H5Pset_dataset_io_hyperslab_selection()
+       * Sets a hyperslab file selection for a dataset I/O operation.
+       * Parameters
+       *    [in]	plist_id	Property list identifier
+       *    [in]	rank	Number of dimensions of selection
+       *    [in]	op	Operation to perform on current selection
+       *    [in]	start	Offset of start of hyperslab
+       *    [in]	stride	Hyperslab stride
+       *    [in]	count	Number of blocks included in hyperslab
+       *    [in]	block	Size of block in hyperslab
+       *    Returns     Returns a non-negative value if successful;
+       *                otherwise returns a negative value.
+       *
+       * H5Pset_dataset_io_hyperslab_selection() is designed to be used in
+       * conjunction with using H5S_PLIST for the file dataspace ID when
+       * making a call to H5Dread() or H5Dwrite(). When used with H5S_PLIST,
+       * the selection created by one or more calls to this routine is used
+       * for determining which dataset elements to access. rank is the
+       * dimensionality of the selection and determines the size of the start,
+       * stride, count, and block arrays. rank must be between 1 and
+       * H5S_MAX_RANK, inclusive. The op, start, stride, count, and block
+       * parameters behave identically to their behavior for
+       * H5Sselect_hyperslab(), please see the documentation for that
+       * routine for details about their use.
+       */
       herr_t status = H5Pset_dataset_io_hyperslab_selection(dxpl_id,
                                             datasetProperties.transfer.dataset_io_hyperslab_selection.rank,
                                             datasetProperties.transfer.dataset_io_hyperslab_selection.op,
@@ -1459,7 +1496,7 @@ static void *H5VL_intent_dataset_create(void *obj,
                                             datasetProperties.transfer.dataset_io_hyperslab_selection.stride,
                                             datasetProperties.transfer.dataset_io_hyperslab_selection.count,
                                             datasetProperties.transfer.dataset_io_hyperslab_selection.block);
-      if (status != 0) {
+      if (status > 0) {
         H5INTENT_LOGERROR("DATASET setting dataset_io_hyperslab_selection for dataset %s failed", name_fqn);
       } else {
         H5INTENT_LOGINFO("DATASET setting dataset_io_hyperslab_selection for dataset %s successful", name_fqn);
