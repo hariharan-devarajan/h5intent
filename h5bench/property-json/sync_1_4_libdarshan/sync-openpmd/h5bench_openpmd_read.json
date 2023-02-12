@@ -11,7 +11,7 @@
         "direct": null,
         "family": null,
         "log": null,
-        "mpiio": {
+        "fmpiio": {
           "use": true,
           "comm": "MPI_COMM_WORLD"
         },
@@ -25,7 +25,7 @@
           "use": false,
           "rdcc_nslots": 4,
           "rdcc_nbytes": 369098752,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "write_tracking": null,
         "close": {
@@ -64,7 +64,7 @@
     }
   },
   "datasets": {
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/fields/Bz/": {
+    "/data/1/fields/Bz/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/fields/Bz/",
       "access": {
@@ -81,7 +81,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -102,7 +102,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -153,7 +153,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/fieldsrho/": {
+    "/data/1/fieldsrho/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/fieldsrho/",
       "access": {
@@ -170,7 +170,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -191,7 +191,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -242,7 +242,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/fields/Ez/": {
+    "/data/1/fields/Ez/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/fields/Ez/",
       "access": {
@@ -259,7 +259,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -280,7 +280,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -331,7 +331,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/particles/ionid/": {
+    "/data/1/particles/ionid/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/particles/ionid/",
       "access": {
@@ -346,7 +346,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -365,7 +365,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -406,7 +406,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/fields/Ey/": {
+    "/data/1/fields/Ey/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/fields/Ey/",
       "access": {
@@ -423,7 +423,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -444,7 +444,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -495,7 +495,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/fields/Ex/": {
+    "/data/1/fields/Ex/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/fields/Ex/",
       "access": {
@@ -512,7 +512,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -533,7 +533,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -584,7 +584,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5://data/1/fields/rho/": {
+    "//data/1/fields/rho/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "//data/1/fields/rho/",
       "access": {
@@ -601,7 +601,7 @@
           "use": true,
           "rdcc_nslots": 4,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -622,7 +622,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -673,7 +673,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/particles/ioncharge/": {
+    "/data/1/particles/ioncharge/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/particles/ioncharge/",
       "access": {
@@ -688,7 +688,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -707,7 +707,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -748,7 +748,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/fields/By/": {
+    "/data/1/fields/By/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/fields/By/",
       "access": {
@@ -765,7 +765,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -786,7 +786,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -837,7 +837,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/particles/ion/positionx/": {
+    "/data/1/particles/ion/positionx/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/particles/ion/positionx/",
       "access": {
@@ -852,7 +852,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -871,7 +871,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,
@@ -912,7 +912,7 @@
         }
       }
     },
-    "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5:/data/1/fields/Bx/": {
+    "/data/1/fields/Bx/": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db_0000001.h5",
       "dataset_name": "/data/1/fields/Bx/",
       "access": {
@@ -929,7 +929,7 @@
           "use": true,
           "rdcc_nslots": 0,
           "rdcc_nbytes": 33554432,
-          "rdcc_w0": Infinity
+          "rdcc_w0": 1
         },
         "virtual_view": null,
         "filter_avail": null,
@@ -950,7 +950,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 0,
           "coll_opt_mode": 0,

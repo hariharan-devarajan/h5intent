@@ -11,7 +11,7 @@
         "direct": null,
         "family": null,
         "log": null,
-        "mpiio": {
+        "fmpiio": {
           "use": true,
           "comm": "MPI_COMM_WORLD"
         },
@@ -23,8 +23,8 @@
         },
         "cache": {
           "use": false,
-          "rdcc_nslots": 4,
-          "rdcc_nbytes": 25423008,
+          "rdcc_nslots": 2,
+          "rdcc_nbytes": 8343456,
           "rdcc_w0": 1
         },
         "write_tracking": null,
@@ -73,7 +73,7 @@
         "direct": null,
         "family": null,
         "log": null,
-        "mpiio": {
+        "fmpiio": {
           "use": true,
           "comm": "MPI_COMM_WORLD"
         },
@@ -85,8 +85,8 @@
         },
         "cache": {
           "use": false,
-          "rdcc_nslots": 4,
-          "rdcc_nbytes": 25423008,
+          "rdcc_nslots": 2,
+          "rdcc_nbytes": 8343456,
           "rdcc_w0": 1
         },
         "write_tracking": null,
@@ -126,232 +126,7 @@
     }
   },
   "datasets": {
-    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/7b03ad1c/test_h0.h5.0000:/data_blob": {
-      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/7b03ad1c/test_h0.h5.0000",
-      "dataset_name": "/data_blob",
-      "access": {
-        "append_flush": {
-          "use": true,
-          "ndims": 1,
-          "boundary": [
-            4340012
-          ]
-        },
-        "chunk_cache": {
-          "use": true,
-          "rdcc_nslots": 1,
-          "rdcc_nbytes": 17063760,
-          "rdcc_w0": 1
-        },
-        "virtual_view": null,
-        "filter_avail": null,
-        "gzip": null,
-        "layout": {
-          "use": true,
-          "layout": 2
-        },
-        "chunk": {
-          "use": true,
-          "ndims": 1,
-          "dim": [
-            4340012
-          ]
-        },
-        "szip": null
-      },
-      "transfer": {
-        "mpiio": {
-          "use": true,
-          "xfer_mode": 1,
-          "coll_opt_mode": 1,
-          "num_chunk_per_proc": 0.25,
-          "percent_num_proc_per_chunk": 100.0
-        },
-        "buffer": null,
-        "edc_check": {
-          "use": true,
-          "check": false
-        },
-        "hyper_vector": {
-          "use": true,
-          "size": [
-            4340012
-          ],
-          "ndims": 1
-        },
-        "mem_manager": {
-          "use": false
-        },
-        "dataset_io_hyperslab_selection": {
-          "use": true,
-          "rank": 1,
-          "op": 0,
-          "start": [
-            0
-          ],
-          "stride": [
-            1
-          ],
-          "count": [
-            1
-          ],
-          "block": [
-            4340012
-          ]
-        }
-      }
-    },
-    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/7b03ad1c/test_h1.h5.0000:/header_blob": {
-      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/7b03ad1c/test_h1.h5.0000",
-      "dataset_name": "/header_blob",
-      "access": {
-        "append_flush": {
-          "use": true,
-          "ndims": 1,
-          "boundary": [
-            0
-          ]
-        },
-        "chunk_cache": {
-          "use": true,
-          "rdcc_nslots": 1,
-          "rdcc_nbytes": 15792,
-          "rdcc_w0": 1
-        },
-        "virtual_view": null,
-        "filter_avail": null,
-        "gzip": null,
-        "layout": {
-          "use": true,
-          "layout": 1
-        },
-        "chunk": {
-          "use": true,
-          "ndims": 1,
-          "dim": [
-            0
-          ]
-        },
-        "szip": null
-      },
-      "transfer": {
-        "mpiio": {
-          "use": true,
-          "xfer_mode": 0,
-          "coll_opt_mode": 0,
-          "num_chunk_per_proc": 0.25,
-          "percent_num_proc_per_chunk": 100.0
-        },
-        "buffer": null,
-        "edc_check": {
-          "use": true,
-          "check": false
-        },
-        "hyper_vector": {
-          "use": true,
-          "size": [
-            0
-          ],
-          "ndims": 1
-        },
-        "mem_manager": {
-          "use": false
-        },
-        "dataset_io_hyperslab_selection": {
-          "use": true,
-          "rank": 1,
-          "op": 0,
-          "start": [
-            0
-          ],
-          "stride": [
-            0
-          ],
-          "count": [
-            1
-          ],
-          "block": [
-            0
-          ]
-        }
-      }
-    },
-    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/7b03ad1c/test_h0.h5.0000:/header_blob": {
-      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/7b03ad1c/test_h0.h5.0000",
-      "dataset_name": "/header_blob",
-      "access": {
-        "append_flush": {
-          "use": true,
-          "ndims": 1,
-          "boundary": [
-            0
-          ]
-        },
-        "chunk_cache": {
-          "use": true,
-          "rdcc_nslots": 1,
-          "rdcc_nbytes": 134552,
-          "rdcc_w0": 1
-        },
-        "virtual_view": null,
-        "filter_avail": null,
-        "gzip": null,
-        "layout": {
-          "use": true,
-          "layout": 2
-        },
-        "chunk": {
-          "use": true,
-          "ndims": 1,
-          "dim": [
-            0
-          ]
-        },
-        "szip": null
-      },
-      "transfer": {
-        "mpiio": {
-          "use": true,
-          "xfer_mode": 0,
-          "coll_opt_mode": 0,
-          "num_chunk_per_proc": 0.25,
-          "percent_num_proc_per_chunk": 100.0
-        },
-        "buffer": null,
-        "edc_check": {
-          "use": true,
-          "check": false
-        },
-        "hyper_vector": {
-          "use": true,
-          "size": [
-            0
-          ],
-          "ndims": 1
-        },
-        "mem_manager": {
-          "use": false
-        },
-        "dataset_io_hyperslab_selection": {
-          "use": true,
-          "rank": 1,
-          "op": 0,
-          "start": [
-            0
-          ],
-          "stride": [
-            0
-          ],
-          "count": [
-            1
-          ],
-          "block": [
-            0
-          ]
-        }
-      }
-    },
-    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/7b03ad1c/test_h1.h5.0000:/data_blob": {
+    "/data_blob": {
       "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/7b03ad1c/test_h1.h5.0000",
       "dataset_name": "/data_blob",
       "access": {
@@ -385,7 +160,7 @@
         "szip": null
       },
       "transfer": {
-        "mpiio": {
+        "dmpiio": {
           "use": true,
           "xfer_mode": 1,
           "coll_opt_mode": 1,
@@ -422,6 +197,81 @@
           ],
           "block": [
             2092444
+          ]
+        }
+      }
+    },
+    "/header_blob": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/7b03ad1c/test_h0.h5.0000",
+      "dataset_name": "/header_blob",
+      "access": {
+        "append_flush": {
+          "use": true,
+          "ndims": 1,
+          "boundary": [
+            0
+          ]
+        },
+        "chunk_cache": {
+          "use": true,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 134552,
+          "rdcc_w0": 1
+        },
+        "virtual_view": null,
+        "filter_avail": null,
+        "gzip": null,
+        "layout": {
+          "use": true,
+          "layout": 2
+        },
+        "chunk": {
+          "use": true,
+          "ndims": 1,
+          "dim": [
+            0
+          ]
+        },
+        "szip": null
+      },
+      "transfer": {
+        "dmpiio": {
+          "use": true,
+          "xfer_mode": 0,
+          "coll_opt_mode": 0,
+          "num_chunk_per_proc": 0.25,
+          "percent_num_proc_per_chunk": 100.0
+        },
+        "buffer": null,
+        "edc_check": {
+          "use": true,
+          "check": false
+        },
+        "hyper_vector": {
+          "use": true,
+          "size": [
+            0
+          ],
+          "ndims": 1
+        },
+        "mem_manager": {
+          "use": false
+        },
+        "dataset_io_hyperslab_selection": {
+          "use": true,
+          "rank": 1,
+          "op": 0,
+          "start": [
+            0
+          ],
+          "stride": [
+            0
+          ],
+          "count": [
+            1
+          ],
+          "block": [
+            0
           ]
         }
       }

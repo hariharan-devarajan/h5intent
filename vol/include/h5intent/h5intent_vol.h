@@ -20,6 +20,9 @@
 /* Public headers needed by this file */
 #include <H5VLpublic.h> /* Virtual Object Layer                 */
 
+/* Header needed by the vol */
+#include <h5intent/configuration_loader.h>
+
 /* Identifier for the pass-through VOL connector */
 #define H5VL_INTENT (H5VL_intent_register())
 

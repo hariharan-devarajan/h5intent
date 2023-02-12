@@ -35,3 +35,9 @@
 /dependency/.spack-env/
 /dependency/spack.lock
 /.idea/
+/dependency/venv/
+/h5bench/cfg/sync_1_4_libdarshan/sync-write-1d-contig-contig/output.csv
+/h5bench/cfg/sync_1_4_libdarshan/sync-write-1d-contig-contig/test.h5
+/analysis/.idea/
+/h5bench/.idea/inspectionProfiles/
+/h5bench/.idea/

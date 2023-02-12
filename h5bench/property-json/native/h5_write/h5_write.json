@@ -1,0 +1,150 @@
+{
+  "files": {
+    "/home/haridev/temp/h5intent/test.h5": {
+      "filename": "/home/haridev/temp/h5intent/test.h5",
+      "access": {
+        "core": {
+          "use": true,
+          "increment": 1048576,
+          "backing_store": true
+        },
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_WORLD"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 2,
+          "rdcc_nbytes": 1048576,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": true,
+          "buf_len": 1048576
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 1048576,
+          "min_meta_per": 100,
+          "min_raw_per": 100
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 0.0,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 0.0
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 0,
+          "sizeof_size": 1
+        }
+      }
+    }
+  },
+  "datasets": {
+    "/dset_0_0": {
+      "filename": "/home/haridev/temp/h5intent/test.h5",
+      "dataset_name": "/dset_0_0",
+      "access": {
+        "append_flush": {
+          "use": true,
+          "ndims": 2,
+          "boundary": [
+            0,
+            0
+          ]
+        },
+        "chunk_cache": {
+          "use": true,
+          "rdcc_nslots": 2,
+          "rdcc_nbytes": 1048576,
+          "rdcc_w0": 1
+        },
+        "virtual_view": null,
+        "filter_avail": null,
+        "gzip": null,
+        "layout": {
+          "use": true,
+          "layout": 2
+        },
+        "chunk": {
+          "use": true,
+          "ndims": 2,
+          "dim": [
+            0,
+            0
+          ]
+        },
+        "szip": null
+      },
+      "transfer": {
+        "dmpiio": {
+          "use": true,
+          "xfer_mode": 0,
+          "coll_opt_mode": 0,
+          "num_chunk_per_proc": 2.0,
+          "percent_num_proc_per_chunk": 100.0
+        },
+        "buffer": null,
+        "edc_check": {
+          "use": true,
+          "check": false
+        },
+        "hyper_vector": {
+          "use": true,
+          "size": [
+            0,
+            0
+          ],
+          "ndims": 2
+        },
+        "mem_manager": {
+          "use": false
+        },
+        "dataset_io_hyperslab_selection": {
+          "use": true,
+          "rank": 2,
+          "op": 2,
+          "start": [
+            0,
+            0
+          ],
+          "stride": [
+            0,
+            0
+          ],
+          "count": [
+            2,
+            2
+          ],
+          "block": [
+            0,
+            0
+          ]
+        }
+      }
+    }
+  }
+}
