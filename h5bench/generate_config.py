@@ -26,6 +26,9 @@ def parse_args():
     parser.add_argument("-ppn", "--processes-per-node", default=1, type=int,
                         help="Number of processes per node in job.")
     parser.add_argument("-n", "--nodes", default=1, type=int, help="Number of nodes in job.")
+    parser.add_argument("-v", "--vol", default="", type=str, help="Use which vol.")
+    parser.add_argument("-i", "--vol-install-dir", default="", type=str, help="Vol's install dir.")
+    parser.add_argument("-j", "--intent-json", default="", type=str, help="H5Intent Vol's input json.")
     parser.add_argument("-s", "--sync", default=True, type=str2bool, help="sync mode. y/n")
     parser.add_argument("-d", "--data-dir", default="./data", type=str, help="Directory to produce logs and data")
     parser.add_argument("-sd", "--sample-dir", default="./samples", type=str, help="Original samples from h5bench")
@@ -46,14 +49,32 @@ def main():
         "command": "jsrun",
         "configuration": f"-r 1 -c {args.processes_per_node} -a {args.processes_per_node} {env}"
     }
+    args.vol = "none"
+    print(args.vol)
     vol = {}
+    if args.vol == "h5intent":
+        assert(args.vol_install_dir != "")
+        assert(args.intent_json != "")
+        vol = {
+            "library": f"{os.environ['LD_LIBRARY_PATH']}:{args.vol_install_dir}/lib:",
+            "path": f"{args.vol_install_dir}/lib",
+            "connector": f"intent under_vol=0;under_info={{{args.intent_json}}}"
+        }
+    elif args.vol == "async":
+        assert(args.vol_install_dir != "")
+        vol = {
+            "library": f"{os.environ['LD_LIBRARY_PATH']}:{args.vol_install_dir}:",
+            "path": f"{args.vol_install_dir}",
+            "connector": "async under_vol=0;under_info={}"
+        }
+
     filesystem = {}
     if args.sync:
         sync_str = "sync"
     else:
         sync_str = "async"
-    dirname = f"{sync_str}_{args.nodes}_{args.processes_per_node}_{profile_type}"
-    new_sample_dir = os.path.join(os.getcwd(), dirname)
+    dirname = f"{sync_str}_{profile_type}_{args.vol}_{args.nodes}_{args.processes_per_node}"
+    new_sample_dir = os.path.join(args.data_dir, dirname)
     clean_dir(new_sample_dir)
     os.makedirs(new_sample_dir, exist_ok=True)
     for filename in os.listdir(args.sample_dir):
@@ -62,19 +83,17 @@ def main():
         if os.path.isfile(source) and filename.startswith(sync_str):
             with open(source) as file:
                 configuration = json.loads(file.read())
+            executable = configuration["benchmarks"][0]['benchmark']
             configuration['mpi'] = mpi
             configuration['vol'] = vol
+            configuration['vol']['connector'] = f"intent under_vol=0;under_info={{{args.intent_json}/{only_name}/{executable}.json}}"
             configuration['file-system'] = filesystem
             configuration['directory'] = os.path.join(args.data_dir, only_name)
             destination = os.path.join(new_sample_dir, filename)
 
             if "metadata" in source:
-                vals = math.ceil(math.sqrt(args.nodes * args.processes_per_node))
-                if vals * vals != args.nodes * args.processes_per_node:
-                    print("Cannot configure as nodes*ppn is is not matching for configuration")
-                    continue
-                configuration['benchmarks'][0]['configuration']["process-columns"] = vals
-                configuration['benchmarks'][0]['configuration']["process-rows"] = vals
+                configuration['benchmarks'][0]['configuration']["process-columns"] = args.nodes
+                configuration['benchmarks'][0]['configuration']["process-rows"] = args.processes_per_node
 
             with open(destination, 'w') as file:
                 json.dump(configuration, file)
