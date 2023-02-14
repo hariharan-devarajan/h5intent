@@ -1,0 +1,652 @@
+{
+  "files": {
+    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h0.h5.0000": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h0.h5.0000",
+      "access": {
+        "core": {
+          "use": true,
+          "increment": 4397816,
+          "backing_store": true
+        },
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_SELF"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 2108784,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": true,
+          "buf_len": 4397816
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 4397816,
+          "min_meta_per": 100,
+          "min_raw_per": 100
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 53290.8,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 53290.8
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 3,
+          "sizeof_size": 3
+        }
+      }
+    },
+    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0000": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0000",
+      "access": {
+        "core": {
+          "use": true,
+          "increment": 2072400,
+          "backing_store": true
+        },
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_SELF"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 2108784,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": true,
+          "buf_len": 2072400
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 2072400,
+          "min_meta_per": 100,
+          "min_raw_per": 100
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 25707.6,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 25707.6
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 3,
+          "sizeof_size": 3
+        }
+      }
+    },
+    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h0.h5.0001": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h0.h5.0001",
+      "access": {
+        "core": {
+          "use": true,
+          "increment": 4476104,
+          "backing_store": true
+        },
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_SELF"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 2108784,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": true,
+          "buf_len": 4476104
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 4476104,
+          "min_meta_per": 100,
+          "min_raw_per": 100
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 54269.4,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 54269.4
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 3,
+          "sizeof_size": 3
+        }
+      }
+    },
+    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0001": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0001",
+      "access": {
+        "core": {
+          "use": true,
+          "increment": 2109776,
+          "backing_store": true
+        },
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_SELF"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 2108784,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": true,
+          "buf_len": 2109776
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 2109776,
+          "min_meta_per": 100,
+          "min_raw_per": 100
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 26174.8,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 26174.8
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 3,
+          "sizeof_size": 3
+        }
+      }
+    },
+    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h0.h5.0002": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h0.h5.0002",
+      "access": {
+        "core": {
+          "use": true,
+          "increment": 4306964,
+          "backing_store": true
+        },
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_SELF"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 2108784,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": true,
+          "buf_len": 4306964
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 4306964,
+          "min_meta_per": 100,
+          "min_raw_per": 100
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 52155.15,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 52155.15
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 3,
+          "sizeof_size": 3
+        }
+      }
+    },
+    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0002": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0002",
+      "access": {
+        "core": {
+          "use": true,
+          "increment": 2032688,
+          "backing_store": true
+        },
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_SELF"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 2108784,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": true,
+          "buf_len": 2032688
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 2032688,
+          "min_meta_per": 100,
+          "min_raw_per": 100
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 25211.2,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 25211.2
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 3,
+          "sizeof_size": 3
+        }
+      }
+    },
+    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h0.h5.0003": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h0.h5.0003",
+      "access": {
+        "core": {
+          "use": true,
+          "increment": 4464884,
+          "backing_store": true
+        },
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_SELF"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 2108784,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": true,
+          "buf_len": 4464884
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 4464884,
+          "min_meta_per": 100,
+          "min_raw_per": 100
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 54129.15,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 54129.15
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 3,
+          "sizeof_size": 3
+        }
+      }
+    },
+    "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0003": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0003",
+      "access": {
+        "core": {
+          "use": true,
+          "increment": 2108784,
+          "backing_store": true
+        },
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_SELF"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 2108784,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": true,
+          "buf_len": 2108784
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 2108784,
+          "min_meta_per": 100,
+          "min_raw_per": 100
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 26162.4,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 26162.4
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 3,
+          "sizeof_size": 3
+        }
+      }
+    }
+  },
+  "datasets": {
+    "/header_blob": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0003",
+      "dataset_name": "/header_blob",
+      "access": {
+        "append_flush": {
+          "use": true,
+          "ndims": 1,
+          "boundary": [
+            0
+          ]
+        },
+        "chunk_cache": {
+          "use": true,
+          "rdcc_nslots": 0,
+          "rdcc_nbytes": 15792,
+          "rdcc_w0": 1
+        },
+        "virtual_view": null,
+        "filter_avail": null,
+        "gzip": null,
+        "layout": {
+          "use": true,
+          "layout": 1
+        },
+        "chunk": {
+          "use": true,
+          "ndims": 1,
+          "dim": [
+            0
+          ]
+        },
+        "szip": null
+      },
+      "transfer": {
+        "dmpiio": {
+          "use": true,
+          "xfer_mode": 0,
+          "coll_opt_mode": 0,
+          "num_chunk_per_proc": 0.0,
+          "percent_num_proc_per_chunk": 0.625
+        },
+        "buffer": null,
+        "edc_check": {
+          "use": true,
+          "check": false
+        },
+        "hyper_vector": {
+          "use": true,
+          "size": [
+            0
+          ],
+          "ndims": 1
+        },
+        "mem_manager": {
+          "use": false
+        },
+        "dataset_io_hyperslab_selection": {
+          "use": true,
+          "rank": 1,
+          "op": 1,
+          "start": [
+            0
+          ],
+          "stride": [
+            0
+          ],
+          "count": [
+            1
+          ],
+          "block": [
+            0
+          ]
+        }
+      }
+    },
+    "/data_blob": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-e3sm/ff52167c/test_h1.h5.0003",
+      "dataset_name": "/data_blob",
+      "access": {
+        "append_flush": {
+          "use": true,
+          "ndims": 1,
+          "boundary": [
+            60
+          ]
+        },
+        "chunk_cache": {
+          "use": true,
+          "rdcc_nslots": 1,
+          "rdcc_nbytes": 2092992,
+          "rdcc_w0": 1
+        },
+        "virtual_view": null,
+        "filter_avail": null,
+        "gzip": null,
+        "layout": {
+          "use": true,
+          "layout": 2
+        },
+        "chunk": {
+          "use": true,
+          "ndims": 1,
+          "dim": [
+            60
+          ]
+        },
+        "szip": null
+      },
+      "transfer": {
+        "dmpiio": {
+          "use": true,
+          "xfer_mode": 1,
+          "coll_opt_mode": 1,
+          "num_chunk_per_proc": 1.0,
+          "percent_num_proc_per_chunk": 0.625
+        },
+        "buffer": null,
+        "edc_check": {
+          "use": true,
+          "check": false
+        },
+        "hyper_vector": {
+          "use": true,
+          "size": [
+            60
+          ],
+          "ndims": 1
+        },
+        "mem_manager": {
+          "use": false
+        },
+        "dataset_io_hyperslab_selection": {
+          "use": true,
+          "rank": 1,
+          "op": 1,
+          "start": [
+            0
+          ],
+          "stride": [
+            1
+          ],
+          "count": [
+            1
+          ],
+          "block": [
+            60
+          ]
+        }
+      }
+    }
+  }
+}

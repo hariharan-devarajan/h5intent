@@ -1,0 +1,12 @@
+2023-02-14 12:11:26,302 h5bench - INFO - Starting h5bench Suite
+2023-02-14 12:11:26,304 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-overwrite
+2023-02-14 12:11:26,308 h5bench - INFO - Lustre support not detected
+2023-02-14 12:11:26,309 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 12:11:26,309 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 12:11:26,309 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 12:11:26,310 h5bench - INFO - h5bench [overwrite] - Starting
+2023-02-14 12:11:26,310 h5bench - INFO - h5bench [overwrite] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-overwrite/8e517af4/
+2023-02-14 12:11:26,311 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 12:11:26,312 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_overwrite /p/gpfs1/iopp/temp/h5bench/sync-overwrite/8e517af4/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-overwrite/test.h5
+2023-02-14 12:11:40,714 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.12.2) MPI-process 313:
+2023-02-14 12:11:40,714 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/sync-overwrite/8e517af4/stderr for detailed log

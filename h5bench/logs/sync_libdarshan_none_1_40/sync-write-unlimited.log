@@ -1,0 +1,120 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_bdccf3d3cfdb474a0bd420fb768b853e'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-write-unlimited
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-unlimited.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-unlimited.json
+2023-02-13 12:34:44,743 h5bench - INFO - Starting h5bench Suite
+2023-02-13 12:34:44,972 h5bench - INFO - Lustre support not detected
+2023-02-13 12:34:44,973 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-13 12:34:44,974 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-13 12:34:44,974 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-13 12:34:44,974 h5bench - INFO - h5bench [write-unlimited] - Starting
+2023-02-13 12:34:44,974 h5bench - INFO - h5bench [write-unlimited] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/84022106/
+2023-02-13 12:34:44,974 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:34:44,975 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write_unlimited /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/84022106/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5
+2023-02-13 12:35:20,184 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/84022106)
+2023-02-13 12:35:20,185 h5bench - INFO - Runtime: 35.2100680 seconds (elapsed time, includes allocation wait time)
+2023-02-13 12:35:20,185 h5bench - INFO - h5bench [write-unlimited] - Complete
+2023-02-13 12:35:20,185 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4514363: <sync-write-unlimited> in cluster <lassen> Done
+
+Job <sync-write-unlimited> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Mon Feb 13 12:28:21 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Mon Feb 13 12:34:22 2023
+                            <40*lassen116>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Mon Feb 13 12:34:22 2023
+Terminated at Mon Feb 13 12:35:31 2023
+Results reported at Mon Feb 13 12:35:31 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-unlimited.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.26 sec.
+    Max Memory :                                 59 MB
+    Average Memory :                             51.50 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1425 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   68 sec.
+    Turnaround time :                            430 sec.
+
+The output (if any) is above this job summary.
+
+BBATH is set to '/mnt/bb_1bdaebe555aa8d79628812b18cd7178e'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-write-unlimited
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-unlimited.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-unlimited.json
+2023-02-14 10:37:24,536 h5bench - INFO - Starting h5bench Suite
+2023-02-14 10:37:24,541 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited
+2023-02-14 10:37:24,548 h5bench - INFO - Lustre support not detected
+2023-02-14 10:37:24,549 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 10:37:24,549 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 10:37:24,549 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 10:37:24,550 h5bench - INFO - h5bench [write-unlimited] - Starting
+2023-02-14 10:37:24,550 h5bench - INFO - h5bench [write-unlimited] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/d00673b6/
+2023-02-14 10:37:24,551 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:37:24,552 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write_unlimited /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/d00673b6/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/test.h5
+2023-02-14 10:38:00,042 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-unlimited/d00673b6)
+2023-02-14 10:38:00,042 h5bench - INFO - Runtime: 35.4904444 seconds (elapsed time, includes allocation wait time)
+2023-02-14 10:38:00,042 h5bench - INFO - h5bench [write-unlimited] - Complete
+2023-02-14 10:38:00,042 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4516149: <sync-write-unlimited> in cluster <lassen> Done
+
+Job <sync-write-unlimited> was submitted from host <lassen709> by user <haridev> in cluster <lassen> at Tue Feb 14 10:36:54 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Tue Feb 14 10:36:58 2023
+                            <40*lassen345>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Tue Feb 14 10:36:58 2023
+Terminated at Tue Feb 14 10:38:58 2023
+Results reported at Tue Feb 14 10:38:58 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-unlimited.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.25 sec.
+    Max Memory :                                 59 MB
+    Average Memory :                             54.91 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1316 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   120 sec.
+    Turnaround time :                            124 sec.
+
+The output (if any) is above this job summary.
+

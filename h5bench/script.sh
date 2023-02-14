@@ -14,5 +14,5 @@ filename=`basename $conf .json`
 LOG_FILE=${LOGS}/${filename}.log
 echo "bsub -J ${filename} -nnodes $NODES -W $TIME -o ${LOG_FILE} -e ${LOG_FILE} -core_isolation 0 -G asccasc -q pbatch $IOPP_DIR/main.sh $conf $CASE $DARSHAN"
 bsub -J ${filename} -nnodes $NODES -W $TIME -o ${LOG_FILE} -e ${LOG_FILE} -core_isolation 0 -G asccasc -q pbatch $IOPP_DIR/main.sh $conf $CASE $DARSHAN
-
+#echo $conf $CASE
 done

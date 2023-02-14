@@ -1,0 +1,439 @@
+{
+  "files": {
+    "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
+      "access": {
+        "core": null,
+        "direct": null,
+        "family": null,
+        "log": null,
+        "fmpiio": {
+          "use": true,
+          "comm": "MPI_COMM_WORLD"
+        },
+        "split": {
+          "use": false
+        },
+        "stdio": {
+          "use": true
+        },
+        "cache": {
+          "use": false,
+          "rdcc_nslots": 12800,
+          "rdcc_nbytes": 214748364800,
+          "rdcc_w0": 1
+        },
+        "write_tracking": null,
+        "close": {
+          "use": true,
+          "evict": true,
+          "degree": "H5F_CLOSE_STRONG"
+        },
+        "file_image": {
+          "use": false,
+          "buf_len": 1717986918400
+        },
+        "optimizations": null,
+        "metadata": null,
+        "page_buffer": {
+          "use": true,
+          "buf_size": 214748364800,
+          "min_meta_per": 100,
+          "min_raw_per": 800
+        }
+      },
+      "creation": {
+        "file_space": {
+          "use": true,
+          "file_space_page_size": 4194304.0,
+          "strategy": 1,
+          "persist": true,
+          "threshold": 4194304.0
+        },
+        "istore": null,
+        "sizes": {
+          "use": true,
+          "sizeof_addr": 4,
+          "sizeof_size": 4
+        }
+      }
+    }
+  },
+  "datasets": {
+    "/Timestep_4particles": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
+      "dataset_name": "/Timestep_4particles",
+      "access": {
+        "append_flush": {
+          "use": true,
+          "ndims": 1,
+          "boundary": [
+            10737418240
+          ]
+        },
+        "chunk_cache": {
+          "use": true,
+          "rdcc_nslots": 2560,
+          "rdcc_nbytes": 42949672960,
+          "rdcc_w0": 1
+        },
+        "virtual_view": null,
+        "filter_avail": null,
+        "gzip": null,
+        "layout": {
+          "use": true,
+          "layout": 3
+        },
+        "chunk": {
+          "use": true,
+          "ndims": 1,
+          "dim": [
+            4194304
+          ]
+        },
+        "szip": null
+      },
+      "transfer": {
+        "dmpiio": {
+          "use": true,
+          "xfer_mode": 1,
+          "coll_opt_mode": 1,
+          "num_chunk_per_proc": 8.0,
+          "percent_num_proc_per_chunk": 100.0
+        },
+        "buffer": null,
+        "edc_check": {
+          "use": true,
+          "check": false
+        },
+        "hyper_vector": {
+          "use": true,
+          "size": [
+            10737418240
+          ],
+          "ndims": 1
+        },
+        "mem_manager": {
+          "use": false
+        },
+        "dataset_io_hyperslab_selection": {
+          "use": true,
+          "rank": 1,
+          "op": 1,
+          "start": [
+            0
+          ],
+          "stride": [
+            1
+          ],
+          "count": [
+            1
+          ],
+          "block": [
+            4194304
+          ]
+        }
+      }
+    },
+    "/Timestep_3particles": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
+      "dataset_name": "/Timestep_3particles",
+      "access": {
+        "append_flush": {
+          "use": true,
+          "ndims": 1,
+          "boundary": [
+            10737418240
+          ]
+        },
+        "chunk_cache": {
+          "use": true,
+          "rdcc_nslots": 2560,
+          "rdcc_nbytes": 42949672960,
+          "rdcc_w0": 1
+        },
+        "virtual_view": null,
+        "filter_avail": null,
+        "gzip": null,
+        "layout": {
+          "use": true,
+          "layout": 3
+        },
+        "chunk": {
+          "use": true,
+          "ndims": 1,
+          "dim": [
+            4194304
+          ]
+        },
+        "szip": null
+      },
+      "transfer": {
+        "dmpiio": {
+          "use": true,
+          "xfer_mode": 1,
+          "coll_opt_mode": 1,
+          "num_chunk_per_proc": 8.0,
+          "percent_num_proc_per_chunk": 100.0
+        },
+        "buffer": null,
+        "edc_check": {
+          "use": true,
+          "check": false
+        },
+        "hyper_vector": {
+          "use": true,
+          "size": [
+            10737418240
+          ],
+          "ndims": 1
+        },
+        "mem_manager": {
+          "use": false
+        },
+        "dataset_io_hyperslab_selection": {
+          "use": true,
+          "rank": 1,
+          "op": 1,
+          "start": [
+            0
+          ],
+          "stride": [
+            1
+          ],
+          "count": [
+            1
+          ],
+          "block": [
+            4194304
+          ]
+        }
+      }
+    },
+    "/Timestep_0particles": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
+      "dataset_name": "/Timestep_0particles",
+      "access": {
+        "append_flush": {
+          "use": true,
+          "ndims": 1,
+          "boundary": [
+            10737418240
+          ]
+        },
+        "chunk_cache": {
+          "use": true,
+          "rdcc_nslots": 2560,
+          "rdcc_nbytes": 42949672960,
+          "rdcc_w0": 1
+        },
+        "virtual_view": null,
+        "filter_avail": null,
+        "gzip": null,
+        "layout": {
+          "use": true,
+          "layout": 3
+        },
+        "chunk": {
+          "use": true,
+          "ndims": 1,
+          "dim": [
+            4194304
+          ]
+        },
+        "szip": null
+      },
+      "transfer": {
+        "dmpiio": {
+          "use": true,
+          "xfer_mode": 1,
+          "coll_opt_mode": 1,
+          "num_chunk_per_proc": 8.0,
+          "percent_num_proc_per_chunk": 100.0
+        },
+        "buffer": null,
+        "edc_check": {
+          "use": true,
+          "check": false
+        },
+        "hyper_vector": {
+          "use": true,
+          "size": [
+            10737418240
+          ],
+          "ndims": 1
+        },
+        "mem_manager": {
+          "use": false
+        },
+        "dataset_io_hyperslab_selection": {
+          "use": true,
+          "rank": 1,
+          "op": 1,
+          "start": [
+            0
+          ],
+          "stride": [
+            1
+          ],
+          "count": [
+            1
+          ],
+          "block": [
+            4194304
+          ]
+        }
+      }
+    },
+    "/Timestep_2particles": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
+      "dataset_name": "/Timestep_2particles",
+      "access": {
+        "append_flush": {
+          "use": true,
+          "ndims": 1,
+          "boundary": [
+            10737418240
+          ]
+        },
+        "chunk_cache": {
+          "use": true,
+          "rdcc_nslots": 2560,
+          "rdcc_nbytes": 42949672960,
+          "rdcc_w0": 1
+        },
+        "virtual_view": null,
+        "filter_avail": null,
+        "gzip": null,
+        "layout": {
+          "use": true,
+          "layout": 3
+        },
+        "chunk": {
+          "use": true,
+          "ndims": 1,
+          "dim": [
+            4194304
+          ]
+        },
+        "szip": null
+      },
+      "transfer": {
+        "dmpiio": {
+          "use": true,
+          "xfer_mode": 1,
+          "coll_opt_mode": 1,
+          "num_chunk_per_proc": 8.0,
+          "percent_num_proc_per_chunk": 100.0
+        },
+        "buffer": null,
+        "edc_check": {
+          "use": true,
+          "check": false
+        },
+        "hyper_vector": {
+          "use": true,
+          "size": [
+            10737418240
+          ],
+          "ndims": 1
+        },
+        "mem_manager": {
+          "use": false
+        },
+        "dataset_io_hyperslab_selection": {
+          "use": true,
+          "rank": 1,
+          "op": 1,
+          "start": [
+            0
+          ],
+          "stride": [
+            1
+          ],
+          "count": [
+            1
+          ],
+          "block": [
+            4194304
+          ]
+        }
+      }
+    },
+    "/Timestep_1particles": {
+      "filename": "/p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-interleaved/test.h5",
+      "dataset_name": "/Timestep_1particles",
+      "access": {
+        "append_flush": {
+          "use": true,
+          "ndims": 1,
+          "boundary": [
+            10737418240
+          ]
+        },
+        "chunk_cache": {
+          "use": true,
+          "rdcc_nslots": 2560,
+          "rdcc_nbytes": 42949672960,
+          "rdcc_w0": 1
+        },
+        "virtual_view": null,
+        "filter_avail": null,
+        "gzip": null,
+        "layout": {
+          "use": true,
+          "layout": 3
+        },
+        "chunk": {
+          "use": true,
+          "ndims": 1,
+          "dim": [
+            4194304
+          ]
+        },
+        "szip": null
+      },
+      "transfer": {
+        "dmpiio": {
+          "use": true,
+          "xfer_mode": 1,
+          "coll_opt_mode": 1,
+          "num_chunk_per_proc": 8.0,
+          "percent_num_proc_per_chunk": 100.0
+        },
+        "buffer": null,
+        "edc_check": {
+          "use": true,
+          "check": false
+        },
+        "hyper_vector": {
+          "use": true,
+          "size": [
+            10737418240
+          ],
+          "ndims": 1
+        },
+        "mem_manager": {
+          "use": false
+        },
+        "dataset_io_hyperslab_selection": {
+          "use": true,
+          "rank": 1,
+          "op": 1,
+          "start": [
+            0
+          ],
+          "stride": [
+            1
+          ],
+          "count": [
+            1
+          ],
+          "block": [
+            4194304
+          ]
+        }
+      }
+    }
+  }
+}

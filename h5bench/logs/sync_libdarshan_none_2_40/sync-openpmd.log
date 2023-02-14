@@ -1,0 +1,179 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_610b36a0ebd8ce8a7f79a0629f46edc1'
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4514374: <sync-openpmd> in cluster <lassen> Exited
+
+Job <sync-openpmd> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Mon Feb 13 12:38:34 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Mon Feb 13 12:38:36 2023
+                            <40*lassen447>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Mon Feb 13 12:38:36 2023
+Terminated at Mon Feb 13 12:38:45 2023
+Results reported at Mon Feb 13 12:38:45 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_2_40/sync-openpmd.json sync_libdarshan_none_2_40 1
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 255.
+
+Resource usage summary:
+
+    CPU time :                                   0.24 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   8 sec.
+    Turnaround time :                            11 sec.
+
+The output (if any) is above this job summary.
+
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_36f16817e5cab1075b70ea61b160b52d'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_2_40/sync-openpmd
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_2_40/sync-openpmd.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_2_40/sync-openpmd.json
+2023-02-13 12:41:57,756 h5bench - INFO - Starting h5bench Suite
+2023-02-13 12:41:57,759 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-openpmd
+2023-02-13 12:41:57,763 h5bench - INFO - Lustre support not detected
+2023-02-13 12:41:57,764 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-13 12:41:57,764 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-13 12:41:57,764 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-13 12:41:57,764 h5bench - INFO - h5bench [openpmd] - Starting
+2023-02-13 12:41:57,764 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/8ef688b2/
+2023-02-13 12:41:57,794 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:41:57,794 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_openpmd_write /p/gpfs1/iopp/temp/h5bench/sync-openpmd/8ef688b2/openpmd.input
+2023-02-13 12:42:01,870 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-openpmd/8ef688b2)
+2023-02-13 12:42:01,870 h5bench - INFO - Runtime: 4.0762725 seconds (elapsed time, includes allocation wait time)
+2023-02-13 12:42:01,870 h5bench - INFO - h5bench [openpmd] - Complete
+2023-02-13 12:42:01,871 h5bench - INFO - h5bench [openpmd] - Starting
+2023-02-13 12:42:01,871 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/cde10e55/
+2023-02-13 12:42:01,872 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:42:01,873 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_openpmd_read /p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db sy
+2023-02-13 12:42:05,157 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-openpmd/cde10e55)
+2023-02-13 12:42:05,157 h5bench - INFO - Runtime: 3.2841010 seconds (elapsed time, includes allocation wait time)
+2023-02-13 12:42:05,157 h5bench - INFO - h5bench [openpmd] - Complete
+2023-02-13 12:42:05,157 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4514384: <sync-openpmd> in cluster <lassen> Done
+
+Job <sync-openpmd> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Mon Feb 13 12:39:38 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Mon Feb 13 12:41:37 2023
+                            <40*lassen116>
+                            <40*lassen445>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Mon Feb 13 12:41:37 2023
+Terminated at Mon Feb 13 12:42:05 2023
+Results reported at Mon Feb 13 12:42:05 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_2_40/sync-openpmd.json sync_libdarshan_none_2_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.26 sec.
+    Max Memory :                                 63 MB
+    Average Memory :                             63.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   142 MB
+    Max Processes :                              1
+    Max Threads :                                2
+    Run time :                                   28 sec.
+    Turnaround time :                            147 sec.
+
+The output (if any) is above this job summary.
+
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_a1a651f02f05eae93fd76572603e66c2'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_2_40/sync-openpmd
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_2_40/sync-openpmd.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_2_40/sync-openpmd.json
+2023-02-14 10:51:40,855 h5bench - INFO - Starting h5bench Suite
+2023-02-14 10:51:40,872 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-openpmd
+2023-02-14 10:51:40,876 h5bench - INFO - Lustre support not detected
+2023-02-14 10:51:40,878 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 10:51:40,878 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 10:51:40,878 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 10:51:40,878 h5bench - INFO - h5bench [openpmd] - Starting
+2023-02-14 10:51:40,878 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/ca93aad4/
+2023-02-14 10:51:40,880 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:51:40,881 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_openpmd_write /p/gpfs1/iopp/temp/h5bench/sync-openpmd/ca93aad4/openpmd.input
+2023-02-14 10:51:45,097 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-openpmd/ca93aad4)
+2023-02-14 10:51:45,099 h5bench - INFO - Runtime: 4.2183533 seconds (elapsed time, includes allocation wait time)
+2023-02-14 10:51:45,099 h5bench - INFO - h5bench [openpmd] - Complete
+2023-02-14 10:51:45,099 h5bench - INFO - h5bench [openpmd] - Starting
+2023-02-14 10:51:45,099 h5bench - INFO - h5bench [openpmd] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-openpmd/f68c459a/
+2023-02-14 10:51:45,100 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:51:45,102 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_openpmd_read /p/gpfs1/iopp/temp/h5bench/sync-openpmd/8a_parallel_3Db sy
+2023-02-14 10:51:48,359 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-openpmd/f68c459a)
+2023-02-14 10:51:48,360 h5bench - INFO - Runtime: 3.2583194 seconds (elapsed time, includes allocation wait time)
+2023-02-14 10:51:48,360 h5bench - INFO - h5bench [openpmd] - Complete
+2023-02-14 10:51:48,360 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4516172: <sync-openpmd> in cluster <lassen> Done
+
+Job <sync-openpmd> was submitted from host <lassen709> by user <haridev> in cluster <lassen> at Tue Feb 14 10:51:19 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Tue Feb 14 10:51:21 2023
+                            <40*lassen748>
+                            <40*lassen592>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Tue Feb 14 10:51:21 2023
+Terminated at Tue Feb 14 10:52:03 2023
+Results reported at Tue Feb 14 10:52:03 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_2_40/sync-openpmd.json sync_libdarshan_none_2_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.23 sec.
+    Max Memory :                                 59 MB
+    Average Memory :                             52.00 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1425 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   40 sec.
+    Turnaround time :                            44 sec.
+
+The output (if any) is above this job summary.
+

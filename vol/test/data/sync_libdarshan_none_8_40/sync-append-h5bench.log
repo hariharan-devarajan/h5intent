@@ -1,0 +1,19 @@
+2023-02-14 12:05:46,723 h5bench - INFO - Starting h5bench Suite
+2023-02-14 12:05:46,727 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-append
+2023-02-14 12:05:46,730 h5bench - INFO - Lustre support not detected
+2023-02-14 12:05:46,731 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 12:05:46,732 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 12:05:46,732 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 12:05:46,732 h5bench - INFO - h5bench [write-unlimited] - Starting
+2023-02-14 12:05:46,732 h5bench - INFO - h5bench [write-unlimited] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-append/5b21a5b6/
+2023-02-14 12:05:46,736 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 12:05:46,736 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write_unlimited /p/gpfs1/iopp/temp/h5bench/sync-append/5b21a5b6/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-append/test.h5
+2023-02-14 12:06:58,168 h5bench - ERROR - Return: 137 (check /p/gpfs1/iopp/temp/h5bench/sync-append/5b21a5b6/stderr for detailed log)
+2023-02-14 12:06:58,173 h5bench - INFO - Runtime: 71.4363046 seconds (elapsed time, includes allocation wait time)
+2023-02-14 12:06:58,173 h5bench - INFO - h5bench [write-unlimited] - Complete
+2023-02-14 12:06:58,173 h5bench - INFO - h5bench [append] - Starting
+2023-02-14 12:06:58,174 h5bench - INFO - h5bench [append] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-append/f3e174e1/
+2023-02-14 12:06:58,179 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 12:06:58,181 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_append /p/gpfs1/iopp/temp/h5bench/sync-append/f3e174e1/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-append/test.h5
+2023-02-14 12:07:12,481 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.12.2) MPI-process 79:
+2023-02-14 12:07:12,481 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/sync-append/f3e174e1/stderr for detailed log

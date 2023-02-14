@@ -1,0 +1,68 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_dcb0844d8d18f1025da70991f0d47c76'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_8_40/sync-write-1d-interleaved-interleaved
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_8_40/sync-write-1d-interleaved-interleaved.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_8_40/sync-write-1d-interleaved-interleaved.json
+2023-02-14 12:18:51,154 h5bench - INFO - Starting h5bench Suite
+2023-02-14 12:18:51,172 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-interleaved-interleaved
+2023-02-14 12:18:51,176 h5bench - INFO - Lustre support not detected
+2023-02-14 12:18:51,177 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 12:18:51,177 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 12:18:51,178 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 12:18:51,178 h5bench - INFO - h5bench [write] - Starting
+2023-02-14 12:18:51,178 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-interleaved-interleaved/b44b55b8/
+2023-02-14 12:18:51,212 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 12:18:51,221 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-interleaved-interleaved/b44b55b8/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-interleaved-interleaved/test.h5
+2023-02-14 12:19:17,171 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-interleaved-interleaved/b44b55b8)
+2023-02-14 12:19:17,171 h5bench - INFO - Runtime: 25.9592741 seconds (elapsed time, includes allocation wait time)
+2023-02-14 12:19:17,171 h5bench - INFO - h5bench [write] - Complete
+2023-02-14 12:19:17,172 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4516300: <sync-write-1d-interleaved-interleaved> in cluster <lassen> Done
+
+Job <sync-write-1d-interleaved-interleaved> was submitted from host <lassen709> by user <haridev> in cluster <lassen> at Tue Feb 14 12:00:24 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Tue Feb 14 12:18:31 2023
+                            <40*lassen168>
+                            <40*lassen201>
+                            <40*lassen541>
+                            <40*lassen542>
+                            <40*lassen213>
+                            <40*lassen214>
+                            <40*lassen394>
+                            <40*lassen220>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Tue Feb 14 12:18:31 2023
+Terminated at Tue Feb 14 12:19:50 2023
+Results reported at Tue Feb 14 12:19:50 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_8_40/sync-write-1d-interleaved-interleaved.json sync_libdarshan_none_8_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.27 sec.
+    Max Memory :                                 59 MB
+    Average Memory :                             53.50 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1425 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   78 sec.
+    Turnaround time :                            1166 sec.
+
+The output (if any) is above this job summary.
+

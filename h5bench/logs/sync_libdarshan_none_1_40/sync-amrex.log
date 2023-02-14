@@ -1,0 +1,120 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_a0b2c71da9ec4555cefd352fb8840f4f'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-amrex
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-amrex.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-amrex.json
+2023-02-13 12:31:26,071 h5bench - INFO - Starting h5bench Suite
+2023-02-13 12:31:26,111 h5bench - INFO - Lustre support not detected
+2023-02-13 12:31:26,112 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-13 12:31:26,112 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-13 12:31:26,113 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-13 12:31:26,113 h5bench - INFO - h5bench [amrex] - Starting
+2023-02-13 12:31:26,113 h5bench - INFO - h5bench [amrex] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-amrex/09f00cf1/
+2023-02-13 12:31:26,124 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:31:26,125 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_amrex_sync /p/gpfs1/iopp/temp/h5bench/sync-amrex/09f00cf1/amrex.ini
+2023-02-13 12:31:35,715 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-amrex/09f00cf1)
+2023-02-13 12:31:35,715 h5bench - INFO - Runtime: 9.5904727 seconds (elapsed time, includes allocation wait time)
+2023-02-13 12:31:35,715 h5bench - INFO - h5bench [amrex] - Complete
+2023-02-13 12:31:35,715 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4514339: <sync-amrex> in cluster <lassen> Done
+
+Job <sync-amrex> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Mon Feb 13 12:27:59 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Mon Feb 13 12:31:05 2023
+                            <40*lassen444>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Mon Feb 13 12:31:05 2023
+Terminated at Mon Feb 13 12:31:36 2023
+Results reported at Mon Feb 13 12:31:36 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-amrex.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.30 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   30 sec.
+    Turnaround time :                            217 sec.
+
+The output (if any) is above this job summary.
+
+BBATH is set to '/mnt/bb_5618159dddc3340b90a6dd8c19416de6'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-amrex
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-amrex.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-amrex.json
+2023-02-14 10:37:13,853 h5bench - INFO - Starting h5bench Suite
+2023-02-14 10:37:13,875 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-amrex
+2023-02-14 10:37:13,882 h5bench - INFO - Lustre support not detected
+2023-02-14 10:37:13,883 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 10:37:13,883 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 10:37:13,883 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 10:37:13,883 h5bench - INFO - h5bench [amrex] - Starting
+2023-02-14 10:37:13,883 h5bench - INFO - h5bench [amrex] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-amrex/116ff895/
+2023-02-14 10:37:13,885 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:37:13,886 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_amrex_sync /p/gpfs1/iopp/temp/h5bench/sync-amrex/116ff895/amrex.ini
+2023-02-14 10:37:24,440 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-amrex/116ff895)
+2023-02-14 10:37:24,441 h5bench - INFO - Runtime: 10.5556166 seconds (elapsed time, includes allocation wait time)
+2023-02-14 10:37:24,441 h5bench - INFO - h5bench [amrex] - Complete
+2023-02-14 10:37:24,441 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4516125: <sync-amrex> in cluster <lassen> Done
+
+Job <sync-amrex> was submitted from host <lassen709> by user <haridev> in cluster <lassen> at Tue Feb 14 10:36:39 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Tue Feb 14 10:36:42 2023
+                            <40*lassen582>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Tue Feb 14 10:36:42 2023
+Terminated at Tue Feb 14 10:37:48 2023
+Results reported at Tue Feb 14 10:37:48 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-amrex.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.21 sec.
+    Max Memory :                                 59 MB
+    Average Memory :                             52.57 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1425 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   66 sec.
+    Turnaround time :                            69 sec.
+
+The output (if any) is above this job summary.
+

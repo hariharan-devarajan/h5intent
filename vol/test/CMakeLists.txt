@@ -48,14 +48,16 @@ endforeach ()
 
 add_subdirectory(h5bench)
 function(h5bench_test test_name exec)
+    set(ranks_per_node 40)
+    set(mpi_exec jsrun -r 1 -a ${ranks_per_node} -c ${ranks_per_node} -d packed)
     add_test(NAME h5bench_${test_name} COMMAND
-            mpirun -n 4
+            ${mpi_exec}
             ${CMAKE_BINARY_DIR}/bin/${exec}
             /p/gpfs1/iopp/temp/h5bench/${test_name}/9f8c17e6/h5bench.cfg
             /p/gpfs1/iopp/temp/h5bench/${test_name}/test.h5)
 
     add_test(NAME h5bench_${test_name}_h5intent COMMAND
-            mpirun -n 4
+            ${mpi_exec}
             ${CMAKE_BINARY_DIR}/bin/${exec}
             /p/gpfs1/iopp/temp/h5bench/${test_name}/9f8c17e6/h5bench.cfg
             /p/gpfs1/iopp/temp/h5bench/${test_name}/test.h5)

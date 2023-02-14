@@ -1,0 +1,23 @@
+2023-02-13 12:31:26,071 h5bench - INFO - Starting h5bench Suite
+2023-02-13 12:31:26,117 h5bench - INFO - Lustre support not detected
+2023-02-13 12:31:26,118 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-13 12:31:26,118 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-13 12:31:26,119 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-13 12:31:26,119 h5bench - INFO - h5bench [overwrite] - Starting
+2023-02-13 12:31:26,119 h5bench - INFO - h5bench [overwrite] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-overwrite/a41092cf/
+2023-02-13 12:31:26,124 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:31:26,125 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_overwrite /p/gpfs1/iopp/temp/h5bench/sync-overwrite/a41092cf/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-overwrite/test.h5
+2023-02-13 12:31:28,797 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.12.2) MPI-process 29:
+2023-02-13 12:31:28,797 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/sync-overwrite/a41092cf/stderr for detailed log
+2023-02-14 10:37:16,308 h5bench - INFO - Starting h5bench Suite
+2023-02-14 10:37:16,346 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-overwrite
+2023-02-14 10:37:16,354 h5bench - INFO - Lustre support not detected
+2023-02-14 10:37:16,355 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 10:37:16,355 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 10:37:16,355 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 10:37:16,356 h5bench - INFO - h5bench [overwrite] - Starting
+2023-02-14 10:37:16,356 h5bench - INFO - h5bench [overwrite] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-overwrite/4050e52f/
+2023-02-14 10:37:16,358 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:37:16,359 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_overwrite /p/gpfs1/iopp/temp/h5bench/sync-overwrite/4050e52f/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-overwrite/test.h5
+2023-02-14 10:37:19,018 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.12.2) MPI-process 26:
+2023-02-14 10:37:19,019 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/sync-overwrite/4050e52f/stderr for detailed log

@@ -1,0 +1,41 @@
+2023-02-13 12:33:31,862 h5bench - INFO - Starting h5bench Suite
+2023-02-13 12:33:31,897 h5bench - INFO - Lustre support not detected
+2023-02-13 12:33:31,898 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-13 12:33:31,898 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-13 12:33:31,899 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-13 12:33:31,899 h5bench - INFO - h5bench [write] - Starting
+2023-02-13 12:33:31,899 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/63c793dc/
+2023-02-13 12:33:31,899 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:33:31,900 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/63c793dc/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/test.h5
+2023-02-13 12:33:46,638 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/63c793dc)
+2023-02-13 12:33:46,638 h5bench - INFO - Runtime: 14.7389719 seconds (elapsed time, includes allocation wait time)
+2023-02-13 12:33:46,639 h5bench - INFO - h5bench [write] - Complete
+2023-02-13 12:33:46,639 h5bench - INFO - h5bench [read] - Starting
+2023-02-13 12:33:46,639 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/d6ab9bc0/
+2023-02-13 12:33:46,639 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:33:46,640 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/d6ab9bc0/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/test.h5
+2023-02-13 12:33:52,870 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/d6ab9bc0)
+2023-02-13 12:33:52,870 h5bench - INFO - Runtime: 6.2306483 seconds (elapsed time, includes allocation wait time)
+2023-02-13 12:33:52,870 h5bench - INFO - h5bench [read] - Complete
+2023-02-13 12:33:52,870 h5bench - INFO - Finishing h5bench Suite
+2023-02-14 10:37:23,916 h5bench - INFO - Starting h5bench Suite
+2023-02-14 10:37:23,921 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full
+2023-02-14 10:37:23,926 h5bench - INFO - Lustre support not detected
+2023-02-14 10:37:23,927 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 10:37:23,927 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 10:37:23,927 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 10:37:23,928 h5bench - INFO - h5bench [write] - Starting
+2023-02-14 10:37:23,928 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/f3f7da35/
+2023-02-14 10:37:23,929 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:37:23,930 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/f3f7da35/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/test.h5
+2023-02-14 10:37:45,354 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/f3f7da35)
+2023-02-14 10:37:45,355 h5bench - INFO - Runtime: 21.4254696 seconds (elapsed time, includes allocation wait time)
+2023-02-14 10:37:45,355 h5bench - INFO - h5bench [write] - Complete
+2023-02-14 10:37:45,355 h5bench - INFO - h5bench [read] - Starting
+2023-02-14 10:37:45,355 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/15d10eda/
+2023-02-14 10:37:45,356 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:37:45,356 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/15d10eda/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/test.h5
+2023-02-14 10:37:51,534 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-2d-contig-contig-read-full/15d10eda)
+2023-02-14 10:37:51,535 h5bench - INFO - Runtime: 6.1789374 seconds (elapsed time, includes allocation wait time)
+2023-02-14 10:37:51,535 h5bench - INFO - h5bench [read] - Complete
+2023-02-14 10:37:51,535 h5bench - INFO - Finishing h5bench Suite

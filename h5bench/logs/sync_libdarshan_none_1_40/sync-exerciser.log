@@ -1,0 +1,120 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_1726bfceda145b16242e02531e63be71'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-exerciser
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-exerciser.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-exerciser.json
+2023-02-13 12:31:22,738 h5bench - INFO - Starting h5bench Suite
+2023-02-13 12:31:22,744 h5bench - INFO - Lustre support not detected
+2023-02-13 12:31:22,745 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-13 12:31:22,745 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-13 12:31:22,745 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-13 12:31:22,745 h5bench - INFO - h5bench [exerciser] - Starting
+2023-02-13 12:31:22,745 h5bench - INFO - h5bench [exerciser] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-exerciser/2022a9ea/
+2023-02-13 12:31:22,746 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:31:22,746 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_exerciser --numdims 2  --minels 8 8  --nsizes 3  --bufmult 2 2  --dimranks 8 4 
+2023-02-13 12:31:29,907 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-exerciser/2022a9ea)
+2023-02-13 12:31:29,907 h5bench - INFO - Runtime: 7.1614070 seconds (elapsed time, includes allocation wait time)
+2023-02-13 12:31:29,907 h5bench - INFO - h5bench [exerciser] - Complete
+2023-02-13 12:31:29,908 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4514342: <sync-exerciser> in cluster <lassen> Done
+
+Job <sync-exerciser> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Mon Feb 13 12:28:01 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Mon Feb 13 12:31:05 2023
+                            <40*lassen445>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Mon Feb 13 12:31:05 2023
+Terminated at Mon Feb 13 12:31:30 2023
+Results reported at Mon Feb 13 12:31:30 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-exerciser.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.25 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   24 sec.
+    Turnaround time :                            209 sec.
+
+The output (if any) is above this job summary.
+
+BBATH is set to '/mnt/bb_e0ff43bd12ddd946c8c350c66b7d3a5f'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-exerciser
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-exerciser.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-exerciser.json
+2023-02-14 10:37:13,687 h5bench - INFO - Starting h5bench Suite
+2023-02-14 10:37:13,713 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-exerciser
+2023-02-14 10:37:13,717 h5bench - INFO - Lustre support not detected
+2023-02-14 10:37:13,718 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 10:37:13,718 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 10:37:13,718 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 10:37:13,719 h5bench - INFO - h5bench [exerciser] - Starting
+2023-02-14 10:37:13,719 h5bench - INFO - h5bench [exerciser] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-exerciser/cee14b04/
+2023-02-14 10:37:13,721 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:37:13,721 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_exerciser --numdims 2  --minels 8 8  --nsizes 3  --bufmult 2 2  --dimranks 8 4 
+2023-02-14 10:37:23,726 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-exerciser/cee14b04)
+2023-02-14 10:37:23,726 h5bench - INFO - Runtime: 10.0052178 seconds (elapsed time, includes allocation wait time)
+2023-02-14 10:37:23,726 h5bench - INFO - h5bench [exerciser] - Complete
+2023-02-14 10:37:23,726 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4516128: <sync-exerciser> in cluster <lassen> Done
+
+Job <sync-exerciser> was submitted from host <lassen709> by user <haridev> in cluster <lassen> at Tue Feb 14 10:36:42 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Tue Feb 14 10:36:44 2023
+                            <40*lassen743>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Tue Feb 14 10:36:44 2023
+Terminated at Tue Feb 14 10:37:48 2023
+Results reported at Tue Feb 14 10:37:48 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-exerciser.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.24 sec.
+    Max Memory :                                 59 MB
+    Average Memory :                             52.57 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1425 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   64 sec.
+    Turnaround time :                            66 sec.
+
+The output (if any) is above this job summary.
+

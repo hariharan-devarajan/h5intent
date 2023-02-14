@@ -3,6 +3,7 @@ import darshan
 import numpy as np
 import json
 from pathlib import Path
+import argparse
 
 '''
 Constants

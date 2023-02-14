@@ -1,0 +1,134 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_3653a1652e6a7dd6fc078448828712e0'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-write-1d-contig-contig-read-strided
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-1d-contig-contig-read-strided.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-1d-contig-contig-read-strided.json
+2023-02-13 12:32:09,267 h5bench - INFO - Starting h5bench Suite
+2023-02-13 12:32:09,276 h5bench - INFO - Lustre support not detected
+2023-02-13 12:32:09,277 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-13 12:32:09,277 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-13 12:32:09,277 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-13 12:32:09,278 h5bench - INFO - h5bench [write] - Starting
+2023-02-13 12:32:09,278 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/8f59ee2d/
+2023-02-13 12:32:09,278 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:32:09,279 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/8f59ee2d/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/test.h5
+2023-02-13 12:32:18,819 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/8f59ee2d)
+2023-02-13 12:32:18,820 h5bench - INFO - Runtime: 9.5415573 seconds (elapsed time, includes allocation wait time)
+2023-02-13 12:32:18,820 h5bench - INFO - h5bench [write] - Complete
+2023-02-13 12:32:18,820 h5bench - INFO - h5bench [read] - Starting
+2023-02-13 12:32:18,820 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/276e2d3a/
+2023-02-13 12:32:18,821 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:32:18,821 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/276e2d3a/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/test.h5
+2023-02-13 12:32:25,413 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/276e2d3a)
+2023-02-13 12:32:25,413 h5bench - INFO - Runtime: 6.5925260 seconds (elapsed time, includes allocation wait time)
+2023-02-13 12:32:25,414 h5bench - INFO - h5bench [read] - Complete
+2023-02-13 12:32:25,414 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4514348: <sync-write-1d-contig-contig-read-strided> in cluster <lassen> Done
+
+Job <sync-write-1d-contig-contig-read-strided> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Mon Feb 13 12:28:07 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Mon Feb 13 12:31:52 2023
+                            <40*lassen445>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Mon Feb 13 12:31:52 2023
+Terminated at Mon Feb 13 12:32:50 2023
+Results reported at Mon Feb 13 12:32:50 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-1d-contig-contig-read-strided.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.22 sec.
+    Max Memory :                                 59 MB
+    Average Memory :                             54.71 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1425 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   58 sec.
+    Turnaround time :                            283 sec.
+
+The output (if any) is above this job summary.
+
+BBATH is set to '/mnt/bb_b33883f4d0be4783ec8a0f75b3412db9'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-write-1d-contig-contig-read-strided
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-1d-contig-contig-read-strided.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-1d-contig-contig-read-strided.json
+2023-02-14 10:37:17,968 h5bench - INFO - Starting h5bench Suite
+2023-02-14 10:37:17,974 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided
+2023-02-14 10:37:17,979 h5bench - INFO - Lustre support not detected
+2023-02-14 10:37:17,980 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 10:37:17,980 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 10:37:17,981 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 10:37:17,981 h5bench - INFO - h5bench [write] - Starting
+2023-02-14 10:37:17,981 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/17a01df9/
+2023-02-14 10:37:17,982 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:37:17,983 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/17a01df9/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/test.h5
+2023-02-14 10:37:37,856 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/17a01df9)
+2023-02-14 10:37:37,857 h5bench - INFO - Runtime: 19.8746712 seconds (elapsed time, includes allocation wait time)
+2023-02-14 10:37:37,857 h5bench - INFO - h5bench [write] - Complete
+2023-02-14 10:37:37,857 h5bench - INFO - h5bench [read] - Starting
+2023-02-14 10:37:37,858 h5bench - INFO - h5bench [read] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/f701f16d/
+2023-02-14 10:37:37,858 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:37:37,859 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_read /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/f701f16d/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/test.h5
+2023-02-14 10:37:44,485 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig-read-strided/f701f16d)
+2023-02-14 10:37:44,485 h5bench - INFO - Runtime: 6.6272187 seconds (elapsed time, includes allocation wait time)
+2023-02-14 10:37:44,486 h5bench - INFO - h5bench [read] - Complete
+2023-02-14 10:37:44,486 h5bench - INFO - Finishing h5bench Suite
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4516134: <sync-write-1d-contig-contig-read-strided> in cluster <lassen> Done
+
+Job <sync-write-1d-contig-contig-read-strided> was submitted from host <lassen709> by user <haridev> in cluster <lassen> at Tue Feb 14 10:36:46 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Tue Feb 14 10:36:49 2023
+                            <40*lassen746>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Tue Feb 14 10:36:49 2023
+Terminated at Tue Feb 14 10:38:24 2023
+Results reported at Tue Feb 14 10:38:24 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-write-1d-contig-contig-read-strided.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.23 sec.
+    Max Memory :                                 59 MB
+    Average Memory :                             54.91 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1425 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   95 sec.
+    Turnaround time :                            98 sec.
+
+The output (if any) is above this job summary.
+

@@ -1,0 +1,116 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+BBATH is set to '/mnt/bb_8d07cc48fc762814d73266c775fc737a'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-overwrite
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-overwrite.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-overwrite.json
+2023-02-13 12:31:26,071 h5bench - INFO - Starting h5bench Suite
+2023-02-13 12:31:26,117 h5bench - INFO - Lustre support not detected
+2023-02-13 12:31:26,118 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-13 12:31:26,118 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-13 12:31:26,119 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-13 12:31:26,119 h5bench - INFO - h5bench [overwrite] - Starting
+2023-02-13 12:31:26,119 h5bench - INFO - h5bench [overwrite] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-overwrite/a41092cf/
+2023-02-13 12:31:26,124 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-13 12:31:26,125 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_overwrite /p/gpfs1/iopp/temp/h5bench/sync-overwrite/a41092cf/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-overwrite/test.h5
+2023-02-13 12:31:28,797 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.12.2) MPI-process 29:
+2023-02-13 12:31:28,797 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/sync-overwrite/a41092cf/stderr for detailed log
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4514345: <sync-overwrite> in cluster <lassen> Done
+
+Job <sync-overwrite> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Mon Feb 13 12:28:03 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Mon Feb 13 12:31:05 2023
+                            <40*lassen119>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Mon Feb 13 12:31:05 2023
+Terminated at Mon Feb 13 12:31:29 2023
+Results reported at Mon Feb 13 12:31:29 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-overwrite.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.29 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   23 sec.
+    Turnaround time :                            206 sec.
+
+The output (if any) is above this job summary.
+
+BBATH is set to '/mnt/bb_87b86e0c4344292972e09021e4bffc8d'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/h5bench//darshan-logs/sync_libdarshan_none_1_40/sync-overwrite
+/p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-overwrite.json
+/usr/workspace/iopp/applications/h5bench/build /usr/workspace/iopp/software/h5intent/h5bench
+./h5bench --debug /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-overwrite.json
+2023-02-14 10:37:16,308 h5bench - INFO - Starting h5bench Suite
+2023-02-14 10:37:16,346 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-overwrite
+2023-02-14 10:37:16,354 h5bench - INFO - Lustre support not detected
+2023-02-14 10:37:16,355 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 10:37:16,355 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 10:37:16,355 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 10:37:16,356 h5bench - INFO - h5bench [overwrite] - Starting
+2023-02-14 10:37:16,356 h5bench - INFO - h5bench [overwrite] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-overwrite/4050e52f/
+2023-02-14 10:37:16,358 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 10:37:16,359 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_overwrite /p/gpfs1/iopp/temp/h5bench/sync-overwrite/4050e52f/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-overwrite/test.h5
+2023-02-14 10:37:19,018 h5bench - ERROR - HDF5-DIAG: Error detected in HDF5 (1.12.2) MPI-process 26:
+2023-02-14 10:37:19,019 h5bench - ERROR - Check /p/gpfs1/iopp/temp/h5bench/sync-overwrite/4050e52f/stderr for detailed log
+/usr/workspace/iopp/software/h5intent/h5bench
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4516131: <sync-overwrite> in cluster <lassen> Done
+
+Job <sync-overwrite> was submitted from host <lassen709> by user <haridev> in cluster <lassen> at Tue Feb 14 10:36:44 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Tue Feb 14 10:36:47 2023
+                            <40*lassen745>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/h5bench> was used as the working directory.
+Started at Tue Feb 14 10:36:47 2023
+Terminated at Tue Feb 14 10:37:48 2023
+Results reported at Tue Feb 14 10:37:48 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/workspace/iopp/software/h5intent/h5bench//main.sh /p/gpfs1/iopp/temp/h5bench/sync_libdarshan_none_1_40/sync-overwrite.json sync_libdarshan_none_1_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.18 sec.
+    Max Memory :                                 59 MB
+    Average Memory :                             52.57 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1425 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   61 sec.
+    Turnaround time :                            64 sec.
+
+The output (if any) is above this job summary.
+

@@ -21,6 +21,8 @@ export DARSHAN_LOG_DIR_PATH=${IOPP_DIR}/darshan-logs/${CASE}/${filename}
 mkdir -p "${DARSHAN_LOG_DIR_PATH}"
 fi
 echo "DARSHAN_LOG_DIR_PATH=${IOPP_DIR}/darshan-logs/${CASE}/${filename}"
+echo $CONF
 pushd $H5BENCH_DIR
+echo ./h5bench --debug $CONF
 ./h5bench --debug $CONF
 popd

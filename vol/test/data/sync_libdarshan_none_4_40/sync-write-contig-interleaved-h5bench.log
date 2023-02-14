@@ -1,0 +1,14 @@
+2023-02-14 11:26:16,167 h5bench - INFO - Starting h5bench Suite
+2023-02-14 11:26:16,195 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-contig-interleaved
+2023-02-14 11:26:16,204 h5bench - INFO - Lustre support not detected
+2023-02-14 11:26:16,205 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-02-14 11:26:16,205 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-02-14 11:26:16,205 h5bench - DEBUG - LD_PRELOAD: 
+2023-02-14 11:26:16,205 h5bench - INFO - h5bench [write] - Starting
+2023-02-14 11:26:16,206 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-contig-interleaved/e6e6ff24/
+2023-02-14 11:26:16,208 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so
+2023-02-14 11:26:16,209 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/WS2/iopp/software/spack/var/spack/environments/h5bench/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-contig-interleaved/e6e6ff24/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-contig-interleaved/test.h5
+2023-02-14 11:31:44,225 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-contig-interleaved/e6e6ff24)
+2023-02-14 11:31:44,225 h5bench - INFO - Runtime: 328.0169680 seconds (elapsed time, includes allocation wait time)
+2023-02-14 11:31:44,225 h5bench - INFO - h5bench [write] - Complete
+2023-02-14 11:31:44,225 h5bench - INFO - Finishing h5bench Suite
