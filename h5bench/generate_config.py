@@ -86,12 +86,12 @@ def main():
             info = ""
             for index in range(len(configuration["benchmarks"])):
                 benchmark = configuration["benchmarks"][index]
+                executable = benchmark['benchmark']
                 new_info = f"{args.intent_json}/{only_name}/{executable}.json"
                 if index < len(configuration["benchmarks"]) - 1:
                     info = f"{info}{new_info};"
                 else:
                     info = f"{info}{new_info}"
-            executable = configuration["benchmarks"][0]['benchmark']
             configuration['mpi'] = mpi
             configuration['vol'] = vol
             configuration['vol']['connector'] = f"intent under_vol=0;under_info={{info}}"
