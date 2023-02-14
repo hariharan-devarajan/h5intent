@@ -26,7 +26,7 @@ def parse_args():
     parser.add_argument("-ppn", "--processes-per-node", default=1, type=int,
                         help="Number of processes per node in job.")
     parser.add_argument("-n", "--nodes", default=1, type=int, help="Number of nodes in job.")
-    parser.add_argument("-v", "--vol", default="", type=str, help="Use which vol.")
+    parser.add_argument("-v", "--vol", default="none", type=str, help="Use which vol.")
     parser.add_argument("-i", "--vol-install-dir", default="", type=str, help="Vol's install dir.")
     parser.add_argument("-j", "--intent-json", default="", type=str, help="H5Intent Vol's input json.")
     parser.add_argument("-s", "--sync", default=True, type=str2bool, help="sync mode. y/n")
