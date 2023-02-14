@@ -83,10 +83,18 @@ def main():
         if os.path.isfile(source) and filename.startswith(sync_str):
             with open(source) as file:
                 configuration = json.loads(file.read())
+            info = ""
+            for index in range(len(configuration["benchmarks"])):
+                benchmark = configuration["benchmarks"][index]
+                new_info = f"{args.intent_json}/{only_name}/{executable}.json"
+                if index < len(configuration["benchmarks"]) - 1:
+                    info = f"{info}{new_info};"
+                else:
+                    info = f"{info}{new_info}"
             executable = configuration["benchmarks"][0]['benchmark']
             configuration['mpi'] = mpi
             configuration['vol'] = vol
-            configuration['vol']['connector'] = f"intent under_vol=0;under_info={{{args.intent_json}/{only_name}/{executable}.json}}"
+            configuration['vol']['connector'] = f"intent under_vol=0;under_info={{info}}"
             configuration['file-system'] = filesystem
             configuration['directory'] = os.path.join(args.data_dir, only_name)
             destination = os.path.join(new_sample_dir, filename)
