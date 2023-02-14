@@ -49,7 +49,7 @@ def main():
         "command": "jsrun",
         "configuration": f"-r 1 -c {args.processes_per_node} -a {args.processes_per_node} {env}"
     }
-    args.vol = "none"
+    #args.vol = "none"
     print(args.vol)
     vol = {}
     if args.vol == "h5intent":
@@ -94,7 +94,7 @@ def main():
                     info = f"{info}{new_info}"
             configuration['mpi'] = mpi
             configuration['vol'] = vol
-            configuration['vol']['connector'] = f"intent under_vol=0;under_info={{info}}"
+            configuration['vol']['connector'] = f"intent under_vol=0;under_info={{{info}}}"
             configuration['file-system'] = filesystem
             configuration['directory'] = os.path.join(args.data_dir, only_name)
             destination = os.path.join(new_sample_dir, filename)
