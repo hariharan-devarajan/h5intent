@@ -67,6 +67,24 @@ function(h5bench_test test_name exec)
 endfunction()
 h5bench_test(sync-write-1d-contig-contig h5bench_write)
 
+set(folders sync_none_intent_1_40 sync_none_intent_2_40 sync_none_intent_4_40 sync_none_intent_8_40
+            sync_none_none_1_40 sync_none_none_2_40 sync_none_none_4_40 sync_none_none_8_40)
+foreach (folder ${folders})
+    string(REPLACE "_" ";" folder_list ${folder})
+    message("-- Processing folder " ${folder})
+    list(GET folder_list 0 SYNC)
+    list(GET folder_list 1 profiler)
+    list(GET folder_list 2 vol)
+    list(GET folder_list 3 num_nodes)
+    list(GET folder_list 4 procs_per_node)
+    FILE(GLOB apps "${CMAKE_CURRENT_SOURCE_DIR}/data/${folder}/*.json")
+    foreach(app ${apps})
+        get_filename_component(app_name ${app} NAME_WE)
+        set(test_name h5bench_${folder}_${app_name})
+        add_test(NAME ${test_name} COMMAND ${CMAKE_BINARY_DIR}/h5bench ${app})
+    endforeach()
+endforeach ()
+
 #add_test(NAME h5bench_sync-write-1d-contig-contig COMMAND
 #        #mpirun -n 4
 #        ${CMAKE_BINARY_DIR}/bin/h5bench_write
