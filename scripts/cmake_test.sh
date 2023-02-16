@@ -13,4 +13,4 @@ export CXX=/usr/tce/packages/gcc/gcc-8.3.1/bin/g++
 
 pushd build
 make -j
-ctest -R $TEST_NAME -VV
+ctest -R ${TEST_NAME}$ -VV
