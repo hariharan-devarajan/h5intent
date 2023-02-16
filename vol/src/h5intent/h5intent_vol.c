@@ -2097,22 +2097,7 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
     H5INTENT_LOGINFO("------- INTENT VOL FILE Found properties for file %s", name);
 #endif
     if (fileProperties.creation.file_space.use){
-      /**
-       * Sets the file space page size for a file creation property list.
-       *
-       * Parameters
-       *   [in]	plist_id	File creation property list identifier
-       *   [in]	fsp_size	File space page size
-       * Returns                Returns a non-negative value if successful;
-       *                        otherwise returns a negative value.
-       *
-       * H5Pset_file_space_page_size() sets the file space page size fsp_size
-       * used in paged aggregation and paged buffering. fsp_size has a minimum
-       * size of 512. Setting a value less than 512 will return an error.
-       * The library default size for the file space page size when not set
-       * is 4096. The size set via this routine may not be changed for the life of the file.
-       **/
-      herr_t status = H5Pset_file_space_page_size(fcpl_id,
+      /*herr_t status = H5Pset_file_space_page_size(fcpl_id,
                fileProperties.creation.file_space.file_space_page_size);
       if (status != 0) {
         H5INTENT_LOGERROR("DATASET setting file_space_page_size for file %s failed", name);
@@ -2127,7 +2112,7 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
         H5INTENT_LOGERROR("DATASET setting file_space_strategy for file %s failed", name);
       } else {
         H5INTENT_LOGINFO("DATASET setting file_space_strategy for file %s successful", name);
-      }
+      }*/
     }
     if (fileProperties.creation.istore.use){
       herr_t status = H5Pset_istore_k(fcpl_id, fileProperties.creation.istore.ik);
@@ -2254,18 +2239,18 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
               name);
         }
       }
-    }
-    if (fileProperties.access.page_buffer.use) {
-      herr_t status = H5Pset_page_buffer_size(
-          fapl_id, fileProperties.access.page_buffer.buf_size,
-          100 - fileProperties.access.page_buffer.min_raw_per,
-          fileProperties.access.page_buffer.min_raw_per);
-      if (status != 0) {
-        H5INTENT_LOGERROR(
-            "DATASET setting page_buffer_size for file %s failed", name);
-      } else {
-        H5INTENT_LOGINFO(
-            "DATASET setting page_buffer_size for file %s successful", name);
+      if (fileProperties.access.page_buffer.use) {
+        herr_t status = H5Pset_page_buffer_size(
+            fapl_id, fileProperties.access.page_buffer.buf_size,
+            100 - fileProperties.access.page_buffer.min_raw_per,
+            fileProperties.access.page_buffer.min_raw_per);
+        if (status != 0) {
+          H5INTENT_LOGERROR(
+              "DATASET setting page_buffer_size for file %s failed", name);
+        } else {
+          H5INTENT_LOGINFO(
+              "DATASET setting page_buffer_size for file %s successful", name);
+        }
       }
     }
     if (fileProperties.access.split.use) {
