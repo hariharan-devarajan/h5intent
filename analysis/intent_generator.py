@@ -502,9 +502,9 @@ class IntentGenerator:
                 'use': True,
                 'buf_size': file_agg[file_id]['file_size'] if file_agg[file_id][
                                                                   'file_size'] < AVAIL_NODE_MEMORY_BYTES else AVAIL_NODE_MEMORY_BYTES,
-                'min_meta_per': 100,  # TODO(hari) fix me
                 'min_raw_per': 100 if file_agg[file_id]['file_size'] < AVAIL_NODE_MEMORY_BYTES else int(
                     file_agg[file_id]['file_size'] * 100.0 / AVAIL_NODE_MEMORY_BYTES),
+                'min_meta_per': 0,  # TODO(hari) fix me
             }
             file_item.creation.file_space = {
                 'use': True,

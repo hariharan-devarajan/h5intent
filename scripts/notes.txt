@@ -1,0 +1,3 @@
+for item in `cat test_names.txt`; do         echo "Item: $item";  IFS='_' read -ra ADDR <<< $item; node=${ADDR[4]}; echo ./main.sh $PWD/cmake_test.sh $node $item; done
+
+ctest -N -R h5bench_sync | grep \# | awk {'print $3'} > test_names.txt
