@@ -29,6 +29,8 @@ extern "C" {
 #endif
 void load_configuration(const char* file);
 bool get_dataset_properties(const char* dataset_name, struct DatasetProperties *properties);
+bool get_file_properties(const char* file, struct FileProperties *properties);
+bool select_correct_conf(const char* confs, char** selected_conf);
 #ifdef __cplusplus
 }
 #endif

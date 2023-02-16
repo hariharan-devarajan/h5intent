@@ -825,8 +825,12 @@ static herr_t H5VL_intent_str_to_info(const char *str, void **_info) {
     H5VLconnector_str_to_info(under_vol_info_str, under_vol_id,
                               &under_vol_info);
     //sleep(30);
-    load_configuration(under_vol_info_str);
-    cpp_logger_clog_level(CPP_LOGGER_ERROR, H5_INTENT_LOG_NAME);
+    char* conf;
+    bool is_selected = select_correct_conf(under_vol_info_str, &conf);
+    if (is_selected) {
+      load_configuration(conf);
+      cpp_logger_clog_level(CPP_LOGGER_ERROR, H5_INTENT_LOG_NAME);
+    }
     free(under_vol_info_str);
   } /* end else */
 
@@ -1581,7 +1585,89 @@ static void *H5VL_intent_dataset_open(void *obj,
 #ifdef ENABLE_INTENT_LOGGING
   H5INTENT_LOGINFO_SIMPLE("DATASET Open");
 #endif
+  char name_fqn[256];
+  int name_size = 0;
+  H5VL_object_get_args_t args;
+  args.op_type = H5VL_OBJECT_GET_NAME;
+  args.args.get_name.buf = name_fqn;
+  args.args.get_name.buf_size = 256;
+  args.args.get_name.name_len = &name_size;
+  name_size = *args.args.get_name.name_len;
 
+  herr_t ret_value = H5VLobject_get(o->under_object, loc_params,
+                                    o->under_vol_id, &args, dxpl_id, req);
+  size_t dset_size = strlen(name);
+  strcpy(name_fqn, args.args.get_name.buf);
+  strcpy(name_fqn + name_size, name);
+  name_fqn[name_size + dset_size] = '\0';
+  struct DatasetProperties datasetProperties;
+  bool is_present = get_dataset_properties(name_fqn, &datasetProperties);
+  if (is_present) {
+#ifdef ENABLE_INTENT_LOGGING
+    H5INTENT_LOGINFO(
+        "------- INTENT VOL DATASET Found properties for dataset %s", name_fqn);
+#endif
+    if (datasetProperties.access.append_flush.use) {
+      /**
+       * TODO: Probably just a callback
+       * When a user is appending data to a dataset via H5DOappend() and the
+       * dataset’s newly extended dimension size hits a specified boundary, the
+       * library will perform the first action listed above. Upon return from
+       * the callback function, the library will then perform the second action
+       * listed above and return to the user. If no boundary is hit or set, the
+       * two actions above are not invoked. herr_t H5Pset_append_flush(hid_t
+       * dapl_id, unsigned ndims, const hsize_t boundary[], H5D_append_cb_t
+       * func, void * 	udata)
+       *
+       * Sets two actions to perform when the size of a dataset’s dimension
+       * being appended reaches a specified boundary. Parameters [in] dapl_id
+       * Dataset access property list identifier [in]	ndims	The number of
+       * elements for boundary
+       *    [in]	boundary	The dimension sizes used to determine the boundary [in]	func	The user-defined callback function [in] udata The user-defined input data Returns Returns a non-negative value if successful; otherwise returns a negative value.
+       */
+    }
+    if (datasetProperties.access.chunk_cache.use) {
+      /**
+       * H5Pset_chunk_cache()
+       * herr_t H5Pset_chunk_cache (hid_t dapl_id, size_t rdcc_nslots,
+       *                                size_t rdcc_nbytes, double rdcc_w0)
+       * Sets the raw data chunk cache parameters.
+       * Parameters
+       *    [in]	dapl_id	Dataset access property list identifier
+       *    [in]	rdcc_nslots	The number of chunk slots in the raw data chunk cache for this dataset. Increasing this value reduces the number of cache collisions, but slightly increases the memory used. Due to the hashing strategy, this value should ideally be a prime number. As a rule of thumb, this value should be at least 10 times the number of chunks that can fit in rdcc_nbytes bytes. For maximum performance, this value should be set approximately 100 times that number of chunks. The default value is 521. If the value passed is H5D_CHUNK_CACHE_NSLOTS_DEFAULT, then the property will not be set on dapl_id and the parameter will come from the file access property list used to open the file. [in]	rdcc_nbytes	The total size of the raw data chunk cache for this dataset. In most cases increasing this number will improve performance, as long as you have enough free memory. The default size is 1 MB. If the value passed is
+       *                H5D_CHUNK_CACHE_NBYTES_DEFAULT, then the property will not be set on dapl_id and the parameter will come from the file access property list. [in]	        rdcc_w0	The chunk preemption policy for this dataset. This must be between 0 and 1 inclusive and indicates the
+       *                weighting according to which chunks which have been fully read or written are penalized when determining which chunks to flush from cache. A value of 0 means fully read or written chunks are treated no differently than other chunks (the preemption is strictly LRU) while a value of 1 means fully read or written chunks are always preempted before other chunks. If your application only reads or writes data once, this can be safely set to 1. Otherwise, this should be set lower, depending on how often you re-read or re-write the same data.
+       *                The default value is 0.75. If the value passed is
+       *                H5D_CHUNK_CACHE_W0_DEFAULT, then the property will not
+       *                be set on dapl_id and the parameter will come from the
+       *                file access property list.
+       * Returns
+       *    Returns a non-negative value if successful; otherwise returns a negative value.
+       *
+       * H5Pset_chunk_cache() sets the number of elements, the total number of bytes, and the preemption policy value in the raw data chunk cache on a dataset access property list. After calling this function, the values set in the property list will override the values in the file's file access property list. The raw data chunk cache inserts chunks into the cache by first computing a hash value using the address of a chunk, then using that hash value as the chunk's index into the table of cached chunks. The size of this hash table, i.e., and the number of possible hash values, is determined by the rdcc_nslots parameter. If a different chunk in the cache has the same hash value, this causes a collision, which reduces efficiency. If inserting the chunk into cache would cause the cache to be too big, then the cache is pruned according to the rdcc_w0 parameter.
+       *
+       */
+      herr_t status = H5Pset_chunk_cache(
+          dapl_id, datasetProperties.access.chunk_cache.rdcc_nslots,
+          datasetProperties.access.chunk_cache.rdcc_nbytes,
+          datasetProperties.access.chunk_cache.rdcc_w0);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting chunk_cache for dataset %s failed",
+                          name_fqn);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting chunk_cache for dataset %s successful", name_fqn);
+      }
+    }
+    if (datasetProperties.access.filter_avail.use) {
+    }
+    if (datasetProperties.access.gzip.use) {
+    }
+    if (datasetProperties.access.szip.use) {
+    }
+    if (datasetProperties.access.virtual_view.use) {
+    }
+  }
   under = H5VLdataset_open(o->under_object, loc_params, o->under_vol_id, name,
                            dapl_id, dxpl_id, req);
   if (under) {
@@ -2002,6 +2088,199 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
   /* Make sure we have info about the underlying VOL to be used */
   if (!info) return NULL;
 
+
+  struct FileProperties fileProperties;
+  bool is_present = get_file_properties(name, &fileProperties);
+  if (is_present) {
+
+#ifdef ENABLE_INTENT_LOGGING
+    H5INTENT_LOGINFO("------- INTENT VOL FILE Found properties for file %s", name);
+#endif
+    if (fileProperties.creation.file_space.use){
+      /**
+       * Sets the file space page size for a file creation property list.
+       *
+       * Parameters
+       *   [in]	plist_id	File creation property list identifier
+       *   [in]	fsp_size	File space page size
+       * Returns                Returns a non-negative value if successful;
+       *                        otherwise returns a negative value.
+       *
+       * H5Pset_file_space_page_size() sets the file space page size fsp_size
+       * used in paged aggregation and paged buffering. fsp_size has a minimum
+       * size of 512. Setting a value less than 512 will return an error.
+       * The library default size for the file space page size when not set
+       * is 4096. The size set via this routine may not be changed for the life of the file.
+       **/
+      herr_t status = H5Pset_file_space_page_size(fcpl_id,
+               fileProperties.creation.file_space.file_space_page_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting file_space_page_size for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting file_space_page_size for file %s successful", name);
+      }
+      status = H5Pset_file_space_strategy(fcpl_id,
+                                                 fileProperties.creation.file_space.strategy,
+                                                 fileProperties.creation.file_space.persist,
+                                                 fileProperties.creation.file_space.threshold);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting file_space_strategy for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting file_space_strategy for file %s successful", name);
+      }
+    }
+    if (fileProperties.creation.istore.use){
+      herr_t status = H5Pset_istore_k(fcpl_id, fileProperties.creation.istore.ik);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting istore_k for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting istore_k for file %s successful", name);
+      }
+    }
+    if (fileProperties.creation.sizes.use){
+      herr_t status = H5Pset_sizes(fcpl_id,
+                                   fileProperties.creation.sizes.sizeof_addr,
+                                   fileProperties.creation.sizes.sizeof_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting set_sizes for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting set_sizes for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.cache.use){
+      herr_t status = H5Pset_cache(fapl_id,
+                                   fileProperties.access.cache.mdc_nelmts,
+                                   fileProperties.access.cache.rdcc_nslots,
+                                   fileProperties.access.cache.rdcc_nbytes,
+                                   fileProperties.access.cache.rdcc_w0);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting set_cache for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting set_cache for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.close.use){
+      H5F_close_degree_t degree = H5F_CLOSE_STRONG;
+      if (strcmp(fileProperties.access.close.degree, "H5F_CLOSE_WEAK") == 0)
+        degree = H5F_CLOSE_WEAK;
+      herr_t status = H5Pset_fclose_degree(fapl_id, degree);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting fclose_degree for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting fclose_degree for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.core.use) {
+      herr_t status = H5Pset_fapl_core(fapl_id,
+                           fileProperties.access.core.increment,
+                           fileProperties.access.core.backing_store);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting fapl_core for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting fapl_core for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.family.use) {
+      herr_t status = H5Pset_fapl_family(fapl_id,
+                                       fileProperties.access.family.memb_size,
+                                       fileProperties.access.family.memb_fapl_id);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting fapl_family for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting fapl_family for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.file_image.use) {
+
+    }
+    if (fileProperties.access.fmpiio.use) {
+
+    }
+    if (fileProperties.access.log.use) {
+      herr_t status = H5Pset_fapl_log(fapl_id,
+                                         fileProperties.access.log.logfile,
+                                      fileProperties.access.log.flags,
+                                      fileProperties.access.log.buf_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting fapl_log for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting fapl_log for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.metadata.use) {
+    }
+    if (fileProperties.access.optimizations.use) {
+      herr_t status = H5Pset_file_locking(fapl_id,
+                                      fileProperties.access.optimizations.file_locking,
+                                          0);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting file_locking for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting file_locking for file %s successful", name);
+      }
+      status = H5Pset_gc_references(fapl_id,
+                                   fileProperties.access.optimizations.gc_ref);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting gc_references for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting gc_references for file %s successful", name);
+      }
+      status = H5Pset_sieve_buf_size(fapl_id,
+                                    fileProperties.access.optimizations.sieve_buf_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting sieve_buf_size for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting sieve_buf_size for file %s successful", name);
+      }
+      status = H5Pset_small_data_block_size(fapl_id,
+                                     fileProperties.access.optimizations.small_data_block_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting small_data_block_size for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting small_data_block_size for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.page_buffer.use) {
+//      herr_t status = H5Pset_page_buffer_size(
+//          fapl_id, fileProperties.access.page_buffer.buf_size, 100 - fileProperties.access.page_buffer.min_raw_per, fileProperties.access.page_buffer.min_raw_per);
+//      if (status != 0) {
+//        H5INTENT_LOGERROR("DATASET setting page_buffer_size for file %s failed",
+//                          name);
+//      } else {
+//        H5INTENT_LOGINFO("DATASET setting page_buffer_size for file %s successful",
+//                         name);
+//      }
+    }
+    if (fileProperties.access.split.use) {
+    }
+    if (fileProperties.access.write_tracking.use) {
+      herr_t status = H5Pset_core_write_tracking(
+          fapl_id, 1, fileProperties.access.write_tracking.page_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting core_write_tracking for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting core_write_tracking for file %s successful",
+                         name);
+      }
+    }
+  }
+
+
   /* Copy the FAPL */
   under_fapl_id = H5Pcopy(fapl_id);
 
@@ -2048,7 +2327,152 @@ static void *H5VL_intent_file_open(const char *name, unsigned flags,
 #ifdef ENABLE_INTENT_LOGGING
   H5INTENT_LOGINFO_SIMPLE("FILE Open");
 #endif
+  struct FileProperties fileProperties;
+  bool is_present = get_file_properties(name, &fileProperties);
+  if (is_present) {
 
+#ifdef ENABLE_INTENT_LOGGING
+    H5INTENT_LOGINFO("------- INTENT VOL FILE Found properties for file %s", name);
+#endif
+    if (fileProperties.access.cache.use){
+      herr_t status = H5Pset_cache(fapl_id,
+                                   fileProperties.access.cache.mdc_nelmts,
+                                   fileProperties.access.cache.rdcc_nslots,
+                                   fileProperties.access.cache.rdcc_nbytes,
+                                   fileProperties.access.cache.rdcc_w0);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting set_cache for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting set_cache for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.close.use){
+      herr_t status = H5Pset_evict_on_close(fapl_id,
+                                            fileProperties.access.close.evict);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting evict_on_close for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting evict_on_close for file %s successful", name);
+      }
+      H5F_close_degree_t degree = H5F_CLOSE_STRONG;
+      if (strcmp(fileProperties.access.close.degree, "H5F_CLOSE_WEAK") == 0)
+        degree = H5F_CLOSE_WEAK;
+      status = H5Pset_fclose_degree(fapl_id, degree);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting fclose_degree for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting fclose_degree for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.core.use) {
+      herr_t status = H5Pset_fapl_core(fapl_id,
+                                       fileProperties.access.core.increment,
+                                       fileProperties.access.core.backing_store);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting fapl_core for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting fapl_core for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.family.use) {
+      herr_t status = H5Pset_fapl_family(fapl_id,
+                                         fileProperties.access.family.memb_size,
+                                         fileProperties.access.family.memb_fapl_id);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting fapl_family for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting fapl_family for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.file_image.use) {
+
+    }
+    if (fileProperties.access.fmpiio.use) {
+
+    }
+    if (fileProperties.access.log.use) {
+      herr_t status = H5Pset_fapl_log(fapl_id,
+                                      fileProperties.access.log.logfile,
+                                      fileProperties.access.log.flags,
+                                      fileProperties.access.log.buf_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting fapl_log for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting fapl_log for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.metadata.use) {
+    }
+    if (fileProperties.access.optimizations.use) {
+      herr_t status = H5Pset_file_locking(fapl_id,
+                                          fileProperties.access.optimizations.file_locking,
+                                          0);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting file_locking for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting file_locking for file %s successful", name);
+      }
+      status = H5Pset_gc_references(fapl_id,
+                                    fileProperties.access.optimizations.gc_ref);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting gc_references for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting gc_references for file %s successful", name);
+      }
+      status = H5Pset_sieve_buf_size(fapl_id,
+                                     fileProperties.access.optimizations.sieve_buf_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting sieve_buf_size for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting sieve_buf_size for file %s successful", name);
+      }
+      status = H5Pset_small_data_block_size(fapl_id,
+                                            fileProperties.access.optimizations.small_data_block_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting small_data_block_size for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting small_data_block_size for file %s successful", name);
+      }
+    }
+    if (fileProperties.access.page_buffer.use) {
+      herr_t status = H5Pset_page_buffer_size(
+          fapl_id, fileProperties.access.page_buffer.buf_size, fileProperties.access.page_buffer.min_meta_per, fileProperties.access.page_buffer.min_raw_per);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting page_buffer_size for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting page_buffer_size for file %s successful",
+                         name);
+      }
+    }
+    if (fileProperties.access.split.use) {
+    }
+    if (fileProperties.access.write_tracking.use) {
+      herr_t status = H5Pset_core_write_tracking(
+          fapl_id, 1, fileProperties.access.write_tracking.page_size);
+      if (status != 0) {
+        H5INTENT_LOGERROR("DATASET setting core_write_tracking for file %s failed",
+                          name);
+      } else {
+        H5INTENT_LOGINFO("DATASET setting core_write_tracking for file %s successful",
+                         name);
+      }
+    }
+  }
   /* Get copy of our VOL info from FAPL */
   H5Pget_vol_info(fapl_id, (void **)&info);
 
