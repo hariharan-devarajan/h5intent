@@ -2159,111 +2159,114 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
         H5INTENT_LOGINFO("DATASET setting set_cache for file %s successful", name);
       }
     }
-    if (fileProperties.access.close.use){
-      H5F_close_degree_t degree = H5F_CLOSE_STRONG;
-      if (strcmp(fileProperties.access.close.degree, "H5F_CLOSE_WEAK") == 0)
-        degree = H5F_CLOSE_WEAK;
-      herr_t status = H5Pset_fclose_degree(fapl_id, degree);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting fclose_degree for file %s failed", name);
-      } else {
-        H5INTENT_LOGINFO("DATASET setting fclose_degree for file %s successful", name);
+    if (fileProperties.access.fmpiio.use) {}
+    else {
+      if (fileProperties.access.close.use) {
+        H5F_close_degree_t degree = H5F_CLOSE_STRONG;
+        if (strcmp(fileProperties.access.close.degree, "H5F_CLOSE_WEAK") == 0)
+          degree = H5F_CLOSE_WEAK;
+        herr_t status = H5Pset_fclose_degree(fapl_id, degree);
+        if (status != 0) {
+          H5INTENT_LOGERROR("DATASET setting fclose_degree for file %s failed",
+                            name);
+        } else {
+          H5INTENT_LOGINFO(
+              "DATASET setting fclose_degree for file %s successful", name);
+        }
       }
-    }
-    if (fileProperties.access.core.use) {
-      herr_t status = H5Pset_fapl_core(fapl_id,
-                           fileProperties.access.core.increment,
-                           fileProperties.access.core.backing_store);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting fapl_core for file %s failed",
-                          name);
-      } else {
-        H5INTENT_LOGINFO(
-            "DATASET setting fapl_core for file %s successful", name);
+      if (fileProperties.access.core.use) {
+        herr_t status =
+            H5Pset_fapl_core(fapl_id, fileProperties.access.core.increment,
+                             fileProperties.access.core.backing_store);
+        if (status != 0) {
+          H5INTENT_LOGERROR("DATASET setting fapl_core for file %s failed",
+                            name);
+        } else {
+          H5INTENT_LOGINFO("DATASET setting fapl_core for file %s successful",
+                           name);
+        }
       }
-    }
-    if (fileProperties.access.family.use) {
-      herr_t status = H5Pset_fapl_family(fapl_id,
-                                       fileProperties.access.family.memb_size,
-                                       fileProperties.access.family.memb_fapl_id);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting fapl_family for file %s failed",
-                          name);
-      } else {
-        H5INTENT_LOGINFO(
-            "DATASET setting fapl_family for file %s successful", name);
+      if (fileProperties.access.family.use) {
+        herr_t status =
+            H5Pset_fapl_family(fapl_id, fileProperties.access.family.memb_size,
+                               fileProperties.access.family.memb_fapl_id);
+        if (status != 0) {
+          H5INTENT_LOGERROR("DATASET setting fapl_family for file %s failed",
+                            name);
+        } else {
+          H5INTENT_LOGINFO("DATASET setting fapl_family for file %s successful",
+                           name);
+        }
       }
-    }
-    if (fileProperties.access.file_image.use) {
-
-    }
-    if (fileProperties.access.fmpiio.use) {
-
-    }
-    if (fileProperties.access.log.use) {
-      herr_t status = H5Pset_fapl_log(fapl_id,
-                                         fileProperties.access.log.logfile,
-                                      fileProperties.access.log.flags,
-                                      fileProperties.access.log.buf_size);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting fapl_log for file %s failed",
-                          name);
-      } else {
-        H5INTENT_LOGINFO(
-            "DATASET setting fapl_log for file %s successful", name);
+      if (fileProperties.access.file_image.use) {
       }
-    }
-    if (fileProperties.access.metadata.use) {
-    }
-    if (fileProperties.access.optimizations.use) {
-      herr_t status = H5Pset_file_locking(fapl_id,
-                                      fileProperties.access.optimizations.file_locking,
-                                          0);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting file_locking for file %s failed",
-                          name);
-      } else {
-        H5INTENT_LOGINFO(
-            "DATASET setting file_locking for file %s successful", name);
+      if (fileProperties.access.log.use) {
+        herr_t status =
+            H5Pset_fapl_log(fapl_id, fileProperties.access.log.logfile,
+                            fileProperties.access.log.flags,
+                            fileProperties.access.log.buf_size);
+        if (status != 0) {
+          H5INTENT_LOGERROR("DATASET setting fapl_log for file %s failed",
+                            name);
+        } else {
+          H5INTENT_LOGINFO("DATASET setting fapl_log for file %s successful",
+                           name);
+        }
       }
-      status = H5Pset_gc_references(fapl_id,
-                                   fileProperties.access.optimizations.gc_ref);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting gc_references for file %s failed",
-                          name);
-      } else {
-        H5INTENT_LOGINFO(
-            "DATASET setting gc_references for file %s successful", name);
+      if (fileProperties.access.metadata.use) {
       }
-      status = H5Pset_sieve_buf_size(fapl_id,
-                                    fileProperties.access.optimizations.sieve_buf_size);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting sieve_buf_size for file %s failed",
-                          name);
-      } else {
-        H5INTENT_LOGINFO(
-            "DATASET setting sieve_buf_size for file %s successful", name);
-      }
-      status = H5Pset_small_data_block_size(fapl_id,
-                                     fileProperties.access.optimizations.small_data_block_size);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting small_data_block_size for file %s failed",
-                          name);
-      } else {
-        H5INTENT_LOGINFO(
-            "DATASET setting small_data_block_size for file %s successful", name);
+      if (fileProperties.access.optimizations.use) {
+        herr_t status = H5Pset_file_locking(
+            fapl_id, fileProperties.access.optimizations.file_locking, 0);
+        if (status != 0) {
+          H5INTENT_LOGERROR("DATASET setting file_locking for file %s failed",
+                            name);
+        } else {
+          H5INTENT_LOGINFO(
+              "DATASET setting file_locking for file %s successful", name);
+        }
+        status = H5Pset_gc_references(
+            fapl_id, fileProperties.access.optimizations.gc_ref);
+        if (status != 0) {
+          H5INTENT_LOGERROR("DATASET setting gc_references for file %s failed",
+                            name);
+        } else {
+          H5INTENT_LOGINFO(
+              "DATASET setting gc_references for file %s successful", name);
+        }
+        status = H5Pset_sieve_buf_size(
+            fapl_id, fileProperties.access.optimizations.sieve_buf_size);
+        if (status != 0) {
+          H5INTENT_LOGERROR("DATASET setting sieve_buf_size for file %s failed",
+                            name);
+        } else {
+          H5INTENT_LOGINFO(
+              "DATASET setting sieve_buf_size for file %s successful", name);
+        }
+        status = H5Pset_small_data_block_size(
+            fapl_id, fileProperties.access.optimizations.small_data_block_size);
+        if (status != 0) {
+          H5INTENT_LOGERROR(
+              "DATASET setting small_data_block_size for file %s failed", name);
+        } else {
+          H5INTENT_LOGINFO(
+              "DATASET setting small_data_block_size for file %s successful",
+              name);
+        }
       }
     }
     if (fileProperties.access.page_buffer.use) {
-//      herr_t status = H5Pset_page_buffer_size(
-//          fapl_id, fileProperties.access.page_buffer.buf_size, 100 - fileProperties.access.page_buffer.min_raw_per, fileProperties.access.page_buffer.min_raw_per);
-//      if (status != 0) {
-//        H5INTENT_LOGERROR("DATASET setting page_buffer_size for file %s failed",
-//                          name);
-//      } else {
-//        H5INTENT_LOGINFO("DATASET setting page_buffer_size for file %s successful",
-//                         name);
-//      }
+      herr_t status = H5Pset_page_buffer_size(
+          fapl_id, fileProperties.access.page_buffer.buf_size,
+          100 - fileProperties.access.page_buffer.min_raw_per,
+          fileProperties.access.page_buffer.min_raw_per);
+      if (status != 0) {
+        H5INTENT_LOGERROR(
+            "DATASET setting page_buffer_size for file %s failed", name);
+      } else {
+        H5INTENT_LOGINFO(
+            "DATASET setting page_buffer_size for file %s successful", name);
+      }
     }
     if (fileProperties.access.split.use) {
     }
@@ -2271,11 +2274,12 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
       herr_t status = H5Pset_core_write_tracking(
           fapl_id, 1, fileProperties.access.write_tracking.page_size);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting core_write_tracking for file %s failed",
-                          name);
+        H5INTENT_LOGERROR(
+            "DATASET setting core_write_tracking for file %s failed", name);
       } else {
-        H5INTENT_LOGINFO("DATASET setting core_write_tracking for file %s successful",
-                         name);
+        H5INTENT_LOGINFO(
+            "DATASET setting core_write_tracking for file %s successful",
+            name);
       }
     }
   }
