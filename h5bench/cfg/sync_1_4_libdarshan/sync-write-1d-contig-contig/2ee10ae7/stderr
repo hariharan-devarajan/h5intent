@@ -1,0 +1,4 @@
+/bin/bash: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig/2ee10ae7/h5bench.cfg: Permission denied
+/bin/bash: line 0: exec: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-contig-contig/2ee10ae7/h5bench.cfg: cannot execute: Permission denied
+During startup program exited with code 126.
+Exiting

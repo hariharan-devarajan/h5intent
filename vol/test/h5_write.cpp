@@ -94,13 +94,14 @@ int main(int argc, char** argv) {
   printf("Iteration %ld\n", args.iteration_);
   hsize_t dims[2] = {num_elements, num_elements};
   hsize_t max_dims[2] = {num_elements, num_elements};
-
-  hid_t file_id = H5Fcreate(file_name, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
+  hid_t fapl = H5Pcreate(H5P_FILE_ACCESS);
+  hid_t file_id = H5Fcreate(file_name, H5F_ACC_TRUNC, H5P_DEFAULT, fapl);
   hid_t dataspaceId = H5Screate_simple(rank_, dims, max_dims);
 
   // 97 106 89 97 107 97 94
 
   char dataset_name[256];
+  Timer write_time, read_time;
   for (int i = 0; i < args.iteration_; i++) {
     sprintf(dataset_name, "/dset_%d_%d", i, rank);
     hid_t datasetId =
@@ -110,16 +111,19 @@ int main(int argc, char** argv) {
     int32_t* array = UniformDistribution<int32_t>(rank_, reinterpret_cast<size_t*>(dims), 0, 1000);
     int32_t* array2 = static_cast<int32_t*>(
         malloc(num_elements * num_elements * sizeof(int)));
+    write_time.resumeTime();
     if (H5Dwrite(datasetId, H5T_NATIVE_INT, H5S_ALL, H5S_ALL, H5P_DEFAULT,
                  array) < 0) {
       printf("Write failed\n");
       exit(1);
     }
-
+    write_time.pauseTime();
+    read_time.resumeTime();
     if (H5Dread(datasetId, H5T_NATIVE_INT, H5S_ALL, H5S_ALL, H5P_DEFAULT,
                 array2) < 0) {
       printf("Read Failed\n");
     }
+    read_time.pauseTime();
 
     if (strncmp((char*)array, (char*)array2,
                 num_elements * num_elements * sizeof(int)) != 0)
@@ -132,7 +136,7 @@ int main(int argc, char** argv) {
   H5Sclose(dataspaceId);
   H5Fclose(file_id);
   // clean_env(args);
-  printf("SUCCESS\n");
+  printf("SUCCESS read_time %f write time %f\n", read_time.getElapsedTime(), write_time.getElapsedTime());
   MPI_Finalize();
   return 0;
 }

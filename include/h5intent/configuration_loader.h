@@ -13,9 +13,9 @@ namespace h5intent {
 class ConfigurationManager {
  public:
   HDF5Properties properties;
-  ConfigurationManager() = default;
-  ConfigurationManager(const ConfigurationManager& other) = default;
-  ConfigurationManager(ConfigurationManager&& other)= default;
+  ConfigurationManager():properties() {}
+  ConfigurationManager(const ConfigurationManager& other):properties(other.properties){}
+  ConfigurationManager(ConfigurationManager&& other):properties(other.properties){}
   ConfigurationManager& operator=(const ConfigurationManager& other) {
     this->properties = other.properties;
     return *this;

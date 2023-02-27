@@ -79,9 +79,11 @@ bool select_correct_conf(const char* confs, char** selected_conf) {
     lastindex = rawname.find_last_of("/");
     std::string json_name = rawname.substr(lastindex + 1, -1);
     if (strcmp(json_name.c_str(),exec.c_str()) == 0) {
+      auto conf_len = property.size();
       *selected_conf =
-          static_cast<char*>(malloc(property.size()));
+          static_cast<char*>(malloc(conf_len + 1));
       strcpy(*selected_conf, property.c_str());
+      (*selected_conf)[conf_len] = '\0';
       return true;
     }
   }

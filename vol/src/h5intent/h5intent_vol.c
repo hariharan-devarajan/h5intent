@@ -830,6 +830,7 @@ static herr_t H5VL_intent_str_to_info(const char *str, void **_info) {
     if (is_selected) {
       load_configuration(conf);
       cpp_logger_clog_level(CPP_LOGGER_ERROR, H5_INTENT_LOG_NAME);
+      free(conf);
     }
     free(under_vol_info_str);
   } /* end else */
@@ -2097,7 +2098,7 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
     H5INTENT_LOGINFO("------- INTENT VOL FILE Found properties for file %s", name);
 #endif
     if (fileProperties.creation.file_space.use){
-      /*herr_t status = H5Pset_file_space_page_size(fcpl_id,
+      herr_t status = H5Pset_file_space_page_size(fcpl_id,
                fileProperties.creation.file_space.file_space_page_size);
       if (status != 0) {
         H5INTENT_LOGERROR("DATASET setting file_space_page_size for file %s failed", name);
@@ -2112,7 +2113,7 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
         H5INTENT_LOGERROR("DATASET setting file_space_strategy for file %s failed", name);
       } else {
         H5INTENT_LOGINFO("DATASET setting file_space_strategy for file %s successful", name);
-      }*/
+      }
     }
     if (fileProperties.creation.istore.use){
       herr_t status = H5Pset_istore_k(fcpl_id, fileProperties.creation.istore.ik);
