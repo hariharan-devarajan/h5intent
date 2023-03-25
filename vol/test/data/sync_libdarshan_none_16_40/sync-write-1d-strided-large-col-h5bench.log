@@ -1,0 +1,14 @@
+2023-03-24 16:43:33,407 h5bench - INFO - Starting h5bench Suite
+2023-03-24 16:43:33,413 h5bench - INFO - Lustre support not detected
+2023-03-24 16:43:33,414 h5bench - DEBUG - LD_LIBRARY_PATH: /opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib:/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib64
+2023-03-24 16:43:33,415 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-03-24 16:43:33,415 h5bench - DEBUG - LD_PRELOAD: 
+2023-03-24 16:43:33,416 h5bench - INFO - JOBID: 4662243
+2023-03-24 16:43:33,417 h5bench - INFO - h5bench [write] - Starting
+2023-03-24 16:43:33,418 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-strided-large-col_16_40/5c235e65-4662243/
+2023-03-24 16:43:33,419 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-03-24 16:43:33,421 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so /usr/workspace/iopp/software/h5intent/build-profile/bin//h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-strided-large-col_16_40/5c235e65-4662243/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-strided-large-col_16_40/test.h5
+2023-03-24 16:44:52,305 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-strided-large-col_16_40/5c235e65-4662243)
+2023-03-24 16:44:52,307 h5bench - INFO - Runtime: 78.8878987 seconds (elapsed time, includes allocation wait time)
+2023-03-24 16:44:52,308 h5bench - INFO - h5bench [write] - Complete
+2023-03-24 16:44:52,309 h5bench - INFO - Finishing h5bench Suite

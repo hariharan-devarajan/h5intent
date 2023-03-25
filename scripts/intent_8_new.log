@@ -1,0 +1,36 @@
+Total number of particles: 10240M
+Total number of ranks: 320
+Total emulated compute time: 0.000 s
+Total write size: 320.000 GB
+Raw write time: 3.480 s
+Metadata time: 0.015 s
+H5Fcreate() time: 0.005 s
+H5Fflush() time: 0.000 s
+H5Fclose() time: 0.001 s
+Observed completion time: 3.869 s
+SYNC Raw write rate: 91.953 GB/s 
+SYNC Observed write rate: 82.706 GB/s
+Total number of particles: 2560M
+Total number of ranks: 320
+Total emulated compute time: 0.000 s
+Total write size: 80.000 GB
+Raw write time: 0.367 s
+Metadata time: 0.015 s
+H5Fcreate() time: 0.027 s
+H5Fflush() time: 0.494 s
+H5Fclose() time: 0.006 s
+Observed completion time: 1.216 s
+SYNC Raw write rate: 218.180 GB/s 
+SYNC Observed write rate: 65.783 GB/s
+Total number of particles: 160M
+Total number of ranks: 320
+Total emulated compute time: 0.000 s
+Total write size: 5.000 GB
+Raw write time: 0.008 s
+Metadata time: 0.006 s
+H5Fcreate() time: 0.014 s
+H5Fflush() time: 0.098 s
+H5Fclose() time: 0.100 s
+Observed completion time: 0.884 s
+SYNC Raw write rate: 590.807 GB/s 
+SYNC Observed write rate: 5.653 GB/s

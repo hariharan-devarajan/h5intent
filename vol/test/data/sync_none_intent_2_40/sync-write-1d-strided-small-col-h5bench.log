@@ -1,0 +1,17 @@
+2023-03-24 19:37:46,191 h5bench - INFO - Starting h5bench Suite
+2023-03-24 19:37:46,192 h5bench - WARNING - Base directory already exists: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-strided-small-col_2_40
+2023-03-24 19:37:46,197 h5bench - INFO - Lustre support not detected
+2023-03-24 19:37:46,197 h5bench - DEBUG - HDF5_PLUGIN_PATH: /usr/workspace/iopp/software/h5intent/build/lib
+2023-03-24 19:37:46,198 h5bench - DEBUG - LD_LIBRARY_PATH: /opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/workspace/iopp/software/h5intent/dependency/.spack-env/view/lib:/usr/workspace/iopp/software/h5intent/dependency/.spack-env/view/lib64:/usr/tce/packages/python/python-3.7.2/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-03-24 19:37:46,198 h5bench - DEBUG - DYLD_LIBRARY_PATH: :/usr/tce/packages/python/python-3.7.2/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-03-24 19:37:46,198 h5bench - DEBUG - LD_PRELOAD: 
+2023-03-24 19:37:46,198 h5bench - INFO - JOBID: 4663266
+2023-03-24 19:37:46,199 h5bench - INFO - h5bench [write] - Starting
+2023-03-24 19:37:46,199 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/iopp/temp/h5bench/sync-write-1d-strided-small-col_2_40/af6485b6-4663266/
+2023-03-24 19:37:46,200 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 
+2023-03-24 19:37:46,200 h5bench - INFO - HDF5 VOL connector: intent under_vol=0;under_info={/usr/workspace/iopp/software/h5intent/h5bench/property-json/sync_libdarshan_none_2_40/sync-write-1d-strided-small-col/h5bench_write.json}
+2023-03-24 19:37:46,201 h5bench - INFO - jsrun -r 1 -c 40 -a 40  h5bench_write /p/gpfs1/iopp/temp/h5bench/sync-write-1d-strided-small-col_2_40/af6485b6-4663266/h5bench.cfg /p/gpfs1/iopp/temp/h5bench/sync-write-1d-strided-small-col_2_40/test.h5
+2023-03-24 19:37:59,239 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/iopp/temp/h5bench/sync-write-1d-strided-small-col_2_40/af6485b6-4663266)
+2023-03-24 19:37:59,240 h5bench - INFO - Runtime: 13.0398235 seconds (elapsed time, includes allocation wait time)
+2023-03-24 19:37:59,240 h5bench - INFO - h5bench [write] - Complete
+2023-03-24 19:37:59,240 h5bench - INFO - Finishing h5bench Suite
