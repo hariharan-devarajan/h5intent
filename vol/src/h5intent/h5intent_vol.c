@@ -2157,6 +2157,16 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
 //        H5INTENT_LOGINFO("FILE setting set_sizes for file %s successful", name);
 //      }
 //    }
+    if (fileProperties.access.alignment.use){
+        herr_t status = H5Pset_alignment(fapl_id,
+                                     fileProperties.access.alignment.threshold,
+                                     fileProperties.access.alignment.alignment_value);
+        if (status != 0) {
+            H5INTENT_LOGERROR("FILE setting set_alignment for file %s failed", name);
+        } else {
+            H5INTENT_LOGINFO("FILE setting set_alignment for file %s successful", name);
+        }
+    }
     if (fileProperties.access.cache.use){
       herr_t status = H5Pset_cache(fapl_id,
                                    fileProperties.access.cache.mdc_nelmts,

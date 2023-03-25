@@ -84,6 +84,11 @@ struct DatasetTransferProperties {
 };
 
 struct FileAccessProperties {
+  struct alignment {
+    bool use;
+    size_t threshold;
+    hbool_t alignment_value;
+  } alignment;
   struct core {
     bool use;
     size_t increment;
@@ -494,6 +499,11 @@ inline void from_json(const json& j, H5AC_cache_config_t& p) {
 }
 inline void to_json(json& j, const FileAccessProperties& p) {
   j = json();
+  /*alignment*/
+  j["alignment"] = json();
+  TO_JSON(alignment, use);
+  TO_JSON(alignment, threshold);
+  TO_JSON(alignment, alignment_value);
   /*core*/
   j["core"] = json();
   TO_JSON(core, use);
@@ -575,6 +585,11 @@ inline void to_json(json& j, const FileAccessProperties& p) {
   TO_JSON(page_buffer, min_raw_per);
 }
 inline void from_json(const json& j, FileAccessProperties& p) {
+
+  /*alignment*/
+  FROM_JSON(alignment, use);
+  FROM_JSON(alignment, threshold);
+  FROM_JSON(alignment, alignment_value);
   /*core*/
   FROM_JSON(core, use);
   FROM_JSON(core, increment);

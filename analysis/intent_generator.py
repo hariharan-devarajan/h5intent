@@ -121,6 +121,7 @@ class FileAccessProperties:
         self.optimizations = None
         self.metadata = None
         self.page_buffer = None
+        self.alignment = None
 
     def __repr__(self):
         return str(self.json())
@@ -140,7 +141,8 @@ class FileAccessProperties:
             'file_image': self.file_image,
             'optimizations': self.optimizations,
             'metadata': self.metadata,
-            'page_buffer': self.page_buffer
+            'page_buffer': self.page_buffer,
+            'alignment': self.alignment
         }
 
 
@@ -466,6 +468,11 @@ class IntentGenerator:
             file_item.size = file_agg[file_id]['file_size']
             file_item.ts = file_agg[file_id]['ts_sum'] / file_agg[file_id]['ts_count']
             is_shared_access = h5f_df_c['rank'][ind] == -1
+            file_item.access.alignment = {
+                'use': True,
+                'threshold': file_item.ts,
+                'alignment': 1 * MB
+            }
             if not is_shared_access and file_item.size < AVAIL_NODE_MEMORY_BYTES and file_item.ts < 4*MB:
                 #print(file_item.size, AVAIL_NODE_MEMORY_BYTES)
                 file_item.access.core = {
