@@ -68,6 +68,7 @@
 typedef struct H5VL_intent_t {
   hid_t under_vol_id; /* ID for underlying VOL connector */
   void *under_object; /* Info object for underlying VOL connector */
+  char* filename;
 } H5VL_intent_t;
 
 /* The intent VOL wrapper context */
@@ -93,7 +94,7 @@ static herr_t H5VL_intent_link_create_reissue(
     const H5VL_loc_params_t *loc_params, hid_t connector_id, hid_t lcpl_id,
     hid_t lapl_id, hid_t dxpl_id, void **req);
 
-static H5VL_intent_t *H5VL_intent_new_obj(void *under_obj, hid_t under_vol_id);
+static H5VL_intent_t *H5VL_intent_new_obj(void *under_obj, hid_t under_vol_id, const char* filename);
 
 static herr_t H5VL_intent_free_obj(H5VL_intent_t *obj);
 
@@ -532,14 +533,17 @@ const void *H5PLget_plugin_info(void) { return &H5VL_intent_g; }
  *
  *-------------------------------------------------------------------------
  */
-static H5VL_intent_t *H5VL_intent_new_obj(void *under_obj, hid_t under_vol_id) {
-  H5VL_intent_t *new_obj;
-
-  new_obj = (H5VL_intent_t *)calloc(1, sizeof(H5VL_intent_t));
+static H5VL_intent_t *H5VL_intent_new_obj(void *under_obj, hid_t under_vol_id, const char* filename) {
+  H5VL_intent_t *new_obj = (H5VL_intent_t *)malloc(sizeof(H5VL_intent_t));
+  const int FILENAME_LEN=4096;
+  new_obj->filename=calloc(FILENAME_LEN, sizeof(char));
+  size_t file_len = strlen(filename) + 1;
+  for(int i=0;i<file_len;++i) new_obj->filename[i]=filename[i];
+  new_obj->filename[file_len] = '\0';
+  //printf("From H5VL_intent_new_obj %s %s", filename, new_obj->filename);
   new_obj->under_object = under_obj;
   new_obj->under_vol_id = under_vol_id;
   H5Iinc_ref(new_obj->under_vol_id);
-
   return new_obj;
 } /* end H5VL__intent_new_obj() */
 
@@ -564,6 +568,7 @@ static herr_t H5VL_intent_free_obj(H5VL_intent_t *obj) {
   err_id = H5Eget_current_stack();
   H5Idec_ref(obj->under_vol_id);
   H5Eset_current_stack(err_id);
+  free(obj->filename);
   free(obj);
   return 0;
 } /* end H5VL__intent_free_obj() */
@@ -605,7 +610,7 @@ static herr_t H5VL_intent_init(hid_t vipl_id) {
 #ifdef ENABLE_INTENT_LOGGING
   H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL INIT");
 #endif
-
+    set_signal();
   /* Shut compiler up about unused parameter */
   (void)vipl_id;
 
@@ -802,9 +807,7 @@ static herr_t H5VL_intent_str_to_info(const char *str, void **_info) {
   hid_t under_vol_id;
   void *under_vol_info = NULL;
 
-#ifdef ENABLE_INTENT_LOGGING
-  H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL INFO String To Info");
-#endif
+
 
   /* Retrieve the underlying VOL connector value and info */
   sscanf(str, "under_vol=%u;", &under_vol_value);
@@ -828,8 +831,8 @@ static herr_t H5VL_intent_str_to_info(const char *str, void **_info) {
     char* conf;
     bool is_selected = select_correct_conf(under_vol_info_str, &conf);
     if (is_selected) {
-      load_configuration(conf);
       cpp_logger_clog_level(CPP_LOGGER_ERROR, H5_INTENT_LOG_NAME);
+      load_configuration(conf);
       free(conf);
     }
     free(under_vol_info_str);
@@ -923,9 +926,9 @@ static void *H5VL_intent_wrap_object(void *obj, H5I_type_t obj_type,
   /* Wrap the object with the underlying VOL */
   under = H5VLwrap_object(obj, obj_type, wrap_ctx->under_vol_id,
                           wrap_ctx->under_wrap_ctx);
-  if (under)
-    new_obj = H5VL_intent_new_obj(under, wrap_ctx->under_vol_id);
-  else
+  if (under) {
+    new_obj = H5VL_intent_new_obj(under, wrap_ctx->under_vol_id, "Test");
+  } else
     new_obj = NULL;
 
   return new_obj;
@@ -1020,10 +1023,10 @@ static void *H5VL_intent_attr_create(void *obj,
   under = H5VLattr_create(o->under_object, loc_params, o->under_vol_id, name,
                           type_id, space_id, acpl_id, aapl_id, dxpl_id, req);
   if (under) {
-    attr = H5VL_intent_new_obj(under, o->under_vol_id);
+    attr = H5VL_intent_new_obj(under, o->under_vol_id,o->filename);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
   } /* end if */
   else
     attr = NULL;
@@ -1056,10 +1059,10 @@ static void *H5VL_intent_attr_open(void *obj,
   under = H5VLattr_open(o->under_object, loc_params, o->under_vol_id, name,
                         aapl_id, dxpl_id, req);
   if (under) {
-    attr = H5VL_intent_new_obj(under, o->under_vol_id);
+    attr = H5VL_intent_new_obj(under, o->under_vol_id,o->filename);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
   } /* end if */
   else
     attr = NULL;
@@ -1090,7 +1093,7 @@ static herr_t H5VL_intent_attr_read(void *attr, hid_t mem_type_id, void *buf,
                             dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_attr_read() */
@@ -1119,7 +1122,7 @@ static herr_t H5VL_intent_attr_write(void *attr, hid_t mem_type_id,
                              dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_attr_write() */
@@ -1147,7 +1150,7 @@ static herr_t H5VL_intent_attr_get(void *obj, H5VL_attr_get_args_t *args,
       H5VLattr_get(o->under_object, o->under_vol_id, args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_attr_get() */
@@ -1177,7 +1180,7 @@ static herr_t H5VL_intent_attr_specific(void *obj,
                                 args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_attr_specific() */
@@ -1205,7 +1208,7 @@ static herr_t H5VL_intent_attr_optional(void *obj, H5VL_optional_args_t *args,
       H5VLattr_optional(o->under_object, o->under_vol_id, args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_attr_optional() */
@@ -1231,7 +1234,7 @@ static herr_t H5VL_intent_attr_close(void *attr, hid_t dxpl_id, void **req) {
   ret_value = H5VLattr_close(o->under_object, o->under_vol_id, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   /* Release our wrapper, if underlying attribute was closed */
   if (ret_value >= 0) H5VL_intent_free_obj(o);
@@ -1262,21 +1265,30 @@ static void *H5VL_intent_dataset_create(void *obj,
 #ifdef ENABLE_INTENT_LOGGING
   H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL DATASET Create");
 #endif
-  char name_fqn[256];
+  char parent[256];
   int name_size = 0;
   H5VL_object_get_args_t args;
   args.op_type = H5VL_OBJECT_GET_NAME;
-  args.args.get_name.buf = name_fqn;
+  args.args.get_name.buf = parent;
   args.args.get_name.buf_size = 256;
   args.args.get_name.name_len = &name_size;
   name_size = *args.args.get_name.name_len;
 
   herr_t ret_value = H5VLobject_get(o->under_object, loc_params,
                                     o->under_vol_id, &args, dxpl_id, req);
+  char name_fqn[4096];
   size_t dset_size = strlen(name);
-  strcpy(name_fqn, args.args.get_name.buf);
-  strcpy(name_fqn + name_size, name);
-  name_fqn[name_size + dset_size] = '\0';
+  size_t file_size = strlen(o->filename);
+  for (int i=0;i<file_size;++i) name_fqn[i] = o->filename[i];
+  name_fqn[file_size] = ':';
+  int current_index = file_size + 1;
+  for (int i = 0; i < name_size;++i) name_fqn[i+current_index] = args.args.get_name.buf[i];
+  for (int i = 0; i < name_size;++i) name_fqn[i+current_index] = args.args.get_name.buf[i];
+  current_index += name_size;
+  for (int i = 0; i < dset_size;++i) name_fqn[i+ current_index] = name[i];
+  current_index += dset_size;
+  name_fqn[current_index] = '\0';
+  H5INTENT_LOGINFO("------- INTENT VOL DATASET CREATE for dataset %s", name_fqn);
   struct DatasetProperties datasetProperties;
   bool is_present = get_dataset_properties(name_fqn, &datasetProperties);
   if (is_present) {
@@ -1545,19 +1557,18 @@ static void *H5VL_intent_dataset_create(void *obj,
     }
   } else {
 #ifdef ENABLE_INTENT_LOGGING
-    H5INTENT_LOGINFO(
-        "DATASET Did not find properties for dataset %s",
-        name);
+          H5INTENT_LOGINFO(
+                  "------- INTENT VOL DATASET Not found properties for dataset %s", name_fqn);
 #endif
   }
   under = H5VLdataset_create(o->under_object, loc_params, o->under_vol_id, name,
                              lcpl_id, type_id, space_id, dcpl_id, dapl_id,
                              dxpl_id, req);
   if (under) {
-    dset = H5VL_intent_new_obj(under, o->under_vol_id);
+    dset = H5VL_intent_new_obj(under, o->under_vol_id,o->filename);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
   } /* end if */
   else
     dset = NULL;
@@ -1586,21 +1597,30 @@ static void *H5VL_intent_dataset_open(void *obj,
 #ifdef ENABLE_INTENT_LOGGING
   H5INTENT_LOGINFO_SIMPLE("DATASET Open");
 #endif
-  char name_fqn[256];
-  int name_size = 0;
-  H5VL_object_get_args_t args;
-  args.op_type = H5VL_OBJECT_GET_NAME;
-  args.args.get_name.buf = name_fqn;
-  args.args.get_name.buf_size = 256;
-  args.args.get_name.name_len = &name_size;
-  name_size = *args.args.get_name.name_len;
+    char parent[256];
+    int name_size = 0;
+    H5VL_object_get_args_t args;
+    args.op_type = H5VL_OBJECT_GET_NAME;
+    args.args.get_name.buf = parent;
+    args.args.get_name.buf_size = 256;
+    args.args.get_name.name_len = &name_size;
+    name_size = *args.args.get_name.name_len;
 
-  herr_t ret_value = H5VLobject_get(o->under_object, loc_params,
-                                    o->under_vol_id, &args, dxpl_id, req);
-  size_t dset_size = strlen(name);
-  strcpy(name_fqn, args.args.get_name.buf);
-  strcpy(name_fqn + name_size, name);
-  name_fqn[name_size + dset_size] = '\0';
+    herr_t ret_value = H5VLobject_get(o->under_object, loc_params,
+                                      o->under_vol_id, &args, dxpl_id, req);
+    char name_fqn[4096];
+    size_t dset_size = strlen(name);
+    size_t file_size = strlen(o->filename);
+    for (int i=0;i<file_size;++i) name_fqn[i] = o->filename[i];
+    name_fqn[file_size] = ':';
+    int current_index = file_size + 1;
+    for (int i = 0; i < name_size;++i) name_fqn[i+current_index] = args.args.get_name.buf[i];
+    for (int i = 0; i < name_size;++i) name_fqn[i+current_index] = args.args.get_name.buf[i];
+    current_index += name_size;
+    for (int i = 0; i < dset_size;++i) name_fqn[i+ current_index] = name[i];
+    current_index += dset_size;
+    name_fqn[current_index] = '\0';
+    H5INTENT_LOGINFO("------- INTENT VOL DATASET CREATE for dataset %s", name_fqn);
   struct DatasetProperties datasetProperties;
   bool is_present = get_dataset_properties(name_fqn, &datasetProperties);
   if (is_present) {
@@ -1669,13 +1689,19 @@ static void *H5VL_intent_dataset_open(void *obj,
     if (datasetProperties.access.virtual_view.use) {
     }
   }
+  else {
+#ifdef ENABLE_INTENT_LOGGING
+      H5INTENT_LOGINFO(
+              "------- INTENT VOL DATASET Not found properties for dataset %s", name_fqn);
+#endif
+  }
   under = H5VLdataset_open(o->under_object, loc_params, o->under_vol_id, name,
                            dapl_id, dxpl_id, req);
   if (under) {
-    dset = H5VL_intent_new_obj(under, o->under_vol_id);
+    dset = H5VL_intent_new_obj(under, o->under_vol_id,o->filename);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
   } /* end if */
   else
     dset = NULL;
@@ -1707,7 +1733,7 @@ static herr_t H5VL_intent_dataset_read(void *dset, hid_t mem_type_id,
                                mem_space_id, file_space_id, plist_id, buf, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_dataset_read() */
@@ -1738,7 +1764,7 @@ static herr_t H5VL_intent_dataset_write(void *dset, hid_t mem_type_id,
                         mem_space_id, file_space_id, plist_id, buf, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_dataset_write() */
@@ -1766,7 +1792,7 @@ static herr_t H5VL_intent_dataset_get(void *dset, H5VL_dataset_get_args_t *args,
       H5VLdataset_get(o->under_object, o->under_vol_id, args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_dataset_get() */
@@ -1800,7 +1826,7 @@ static herr_t H5VL_intent_dataset_specific(void *obj,
                                    dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_dataset_specific() */
@@ -1829,7 +1855,7 @@ static herr_t H5VL_intent_dataset_optional(void *obj,
                                    dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_dataset_optional() */
@@ -1855,7 +1881,7 @@ static herr_t H5VL_intent_dataset_close(void *dset, hid_t dxpl_id, void **req) {
   ret_value = H5VLdataset_close(o->under_object, o->under_vol_id, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   /* Release our wrapper, if underlying dataset was closed */
   if (ret_value >= 0) H5VL_intent_free_obj(o);
@@ -1891,10 +1917,10 @@ static void *H5VL_intent_datatype_commit(void *obj,
       H5VLdatatype_commit(o->under_object, loc_params, o->under_vol_id, name,
                           type_id, lcpl_id, tcpl_id, tapl_id, dxpl_id, req);
   if (under) {
-    dt = H5VL_intent_new_obj(under, o->under_vol_id);
+    dt = H5VL_intent_new_obj(under, o->under_vol_id,o->filename);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
   } /* end if */
   else
     dt = NULL;
@@ -1927,10 +1953,10 @@ static void *H5VL_intent_datatype_open(void *obj,
   under = H5VLdatatype_open(o->under_object, loc_params, o->under_vol_id, name,
                             tapl_id, dxpl_id, req);
   if (under) {
-    dt = H5VL_intent_new_obj(under, o->under_vol_id);
+    dt = H5VL_intent_new_obj(under, o->under_vol_id,o->filename);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
   } /* end if */
   else
     dt = NULL;
@@ -1961,7 +1987,7 @@ static herr_t H5VL_intent_datatype_get(void *dt, H5VL_datatype_get_args_t *args,
       H5VLdatatype_get(o->under_object, o->under_vol_id, args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_datatype_get() */
@@ -1995,7 +2021,7 @@ static herr_t H5VL_intent_datatype_specific(void *obj,
                                     dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_datatype_specific() */
@@ -2024,7 +2050,7 @@ static herr_t H5VL_intent_datatype_optional(void *obj,
                                     dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_datatype_optional() */
@@ -2053,7 +2079,7 @@ static herr_t H5VL_intent_datatype_close(void *dt, hid_t dxpl_id, void **req) {
       H5VLdatatype_close(o->under_object, o->under_vol_id, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   /* Release our wrapper, if underlying datatype was closed */
   if (ret_value >= 0) H5VL_intent_free_obj(o);
@@ -2085,15 +2111,13 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
 
   /* Get copy of our VOL info from FAPL */
   H5Pget_vol_info(fapl_id, (void **)&info);
-
+  fix_filename(name);
   /* Make sure we have info about the underlying VOL to be used */
   if (!info) return NULL;
-
 
   struct FileProperties fileProperties;
   bool is_present = get_file_properties(name, &fileProperties);
   if (is_present) {
-
 #ifdef ENABLE_INTENT_LOGGING
     H5INTENT_LOGINFO("------- INTENT VOL FILE Found properties for file %s", name);
 #endif
@@ -2101,38 +2125,38 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
       herr_t status = H5Pset_file_space_page_size(fcpl_id,
                fileProperties.creation.file_space.file_space_page_size);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting file_space_page_size for file %s failed", name);
+        H5INTENT_LOGERROR("FILE setting file_space_page_size for file %s failed", name);
       } else {
-        H5INTENT_LOGINFO("DATASET setting file_space_page_size for file %s successful", name);
+        H5INTENT_LOGINFO("FILE setting file_space_page_size for file %s successful", name);
       }
       status = H5Pset_file_space_strategy(fcpl_id,
                                                  fileProperties.creation.file_space.strategy,
                                                  fileProperties.creation.file_space.persist,
                                                  fileProperties.creation.file_space.threshold);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting file_space_strategy for file %s failed", name);
+        H5INTENT_LOGERROR("FILE setting file_space_strategy for file %s failed", name);
       } else {
-        H5INTENT_LOGINFO("DATASET setting file_space_strategy for file %s successful", name);
+        H5INTENT_LOGINFO("FILE setting file_space_strategy for file %s successful", name);
       }
     }
     if (fileProperties.creation.istore.use){
       herr_t status = H5Pset_istore_k(fcpl_id, fileProperties.creation.istore.ik);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting istore_k for file %s failed", name);
+        H5INTENT_LOGERROR("FILE setting istore_k for file %s failed", name);
       } else {
-        H5INTENT_LOGINFO("DATASET setting istore_k for file %s successful", name);
+        H5INTENT_LOGINFO("FILE setting istore_k for file %s successful", name);
       }
     }
-    if (fileProperties.creation.sizes.use){
-      herr_t status = H5Pset_sizes(fcpl_id,
-                                   fileProperties.creation.sizes.sizeof_addr,
-                                   fileProperties.creation.sizes.sizeof_size);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting set_sizes for file %s failed", name);
-      } else {
-        H5INTENT_LOGINFO("DATASET setting set_sizes for file %s successful", name);
-      }
-    }
+//    if (fileProperties.creation.sizes.use){
+//      herr_t status = H5Pset_sizes(fcpl_id,
+//                                   fileProperties.creation.sizes.sizeof_addr,
+//                                   fileProperties.creation.sizes.sizeof_size);
+//      if (status != 0) {
+//        H5INTENT_LOGERROR("FILE setting set_sizes for file %s failed", name);
+//      } else {
+//        H5INTENT_LOGINFO("FILE setting set_sizes for file %s successful", name);
+//      }
+//    }
     if (fileProperties.access.cache.use){
       herr_t status = H5Pset_cache(fapl_id,
                                    fileProperties.access.cache.mdc_nelmts,
@@ -2140,9 +2164,9 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
                                    fileProperties.access.cache.rdcc_nbytes,
                                    fileProperties.access.cache.rdcc_w0);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting set_cache for file %s failed", name);
+        H5INTENT_LOGERROR("FILE setting set_cache for file %s failed", name);
       } else {
-        H5INTENT_LOGINFO("DATASET setting set_cache for file %s successful", name);
+        H5INTENT_LOGINFO("FILE setting set_cache for file %s successful", name);
       }
     }
     if (fileProperties.access.fmpiio.use) {}
@@ -2153,11 +2177,11 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
           degree = H5F_CLOSE_WEAK;
         herr_t status = H5Pset_fclose_degree(fapl_id, degree);
         if (status != 0) {
-          H5INTENT_LOGERROR("DATASET setting fclose_degree for file %s failed",
+          H5INTENT_LOGERROR("FILE setting fclose_degree for file %s failed",
                             name);
         } else {
           H5INTENT_LOGINFO(
-              "DATASET setting fclose_degree for file %s successful", name);
+              "FILE setting fclose_degree for file %s successful", name);
         }
       }
       if (fileProperties.access.core.use) {
@@ -2165,10 +2189,10 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
             H5Pset_fapl_core(fapl_id, fileProperties.access.core.increment,
                              fileProperties.access.core.backing_store);
         if (status != 0) {
-          H5INTENT_LOGERROR("DATASET setting fapl_core for file %s failed",
+          H5INTENT_LOGERROR("FILE setting fapl_core for file %s failed",
                             name);
         } else {
-          H5INTENT_LOGINFO("DATASET setting fapl_core for file %s successful",
+          H5INTENT_LOGINFO("FILE setting fapl_core for file %s successful",
                            name);
         }
       }
@@ -2177,10 +2201,10 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
             H5Pset_fapl_family(fapl_id, fileProperties.access.family.memb_size,
                                fileProperties.access.family.memb_fapl_id);
         if (status != 0) {
-          H5INTENT_LOGERROR("DATASET setting fapl_family for file %s failed",
+          H5INTENT_LOGERROR("FILE setting fapl_family for file %s failed",
                             name);
         } else {
-          H5INTENT_LOGINFO("DATASET setting fapl_family for file %s successful",
+          H5INTENT_LOGINFO("FILE setting fapl_family for file %s successful",
                            name);
         }
       }
@@ -2192,10 +2216,10 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
                             fileProperties.access.log.flags,
                             fileProperties.access.log.buf_size);
         if (status != 0) {
-          H5INTENT_LOGERROR("DATASET setting fapl_log for file %s failed",
+          H5INTENT_LOGERROR("FILE setting fapl_log for file %s failed",
                             name);
         } else {
-          H5INTENT_LOGINFO("DATASET setting fapl_log for file %s successful",
+          H5INTENT_LOGINFO("FILE setting fapl_log for file %s successful",
                            name);
         }
       }
@@ -2205,54 +2229,54 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
         herr_t status = H5Pset_file_locking(
             fapl_id, fileProperties.access.optimizations.file_locking, 0);
         if (status != 0) {
-          H5INTENT_LOGERROR("DATASET setting file_locking for file %s failed",
+          H5INTENT_LOGERROR("FILE setting file_locking for file %s failed",
                             name);
         } else {
           H5INTENT_LOGINFO(
-              "DATASET setting file_locking for file %s successful", name);
+              "FILE setting file_locking for file %s successful", name);
         }
         status = H5Pset_gc_references(
             fapl_id, fileProperties.access.optimizations.gc_ref);
         if (status != 0) {
-          H5INTENT_LOGERROR("DATASET setting gc_references for file %s failed",
+          H5INTENT_LOGERROR("FILE setting gc_references for file %s failed",
                             name);
         } else {
           H5INTENT_LOGINFO(
-              "DATASET setting gc_references for file %s successful", name);
+              "FILE setting gc_references for file %s successful", name);
         }
         status = H5Pset_sieve_buf_size(
             fapl_id, fileProperties.access.optimizations.sieve_buf_size);
         if (status != 0) {
-          H5INTENT_LOGERROR("DATASET setting sieve_buf_size for file %s failed",
+          H5INTENT_LOGERROR("FILE setting sieve_buf_size for file %s failed",
                             name);
         } else {
           H5INTENT_LOGINFO(
-              "DATASET setting sieve_buf_size for file %s successful", name);
+              "FILE setting sieve_buf_size for file %s successful", name);
         }
         status = H5Pset_small_data_block_size(
             fapl_id, fileProperties.access.optimizations.small_data_block_size);
         if (status != 0) {
           H5INTENT_LOGERROR(
-              "DATASET setting small_data_block_size for file %s failed", name);
+              "FILE setting small_data_block_size for file %s failed", name);
         } else {
           H5INTENT_LOGINFO(
-              "DATASET setting small_data_block_size for file %s successful",
+              "FILE setting small_data_block_size for file %s successful",
               name);
         }
       }
-      if (fileProperties.access.page_buffer.use) {
-        herr_t status = H5Pset_page_buffer_size(
-            fapl_id, fileProperties.access.page_buffer.buf_size,
-            100 - fileProperties.access.page_buffer.min_raw_per,
-            fileProperties.access.page_buffer.min_raw_per);
-        if (status != 0) {
-          H5INTENT_LOGERROR(
-              "DATASET setting page_buffer_size for file %s failed", name);
-        } else {
-          H5INTENT_LOGINFO(
-              "DATASET setting page_buffer_size for file %s successful", name);
-        }
-      }
+//      if (fileProperties.access.page_buffer.use) {
+//        herr_t status = H5Pset_page_buffer_size(
+//            fapl_id, fileProperties.access.page_buffer.buf_size,
+//            100 - fileProperties.access.page_buffer.min_raw_per,
+//            fileProperties.access.page_buffer.min_raw_per);
+//        if (status != 0) {
+//          H5INTENT_LOGERROR(
+//              "FILE setting page_buffer_size for file %s failed", name);
+//        } else {
+//          H5INTENT_LOGINFO(
+//              "FILE setting page_buffer_size for file %s successful", name);
+//        }
+//      }
     }
     if (fileProperties.access.split.use) {
     }
@@ -2261,13 +2285,18 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
           fapl_id, 1, fileProperties.access.write_tracking.page_size);
       if (status != 0) {
         H5INTENT_LOGERROR(
-            "DATASET setting core_write_tracking for file %s failed", name);
+            "FILE setting core_write_tracking for file %s failed", name);
       } else {
         H5INTENT_LOGINFO(
-            "DATASET setting core_write_tracking for file %s successful",
+            "FILE setting core_write_tracking for file %s successful",
             name);
       }
     }
+  }
+  else {
+#ifdef ENABLE_INTENT_LOGGING
+      H5INTENT_LOGINFO("------- INTENT VOL FILE not Found properties for file %s", name);
+#endif
   }
 
 
@@ -2280,10 +2309,12 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
   /* Open the file with the underlying VOL connector */
   under = H5VLfile_create(name, flags, fcpl_id, under_fapl_id, dxpl_id, req);
   if (under) {
-    file = H5VL_intent_new_obj(under, info->under_vol_id);
+    file = H5VL_intent_new_obj(under, info->under_vol_id,name);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, info->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, info->under_vol_id,name);
+    //strcpy(filename, name);
+    //printf("Setting file.open name %s\n", file.filename);
   } /* end if */
   else
     file = NULL;
@@ -2293,7 +2324,6 @@ static void *H5VL_intent_file_create(const char *name, unsigned flags,
 
   /* Release copy of our VOL info */
   H5VL_intent_info_free(info);
-
   return (void *)file;
 } /* end H5VL_intent_file_create() */
 
@@ -2317,6 +2347,8 @@ static void *H5VL_intent_file_open(const char *name, unsigned flags,
 #ifdef ENABLE_INTENT_LOGGING
   H5INTENT_LOGINFO_SIMPLE("FILE Open");
 #endif
+
+  fix_filename(name);
   struct FileProperties fileProperties;
   bool is_present = get_file_properties(name, &fileProperties);
   if (is_present) {
@@ -2331,27 +2363,27 @@ static void *H5VL_intent_file_open(const char *name, unsigned flags,
                                    fileProperties.access.cache.rdcc_nbytes,
                                    fileProperties.access.cache.rdcc_w0);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting set_cache for file %s failed", name);
+        H5INTENT_LOGERROR("FILE setting set_cache for file %s failed", name);
       } else {
-        H5INTENT_LOGINFO("DATASET setting set_cache for file %s successful", name);
+        H5INTENT_LOGINFO("FILE setting set_cache for file %s successful", name);
       }
     }
     if (fileProperties.access.close.use){
       herr_t status = H5Pset_evict_on_close(fapl_id,
                                             fileProperties.access.close.evict);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting evict_on_close for file %s failed", name);
+        H5INTENT_LOGERROR("FILE setting evict_on_close for file %s failed", name);
       } else {
-        H5INTENT_LOGINFO("DATASET setting evict_on_close for file %s successful", name);
+        H5INTENT_LOGINFO("FILE setting evict_on_close for file %s successful", name);
       }
       H5F_close_degree_t degree = H5F_CLOSE_STRONG;
       if (strcmp(fileProperties.access.close.degree, "H5F_CLOSE_WEAK") == 0)
         degree = H5F_CLOSE_WEAK;
       status = H5Pset_fclose_degree(fapl_id, degree);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting fclose_degree for file %s failed", name);
+        H5INTENT_LOGERROR("FILE setting fclose_degree for file %s failed", name);
       } else {
-        H5INTENT_LOGINFO("DATASET setting fclose_degree for file %s successful", name);
+        H5INTENT_LOGINFO("FILE setting fclose_degree for file %s successful", name);
       }
     }
     if (fileProperties.access.core.use) {
@@ -2359,11 +2391,11 @@ static void *H5VL_intent_file_open(const char *name, unsigned flags,
                                        fileProperties.access.core.increment,
                                        fileProperties.access.core.backing_store);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting fapl_core for file %s failed",
+        H5INTENT_LOGERROR("FILE setting fapl_core for file %s failed",
                           name);
       } else {
         H5INTENT_LOGINFO(
-            "DATASET setting fapl_core for file %s successful", name);
+            "FILE setting fapl_core for file %s successful", name);
       }
     }
     if (fileProperties.access.family.use) {
@@ -2371,11 +2403,11 @@ static void *H5VL_intent_file_open(const char *name, unsigned flags,
                                          fileProperties.access.family.memb_size,
                                          fileProperties.access.family.memb_fapl_id);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting fapl_family for file %s failed",
+        H5INTENT_LOGERROR("FILE setting fapl_family for file %s failed",
                           name);
       } else {
         H5INTENT_LOGINFO(
-            "DATASET setting fapl_family for file %s successful", name);
+            "FILE setting fapl_family for file %s successful", name);
       }
     }
     if (fileProperties.access.file_image.use) {
@@ -2390,11 +2422,11 @@ static void *H5VL_intent_file_open(const char *name, unsigned flags,
                                       fileProperties.access.log.flags,
                                       fileProperties.access.log.buf_size);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting fapl_log for file %s failed",
+        H5INTENT_LOGERROR("FILE setting fapl_log for file %s failed",
                           name);
       } else {
         H5INTENT_LOGINFO(
-            "DATASET setting fapl_log for file %s successful", name);
+            "FILE setting fapl_log for file %s successful", name);
       }
     }
     if (fileProperties.access.metadata.use) {
@@ -2404,64 +2436,69 @@ static void *H5VL_intent_file_open(const char *name, unsigned flags,
                                           fileProperties.access.optimizations.file_locking,
                                           0);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting file_locking for file %s failed",
+        H5INTENT_LOGERROR("FILE setting file_locking for file %s failed",
                           name);
       } else {
         H5INTENT_LOGINFO(
-            "DATASET setting file_locking for file %s successful", name);
+            "FILE setting file_locking for file %s successful", name);
       }
       status = H5Pset_gc_references(fapl_id,
                                     fileProperties.access.optimizations.gc_ref);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting gc_references for file %s failed",
+        H5INTENT_LOGERROR("FILE setting gc_references for file %s failed",
                           name);
       } else {
         H5INTENT_LOGINFO(
-            "DATASET setting gc_references for file %s successful", name);
+            "FILE setting gc_references for file %s successful", name);
       }
       status = H5Pset_sieve_buf_size(fapl_id,
                                      fileProperties.access.optimizations.sieve_buf_size);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting sieve_buf_size for file %s failed",
+        H5INTENT_LOGERROR("FILE setting sieve_buf_size for file %s failed",
                           name);
       } else {
         H5INTENT_LOGINFO(
-            "DATASET setting sieve_buf_size for file %s successful", name);
+            "FILE setting sieve_buf_size for file %s successful", name);
       }
       status = H5Pset_small_data_block_size(fapl_id,
                                             fileProperties.access.optimizations.small_data_block_size);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting small_data_block_size for file %s failed",
+        H5INTENT_LOGERROR("FILE setting small_data_block_size for file %s failed",
                           name);
       } else {
         H5INTENT_LOGINFO(
-            "DATASET setting small_data_block_size for file %s successful", name);
+            "FILE setting small_data_block_size for file %s successful", name);
       }
     }
-    if (fileProperties.access.page_buffer.use) {
-      herr_t status = H5Pset_page_buffer_size(
-          fapl_id, fileProperties.access.page_buffer.buf_size, fileProperties.access.page_buffer.min_meta_per, fileProperties.access.page_buffer.min_raw_per);
-      if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting page_buffer_size for file %s failed",
-                          name);
-      } else {
-        H5INTENT_LOGINFO("DATASET setting page_buffer_size for file %s successful",
-                         name);
-      }
-    }
+//    if (fileProperties.access.page_buffer.use) {
+//      herr_t status = H5Pset_page_buffer_size(
+//          fapl_id, fileProperties.access.page_buffer.buf_size, fileProperties.access.page_buffer.min_meta_per, fileProperties.access.page_buffer.min_raw_per);
+//      if (status != 0) {
+//        H5INTENT_LOGERROR("FILE setting page_buffer_size for file %s failed",
+//                          name);
+//      } else {
+//        H5INTENT_LOGINFO("FILE setting page_buffer_size for file %s successful",
+//                         name);
+//      }
+//    }
     if (fileProperties.access.split.use) {
     }
     if (fileProperties.access.write_tracking.use) {
       herr_t status = H5Pset_core_write_tracking(
           fapl_id, 1, fileProperties.access.write_tracking.page_size);
       if (status != 0) {
-        H5INTENT_LOGERROR("DATASET setting core_write_tracking for file %s failed",
+        H5INTENT_LOGERROR("FILE setting core_write_tracking for file %s failed",
                           name);
       } else {
-        H5INTENT_LOGINFO("DATASET setting core_write_tracking for file %s successful",
+        H5INTENT_LOGINFO("FILE setting core_write_tracking for file %s successful",
                          name);
       }
     }
+  }
+  else {
+#ifdef ENABLE_INTENT_LOGGING
+      H5INTENT_LOGINFO("------- INTENT VOL FILE not Found properties for file %s", name);
+#endif
   }
   /* Get copy of our VOL info from FAPL */
   H5Pget_vol_info(fapl_id, (void **)&info);
@@ -2478,10 +2515,12 @@ static void *H5VL_intent_file_open(const char *name, unsigned flags,
   /* Open the file with the underlying VOL connector */
   under = H5VLfile_open(name, flags, under_fapl_id, dxpl_id, req);
   if (under) {
-    file = H5VL_intent_new_obj(under, info->under_vol_id);
+    file = H5VL_intent_new_obj(under, info->under_vol_id,name);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, info->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, info->under_vol_id,name);
+    //strcpy(filename, name);
+    //printf("Setting file.open name %s\n", filename);
   } /* end if */
   else
     file = NULL;
@@ -2518,7 +2557,7 @@ static herr_t H5VL_intent_file_get(void *file, H5VL_file_get_args_t *args,
       H5VLfile_get(o->under_object, o->under_vol_id, args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_file_get() */
@@ -2589,7 +2628,7 @@ static herr_t H5VL_intent_file_optional(void *file, H5VL_optional_args_t *args,
       H5VLfile_optional(o->under_object, o->under_vol_id, args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_file_optional() */
@@ -2615,7 +2654,7 @@ static herr_t H5VL_intent_file_close(void *file, hid_t dxpl_id, void **req) {
   ret_value = H5VLfile_close(o->under_object, o->under_vol_id, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   /* Release our wrapper, if underlying file was closed */
   if (ret_value >= 0) H5VL_intent_free_obj(o);
@@ -2649,10 +2688,10 @@ static void *H5VL_intent_group_create(void *obj,
   under = H5VLgroup_create(o->under_object, loc_params, o->under_vol_id, name,
                            lcpl_id, gcpl_id, gapl_id, dxpl_id, req);
   if (under) {
-    group = H5VL_intent_new_obj(under, o->under_vol_id);
+    group = H5VL_intent_new_obj(under, o->under_vol_id,o->filename);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
   } /* end if */
   else
     group = NULL;
@@ -2685,10 +2724,10 @@ static void *H5VL_intent_group_open(void *obj,
   under = H5VLgroup_open(o->under_object, loc_params, o->under_vol_id, name,
                          gapl_id, dxpl_id, req);
   if (under) {
-    group = H5VL_intent_new_obj(under, o->under_vol_id);
+    group = H5VL_intent_new_obj(under, o->under_vol_id,o->filename);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
   } /* end if */
   else
     group = NULL;
@@ -2719,7 +2758,7 @@ static herr_t H5VL_intent_group_get(void *obj, H5VL_group_get_args_t *args,
       H5VLgroup_get(o->under_object, o->under_vol_id, args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_group_get() */
@@ -2753,7 +2792,7 @@ static herr_t H5VL_intent_group_specific(void *obj,
       H5VLgroup_specific(o->under_object, o->under_vol_id, args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_group_specific() */
@@ -2781,7 +2820,7 @@ static herr_t H5VL_intent_group_optional(void *obj, H5VL_optional_args_t *args,
       H5VLgroup_optional(o->under_object, o->under_vol_id, args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_group_optional() */
@@ -2807,7 +2846,7 @@ static herr_t H5VL_intent_group_close(void *grp, hid_t dxpl_id, void **req) {
   ret_value = H5VLgroup_close(o->under_object, o->under_vol_id, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   /* Release our wrapper, if underlying file was closed */
   if (ret_value >= 0) H5VL_intent_free_obj(o);
@@ -2899,7 +2938,7 @@ static herr_t H5VL_intent_link_copy(void *src_obj,
                             under_vol_id, lcpl_id, lapl_id, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id,o_src->filename);
 
   return ret_value;
 } /* end H5VL_intent_link_copy() */
@@ -2946,7 +2985,7 @@ static herr_t H5VL_intent_link_move(void *src_obj,
                             under_vol_id, lcpl_id, lapl_id, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id,o_src->filename);
 
   return ret_value;
 } /* end H5VL_intent_link_move() */
@@ -2976,7 +3015,7 @@ static herr_t H5VL_intent_link_get(void *obj,
                            dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_link_get() */
@@ -3006,7 +3045,7 @@ static herr_t H5VL_intent_link_specific(void *obj,
                                 args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_link_specific() */
@@ -3036,7 +3075,7 @@ static herr_t H5VL_intent_link_optional(void *obj,
                                 args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_link_optional() */
@@ -3066,10 +3105,10 @@ static void *H5VL_intent_object_open(void *obj,
   under = H5VLobject_open(o->under_object, loc_params, o->under_vol_id,
                           opened_type, dxpl_id, req);
   if (under) {
-    new_obj = H5VL_intent_new_obj(under, o->under_vol_id);
+    new_obj = H5VL_intent_new_obj(under, o->under_vol_id,o->filename);
 
     /* Check for async request */
-    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+    if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
   } /* end if */
   else
     new_obj = NULL;
@@ -3108,7 +3147,7 @@ static herr_t H5VL_intent_object_copy(void *src_obj,
                       o_src->under_vol_id, ocpypl_id, lcpl_id, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o_src->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o_src->under_vol_id,o_src->filename);
 
   return ret_value;
 } /* end H5VL_intent_object_copy() */
@@ -3138,7 +3177,7 @@ static herr_t H5VL_intent_object_get(void *obj,
                              dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_object_get() */
@@ -3173,7 +3212,7 @@ static herr_t H5VL_intent_object_specific(void *obj,
                                   args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_object_specific() */
@@ -3203,7 +3242,7 @@ static herr_t H5VL_intent_object_optional(void *obj,
                                   args, dxpl_id, req);
 
   /* Check for async request */
-  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id);
+  if (req && *req) *req = H5VL_intent_new_obj(*req, o->under_vol_id,o->filename);
 
   return ret_value;
 } /* end H5VL_intent_object_optional() */

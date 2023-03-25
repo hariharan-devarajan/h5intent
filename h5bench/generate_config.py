@@ -33,6 +33,7 @@ def parse_args():
     parser.add_argument("-d", "--data-dir", default="./data", type=str, help="Directory to produce logs and data")
     parser.add_argument("-sd", "--sample-dir", default="./samples", type=str, help="Original samples from h5bench")
     parser.add_argument("-p", "--profiler", default="", type=str, help="Profiler SO")
+    parser.add_argument("-o", "--output-dir", default="", type=str, help="Output Directory")
     return parser.parse_args()
 
 
@@ -52,7 +53,7 @@ def main():
     #args.vol = "none"
     print(args.vol)
     vol = {}
-    if args.vol == "h5intent":
+    if args.vol == "intent":
         assert(args.vol_install_dir != "")
         assert(args.intent_json != "")
         vol = {
@@ -74,7 +75,8 @@ def main():
     else:
         sync_str = "async"
     dirname = f"{sync_str}_{profile_type}_{args.vol}_{args.nodes}_{args.processes_per_node}"
-    new_sample_dir = os.path.join(args.data_dir, dirname)
+    new_sample_dir = os.path.join(args.output_dir, dirname)
+    print(new_sample_dir)
     clean_dir(new_sample_dir)
     os.makedirs(new_sample_dir, exist_ok=True)
     for filename in os.listdir(args.sample_dir):
@@ -84,20 +86,22 @@ def main():
             with open(source) as file:
                 configuration = json.loads(file.read())
             configuration['vol'] = vol
-            if args.vol == "h5intent":
+            if args.vol == "intent":
                 info = ""
                 for index in range(len(configuration["benchmarks"])):
                     benchmark = configuration["benchmarks"][index]
                     executable = benchmark['benchmark']
-                    new_info = f"{args.intent_json}/{only_name}/{executable}.json"
+                    new_info = f"{args.intent_json}/{only_name}/h5bench_{executable}.json"
                     if index < len(configuration["benchmarks"]) - 1:
                         info = f"{info}{new_info}:"
                     else:
                         info = f"{info}{new_info}"
+                    configuration["benchmarks"][index]["configuration"]["MODE"] = "INTENT"
                 configuration['vol']['connector'] = f"intent under_vol=0;under_info={{{info}}}"
             configuration['mpi'] = mpi
             configuration['file-system'] = filesystem
-            configuration['directory'] = os.path.join(args.data_dir, only_name)
+            configuration['directory'] = f"{args.data_dir}/{only_name}_{args.nodes}_{args.processes_per_node}"
+            
             destination = os.path.join(new_sample_dir, filename)
 
             if "metadata" in source:

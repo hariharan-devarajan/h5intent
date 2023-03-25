@@ -8,6 +8,8 @@ import argparse
 '''
 Constants
 '''
+KB = 1024
+MB = 1024 * 1024
 GB = 1024 * 1024 * 1024
 AVAIL_NODE_MEMORY_BYTES = 200 * GB
 
@@ -162,6 +164,8 @@ class FileCreationProperties:
 class File:
     def __init__(self):
         self.filename = None
+        self.size = None
+        self.ts = None
         self.access = FileAccessProperties()
         self.creation = FileCreationProperties()
 
@@ -171,6 +175,8 @@ class File:
     def json(self):
         return {
             'filename': self.filename,
+            'size':self.size,
+            'ts': self.ts,
             'access': self.access.json(),
             'creation': self.creation.json()
         }
@@ -276,7 +282,7 @@ class IntentGenerator:
         self.app[app_name]['report'] = report
         return report
 
-    def read_dataset(self, app_name):
+    def read_dataset(self, app_name, initial=True):
         h5f_df_c = self.app[app_name]['h5f_df_c']
         h5d_df_c = self.app[app_name]['h5d_df_c']
         h5f_df_fc = self.app[app_name]['h5f_df_fc']
@@ -286,10 +292,11 @@ class IntentGenerator:
         for ind in h5d_df_c.index:
             ds_id = h5d_df_c['id'][ind]
             dataset_fqn = report.data['name_records'][ds_id]
-            print(dataset_fqn)
+            #print(dataset_fqn)
             dataset = DataSet()
             dset_split_fqn = dataset_fqn.split(":")
             dataset.filename = dset_split_fqn[0]
+            dataset.dataset_name = dataset_fqn
             file_id = self.app[app_name]['name_to_id_map'][dataset.filename]
             if file_id not in file_agg:
                 file_agg[file_id] = {
@@ -299,16 +306,16 @@ class IntentGenerator:
                     'raw': False,
                     'close': 0,
                     'ts_sum': 0,
-                    'ts_count': 0
+                    'ts_count': 0,
+                    'dsets':[]
 
                 }
+            file_agg[file_id]['dsets'].append(dataset_fqn)
             find = h5d_df_fc[h5d_df_fc['id'] == ds_id].index[0]
             # print(find, h5d_df_fc['id'][find])
             file_agg[file_id]['close'] = h5d_df_fc['H5D_F_CLOSE_END_TIMESTAMP'][find] if \
             h5d_df_fc['H5D_F_CLOSE_END_TIMESTAMP'][find] > file_agg[file_id]['close'] else file_agg[file_id]['close']
             file_agg[file_id]['file_size'] = file_agg[file_id]['file_size'] + h5d_df_c['H5D_BYTES_WRITTEN'][ind]
-
-            dataset.dataset_name = dset_split_fqn[1]
             dtype_size = h5d_df_c['H5D_DATATYPE_SIZE'][ind]
             # print(h5d_df_c['H5D_DATATYPE_SIZE'][ind], h5d_df_c['H5D_BYTES_WRITTEN'][ind], h5d_df_c['H5D_BYTES_READ'][ind])
             num_elements_written = h5d_df_c['H5D_BYTES_WRITTEN'][ind] / dtype_size
@@ -329,12 +336,24 @@ class IntentGenerator:
             start = [0] * ndims
             count = [1] * ndims
             ts = 1
+            procs_accessing_ds = 1
+            if h5d_df_c['rank'][ind] == -1:
+                procs_accessing_ds = self.app[app_name]['num_processes']
             for dim_ind in range(0, ndims):
                 end_dim = 5 - dim_ind
                 boundary[dim_ind] = h5d_df_c[f'H5D_ACCESS1_LENGTH_D{end_dim}'][ind] * h5d_df_c['H5D_ACCESS1_COUNT'][ind]
                 chunks[dim_ind] = h5d_df_c[f'H5D_ACCESS1_LENGTH_D{end_dim}'][ind]
                 stride[dim_ind] = h5d_df_c[f'H5D_ACCESS1_STRIDE_D{end_dim}'][ind]
                 ts = ts * chunks[dim_ind]
+            enable_chunking=True
+            if procs_accessing_ds > 1:
+                if ts > 32*MB:
+                    enable_chunking = False
+                elif ts*procs_accessing_ds > 1*MB:
+                    for dim_ind in range(0, ndims):
+                        chunks[dim_ind] = 16*MB                
+                else:                    
+                    chunks[dim_ind] = ts*procs_accessing_ds
             file_agg[file_id]['ts_sum'] = file_agg[file_id]['ts_sum'] + ts
             file_agg[file_id]['ts_count'] = file_agg[file_id]['ts_count'] + 1
 
@@ -353,10 +372,10 @@ class IntentGenerator:
                 per_re_read = num_elements_written * 1.0 / (num_elements_written + num_elements_read)
                 per_re_write = num_elements_read * 1.0 / (num_elements_written + num_elements_read)
                 rdcc_w0 = per_re_read if per_re_read > per_re_write else per_re_write
-            dataset.access.chunk_cache = {'use': True,
-                                          'rdcc_nslots': h5d_df_c['H5D_ACCESS1_COUNT'][ind],
-                                          'rdcc_nbytes': h5d_df_c['H5D_DATATYPE_SIZE'][ind] *
-                                                         h5d_df_c['H5D_DATASPACE_NPOINTS'][ind],
+            
+            dataset.access.chunk_cache = {'use': enable_chunking,
+                                          'rdcc_nslots': procs_accessing_ds,
+                                          'rdcc_nbytes': ts,
                                           'rdcc_w0': rdcc_w0
                                           }
             raw_data_size = h5d_df_c['H5D_DATASPACE_NPOINTS'][ind] * dtype_size
@@ -379,22 +398,23 @@ class IntentGenerator:
                 'layout': layout
             }
             dataset.access.chunk = {
-                'use': True,
+                'use': enable_chunking,
                 'ndims': ndims,
                 'dim': chunks,
             }
-            procs_accessing_ds = 1
-            if h5d_df_c['rank'][ind] == -1:
-                procs_accessing_ds = self.app[app_name]['num_processes']
-
-            dataset.transfer.dmpiio = {
-                'use': True,
-                'xfer_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
-                'coll_opt_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
-                # TODO(hari): set chunk_opt_mode
-                'num_chunk_per_proc': h5d_df_c['H5D_ACCESS1_COUNT'][ind] / procs_accessing_ds,
-                'percent_num_proc_per_chunk': procs_accessing_ds * 100 / self.app[app_name]['num_processes']
-            }
+            if procs_accessing_ds == 1:
+                dataset.transfer.dmpiio = {
+                    'use': False
+                }
+            else:
+                dataset.transfer.dmpiio = {
+                    'use': True,
+                    'xfer_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
+                    'coll_opt_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
+                    # TODO(hari): set chunk_opt_mode
+                    'num_chunk_per_proc': h5d_df_c['H5D_ACCESS1_COUNT'][ind] / procs_accessing_ds,
+                    'percent_num_proc_per_chunk': procs_accessing_ds * 100 / self.app[app_name]['num_processes']
+                }
             # TODO(hari): set this for specific apps where read needs to be correct
             dataset.transfer.edc_check = {
                 'use': True,
@@ -443,92 +463,108 @@ class IntentGenerator:
             file_agg_item = file_agg[file_id]
             file_item = File()
             file_item.filename = report.data['name_records'][file_id]
-
-            if file_agg[file_id]['file_size'] < AVAIL_NODE_MEMORY_BYTES:
+            file_item.size = file_agg[file_id]['file_size']
+            file_item.ts = file_agg[file_id]['ts_sum'] / file_agg[file_id]['ts_count']
+            is_shared_access = h5f_df_c['rank'][ind] == -1
+            if not is_shared_access and file_item.size < AVAIL_NODE_MEMORY_BYTES and file_item.ts < 4*MB:
+                #print(file_item.size, AVAIL_NODE_MEMORY_BYTES)
                 file_item.access.core = {
                     'use': True,
                     'increment': file_agg[file_id]['file_size'],
                     'backing_store': not file_agg[file_id]['read-only']
                 }
-            file_item.access.fmpiio = {
-                'use': True,
-                'comm': 'MPI_COMM_WORLD' if h5f_df_c['rank'][ind] == -1 else 'MPI_COMM_SELF'
-            }
-            file_item.access.split = {
-                'use': True if file_agg[file_id]['read-only'] else False
-            }
-            file_item.access.stdio = {
-                'use': True if file_agg[file_id]['write-only'] else False
-            }
-            file_item.access.cache = {
-                'use': False,
-                'rdcc_nslots': 0,
-                'rdcc_nbytes': 0,
-                'rdcc_w0': 0
-            }
-            is_stride_used = False
-            for key, value in self.app[app_name]['configuration'].datasets.items():
-                cache = self.app[app_name]['configuration'].datasets[key].access.chunk_cache
-                file_item.access.cache['use'] = file_item.access.cache['use'] and cache['use']
-                file_item.access.cache['rdcc_nslots'] = file_item.access.cache['rdcc_nslots'] + cache['rdcc_nslots']
-                file_item.access.cache['rdcc_nbytes'] = file_item.access.cache['rdcc_nbytes'] + cache['rdcc_nbytes']
-                file_item.access.cache['rdcc_w0'] = max(file_item.access.cache['rdcc_w0'], cache['rdcc_w0'])
-                hyperslab_selection = self.app[app_name]['configuration'].datasets[
-                    key].transfer.dataset_io_hyperslab_selection
-                for dim in range(hyperslab_selection['rank']):
-                    if hyperslab_selection['stride'][dim] > 0:
-                        is_stride_used = True
-            # TODO: write_tracking when to enable
-            file_item.access.close = {
-                'use': True,
-                'evict': True if file_agg[file_id]['read-only'] or file_agg[file_id]['write-only'] else False,
-                'degree': 'H5F_CLOSE_STRONG' if file_agg[file_id]['close'] < h5f_df_fc['H5F_F_CLOSE_END_TIMESTAMP'][
-                    ind] else 'H5F_CLOSE_WEAK',
-            }
-            file_item.access.file_image = {
-                'use': file_agg[file_id]['file_size'] < AVAIL_NODE_MEMORY_BYTES,
-                'buf_len': file_agg[file_id]['file_size']
-            }
-            file_item.access.optimization = {
-                'use': True,
-                'file_locking': not file_agg[file_id]['read-only'],
-                'gc_ref': False,  # TODO(hari) fix me
-                'sieve_buf_size': 0 if not is_stride_used else file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id][
-                    'ts_count'],
-                'small_data_block_size': 0 if file_agg[file_id]['file_size'] > GB else file_agg[file_id]['file_size'],
-                'enable_object_flush_cb': True if not file_agg[file_id]['read-only'] else False
-            }
-            file_item.access.page_buffer = {
-                'use': True,
-                'buf_size': file_agg[file_id]['file_size'] if file_agg[file_id][
-                                                                  'file_size'] < AVAIL_NODE_MEMORY_BYTES else AVAIL_NODE_MEMORY_BYTES,
-                'min_raw_per': 100 if file_agg[file_id]['file_size'] < AVAIL_NODE_MEMORY_BYTES else int(
-                    file_agg[file_id]['file_size'] * 100.0 / AVAIL_NODE_MEMORY_BYTES),
-                'min_meta_per': 0,  # TODO(hari) fix me
-            }
-            file_item.creation.file_space = {
-                'use': True,
-                'file_space_page_size': file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id]['ts_count'],
-                'strategy': 1,
-                'persist': True,
-                'threshold': file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id]['ts_count'],
-            }
-            offset_bytes_needed = 0
-            offset = file_agg[file_id]['ts_sum']
-            while offset != 0:
-                offset = offset >> 8;
-                offset_bytes_needed = offset_bytes_needed + 1
-            length_bytes_needed = 0
-            ts = int(file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id]['ts_count'])
-            while ts != 0:
-                ts = ts >> 8;
-                length_bytes_needed = length_bytes_needed + 1;
+            else:
+                file_item.access.core = {
+                    'use': False
+                }
+            if file_item.access.core['use']:
+                for dset in file_agg[file_id]['dsets']:
+                    self.app[app_name]['configuration'].datasets.pop(dset)
+            else:
+                if is_shared_access:
+                    file_item.access.fmpiio = {
+                        'use': True,
+                        'comm': 'MPI_COMM_WORLD'
+                    }
+                else:
+                    file_item.access.fmpiio = {
+                        'use': False
+                    }
+                file_item.access.split = {
+                    'use': True if not file_item.access.core['use'] and file_agg[file_id]['read-only'] else False
+                }
+                file_item.access.stdio = {
+                    'use': True if not file_item.access.core['use'] and file_agg[file_id]['write-only'] else False
+                }
+                file_item.access.cache = {
+                    'use': True,
+                    'rdcc_nslots': 0,
+                    'rdcc_nbytes': 0,
+                    'rdcc_w0': 0
+                }
+                is_stride_used = False
+                for key, value in self.app[app_name]['configuration'].datasets.items():
+                    cache = self.app[app_name]['configuration'].datasets[key].access.chunk_cache
+                    file_item.access.cache['use'] = file_item.access.cache['use'] and cache['use']
+                    file_item.access.cache['rdcc_nslots'] = file_item.access.cache['rdcc_nslots'] + cache['rdcc_nslots']
+                    file_item.access.cache['rdcc_nbytes'] = file_item.access.cache['rdcc_nbytes'] + cache['rdcc_nbytes']
+                    file_item.access.cache['rdcc_w0'] = max(file_item.access.cache['rdcc_w0'], cache['rdcc_w0'])
+                    hyperslab_selection = self.app[app_name]['configuration'].datasets[
+                        key].transfer.dataset_io_hyperslab_selection
+                    for dim in range(hyperslab_selection['rank']):
+                        if hyperslab_selection['stride'][dim] > 0:
+                            is_stride_used = True
+                # TODO: write_tracking when to enable
+                file_item.access.close = {
+                    'use': True,
+                    'evict': True if file_agg[file_id]['read-only'] or file_agg[file_id]['write-only'] else False,
+                    'degree': 'H5F_CLOSE_STRONG' if file_agg[file_id]['close'] < h5f_df_fc['H5F_F_CLOSE_END_TIMESTAMP'][
+                        ind] else 'H5F_CLOSE_WEAK',
+                }
+                file_item.access.file_image = {
+                    'use': file_agg[file_id]['file_size'] < AVAIL_NODE_MEMORY_BYTES,
+                    'buf_len': file_agg[file_id]['file_size']
+                }
+                file_item.access.optimization = {
+                    'use': True,
+                    'file_locking': not file_agg[file_id]['read-only'],
+                    'gc_ref': False,  # TODO(hari) fix me
+                    'sieve_buf_size': 0 if not is_stride_used else file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id][
+                        'ts_count'],
+                    'small_data_block_size': 0 if file_agg[file_id]['file_size'] > GB else file_agg[file_id]['file_size'],
+                    'enable_object_flush_cb': True if not file_agg[file_id]['read-only'] else False
+                }
+                file_item.access.page_buffer = {
+                    'use': True,
+                    'buf_size': file_agg[file_id]['file_size'] if file_agg[file_id][
+                                                                      'file_size'] < AVAIL_NODE_MEMORY_BYTES else AVAIL_NODE_MEMORY_BYTES,
+                    'min_raw_per': 100 if file_agg[file_id]['file_size'] < AVAIL_NODE_MEMORY_BYTES else int(
+                        file_agg[file_id]['file_size'] * 100.0 / AVAIL_NODE_MEMORY_BYTES),
+                    'min_meta_per': 0,  # TODO(hari) fix me
+                }
+                file_item.creation.file_space = {
+                    'use': True,
+                    'file_space_page_size': file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id]['ts_count'],
+                    'strategy': 1,
+                    'persist': True,
+                    'threshold': file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id]['ts_count'],
+                }
+                offset_bytes_needed = 0
+                offset = file_agg[file_id]['ts_sum']
+                while offset != 0:
+                    offset = offset >> 8;
+                    offset_bytes_needed = offset_bytes_needed + 1
+                length_bytes_needed = 0
+                ts = int(file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id]['ts_count'])
+                while ts != 0:
+                    ts = ts >> 8;
+                    length_bytes_needed = length_bytes_needed + 1;
 
-            file_item.creation.sizes = {
-                'use': True,
-                'sizeof_addr': offset_bytes_needed,
-                'sizeof_size': length_bytes_needed + 1
-            }
+                file_item.creation.sizes = {
+                    'use': True,
+                    'sizeof_addr': offset_bytes_needed,
+                    'sizeof_size': length_bytes_needed + 1
+                }
             self.app[app_name]['configuration'].files[file_item.filename] = file_item
         return self.app[app_name]['configuration']
 

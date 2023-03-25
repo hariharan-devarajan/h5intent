@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/dependency/.spack-env/view ${CMAKE_BINARY_DIR}/lib/cmake)
 set(H5INTENT_CMAKE_DIR ${CMAKE_SOURCE_DIR}/CMake)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${H5INTENT_CMAKE_DIR})
@@ -13,7 +15,7 @@ set(H5INTENT_PACKAGE_VERSION_MAJOR "${H5INTENT_VERSION_MAJOR}.${H5INTENT_VERSION
 set(H5INTENT_PACKAGE_VERSION_MINOR "${H5INTENT_VERSION_PATCH}")
 set(H5INTENT_PACKAGE_STRING "${H5INTENT_PACKAGE_NAME} ${H5INTENT_PACKAGE_VERSION}")
 set(H5INTENT_PACKAGE_TARNAME "${H5INTENT_PACKAGE}")
-
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
 add_subdirectory(external/cpp-logger)
 find_package(cpp-logger REQUIRED)
@@ -35,7 +37,7 @@ target_include_directories(${PROJECT_NAME}
         # where external projects will look for the library's public headers
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
         )
-set(DEPENDENCY_LIB "")
+set(DEPENDENCY_LIB "-lstdc++fs")
 find_package(nlohmann_json 3.10.5 REQUIRED)
 if (nlohmann_json_FOUND)
     message(STATUS "[H5Intent] found nlohmann_json at ${nlohmann_json_INCLUDE_DIRS}")
