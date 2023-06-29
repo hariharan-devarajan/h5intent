@@ -1,0 +1,75 @@
+2023-06-29 14:33:29,579 h5bench - INFO - Starting h5bench Suite
+2023-06-29 14:33:29,597 h5bench - WARNING - Base directory already exists: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36
+2023-06-29 14:33:29,637 h5bench - INFO - Lustre support detected
+2023-06-29 14:33:29,637 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/lib:/usr/tce/packages/mvapich2/mvapich2-2.3.7-gcc-10.3.1/lib
+2023-06-29 14:33:29,638 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-06-29 14:33:29,639 h5bench - DEBUG - LD_PRELOAD: 
+2023-06-29 14:33:29,640 h5bench - INFO - JOBID: 692673
+2023-06-29 14:33:29,640 h5bench - INFO - h5bench [write] - Starting
+2023-06-29 14:33:29,641 h5bench - INFO - h5bench [write] - DIR: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/3e75b2cb-692673/
+2023-06-29 14:33:29,643 h5bench - INFO - Parallel setup: srun --ntasks=36 --ntasks-per-node=36 --export=LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-06-29 14:33:29,650 h5bench - INFO - srun --ntasks=36 --ntasks-per-node=36 --export=LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/3e75b2cb-692673/h5bench.cfg /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/test.h5
+2023-06-29 14:33:33,830 h5bench - ERROR - Return: 2 (check /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/3e75b2cb-692673/stderr for detailed log)
+2023-06-29 14:33:33,833 h5bench - INFO - Runtime: 4.1884668 seconds (elapsed time, includes allocation wait time)
+2023-06-29 14:33:33,834 h5bench - INFO - h5bench [write] - Complete
+2023-06-29 14:33:33,834 h5bench - INFO - Finishing h5bench Suite
+2023-06-29 14:34:41,232 h5bench - INFO - Starting h5bench Suite
+2023-06-29 14:34:41,234 h5bench - WARNING - Base directory already exists: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36
+2023-06-29 14:34:41,284 h5bench - INFO - Lustre support detected
+2023-06-29 14:34:41,284 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/lib:/usr/tce/packages/mvapich2/mvapich2-2.3.7-gcc-10.3.1/lib
+2023-06-29 14:34:41,285 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-06-29 14:34:41,286 h5bench - DEBUG - LD_PRELOAD: 
+2023-06-29 14:34:41,287 h5bench - INFO - JOBID: 692673
+2023-06-29 14:34:41,287 h5bench - INFO - h5bench [write] - Starting
+2023-06-29 14:34:41,288 h5bench - INFO - h5bench [write] - DIR: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/386c5669-692673/
+2023-06-29 14:34:41,291 h5bench - INFO - Parallel setup: srun --ntasks=36 --ntasks-per-node=36 --export=ALL,LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-06-29 14:34:41,360 h5bench - INFO - srun --ntasks=36 --ntasks-per-node=36 --export=ALL,LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/386c5669-692673/h5bench.cfg /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/test.h5
+2023-06-29 14:34:46,119 h5bench - INFO - SUCCESS (all output files are located at /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/386c5669-692673)
+2023-06-29 14:34:46,121 h5bench - INFO - Runtime: 4.8291612 seconds (elapsed time, includes allocation wait time)
+2023-06-29 14:34:46,122 h5bench - INFO - h5bench [write] - Complete
+2023-06-29 14:34:46,122 h5bench - INFO - Finishing h5bench Suite
+2023-06-29 14:36:46,583 h5bench - INFO - Starting h5bench Suite
+2023-06-29 14:36:46,584 h5bench - WARNING - Base directory already exists: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36
+2023-06-29 14:36:46,633 h5bench - INFO - Lustre support detected
+2023-06-29 14:36:46,633 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/lib:/usr/tce/packages/mvapich2/mvapich2-2.3.7-gcc-10.3.1/lib
+2023-06-29 14:36:46,634 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-06-29 14:36:46,635 h5bench - DEBUG - LD_PRELOAD: 
+2023-06-29 14:36:46,636 h5bench - INFO - JOBID: 692673
+2023-06-29 14:36:46,637 h5bench - INFO - h5bench [write] - Starting
+2023-06-29 14:36:46,637 h5bench - INFO - h5bench [write] - DIR: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/281b703b-692673/
+2023-06-29 14:36:46,640 h5bench - INFO - Parallel setup: srun --ntasks=36 --ntasks-per-node=36 --export=ALL,LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-06-29 14:36:46,646 h5bench - INFO - srun --ntasks=36 --ntasks-per-node=36 --export=ALL,LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/281b703b-692673/h5bench.cfg /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/test.h5
+2023-06-29 14:36:51,283 h5bench - INFO - SUCCESS (all output files are located at /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/281b703b-692673)
+2023-06-29 14:36:51,284 h5bench - INFO - Runtime: 4.6437013 seconds (elapsed time, includes allocation wait time)
+2023-06-29 14:36:51,285 h5bench - INFO - h5bench [write] - Complete
+2023-06-29 14:36:51,286 h5bench - INFO - Finishing h5bench Suite
+2023-06-29 14:40:55,839 h5bench - INFO - Starting h5bench Suite
+2023-06-29 14:40:55,840 h5bench - WARNING - Base directory already exists: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36
+2023-06-29 14:40:55,895 h5bench - INFO - Lustre support detected
+2023-06-29 14:40:55,895 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/lib:/usr/tce/packages/mvapich2/mvapich2-2.3.7-gcc-10.3.1/lib
+2023-06-29 14:40:55,896 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-06-29 14:40:55,897 h5bench - DEBUG - LD_PRELOAD: 
+2023-06-29 14:40:55,898 h5bench - INFO - JOBID: 692673
+2023-06-29 14:40:55,899 h5bench - INFO - h5bench [write] - Starting
+2023-06-29 14:40:55,901 h5bench - INFO - h5bench [write] - DIR: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/3d990d82-692673/
+2023-06-29 14:40:55,903 h5bench - INFO - Parallel setup: srun --ntasks=36 --ntasks-per-node=36 --export=ALL,LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-06-29 14:40:55,919 h5bench - INFO - srun --ntasks=36 --ntasks-per-node=36 --export=ALL,LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/3d990d82-692673/h5bench.cfg /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/test.h5
+2023-06-29 14:41:00,489 h5bench - INFO - SUCCESS (all output files are located at /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/3d990d82-692673)
+2023-06-29 14:41:00,491 h5bench - INFO - Runtime: 4.5872180 seconds (elapsed time, includes allocation wait time)
+2023-06-29 14:41:00,492 h5bench - INFO - h5bench [write] - Complete
+2023-06-29 14:41:00,493 h5bench - INFO - Finishing h5bench Suite
+2023-06-29 14:49:04,880 h5bench - INFO - Starting h5bench Suite
+2023-06-29 14:49:04,881 h5bench - WARNING - Base directory already exists: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36
+2023-06-29 14:49:04,947 h5bench - INFO - Lustre support detected
+2023-06-29 14:49:04,948 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/lib:/usr/tce/packages/mvapich2/mvapich2-2.3.7-gcc-10.3.1/lib
+2023-06-29 14:49:04,949 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-06-29 14:49:04,949 h5bench - DEBUG - LD_PRELOAD: 
+2023-06-29 14:49:04,950 h5bench - INFO - JOBID: 692673
+2023-06-29 14:49:04,951 h5bench - INFO - h5bench [write] - Starting
+2023-06-29 14:49:04,952 h5bench - INFO - h5bench [write] - DIR: /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/9e04213d-692673/
+2023-06-29 14:49:04,954 h5bench - INFO - Parallel setup: srun --ntasks=36 --ntasks-per-node=36 --export=ALL,LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-06-29 14:49:04,962 h5bench - INFO - srun --ntasks=36 --ntasks-per-node=36 --export=ALL,LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/9e04213d-692673/h5bench.cfg /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/test.h5
+2023-06-29 14:49:09,828 h5bench - INFO - SUCCESS (all output files are located at /p/lustre1/iopp/temp/h5bench/sync-write-1d-strided-small_1_36/9e04213d-692673)
+2023-06-29 14:49:09,830 h5bench - INFO - Runtime: 4.8753967 seconds (elapsed time, includes allocation wait time)
+2023-06-29 14:49:09,831 h5bench - INFO - h5bench [write] - Complete
+2023-06-29 14:49:09,832 h5bench - INFO - Finishing h5bench Suite

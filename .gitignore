@@ -43,3 +43,8 @@
 /analysis/.idea/
 /h5bench/.idea/inspectionProfiles/
 /h5bench/.idea/
+/build-profile/
+/external/h5bench/build/
+/h5intent/h5bench_conf/.ipynb_checkpoints/
+/venv/
+/venv-lassen/
