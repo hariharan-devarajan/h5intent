@@ -16,7 +16,7 @@ set(H5INTENT_PACKAGE_VERSION_MINOR "${H5INTENT_VERSION_PATCH}")
 set(H5INTENT_PACKAGE_STRING "${H5INTENT_PACKAGE_NAME} ${H5INTENT_PACKAGE_VERSION}")
 set(H5INTENT_PACKAGE_TARNAME "${H5INTENT_PACKAGE}")
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
-
+add_subdirectory(${CMAKE_SOURCE_DIR}/external/h5bench)
 add_subdirectory(external/cpp-logger)
 find_package(cpp-logger REQUIRED)
 
