@@ -2,9 +2,7 @@
 	path = external/cpp-logger
 	url = git@github.com:hariharan-devarajan/cpp-logger.git
 	branch = dev
-[submodule "vol/test/h5bench"]
-	path = vol/test/h5bench
-	url = git@github.com:hpc-io/h5bench.git
 [submodule "external/h5bench"]
 	path = external/h5bench
 	url = https://github.com/hariharan-devarajan/h5bench.git
+        branch = v1.4
