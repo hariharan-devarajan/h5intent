@@ -138,10 +138,11 @@ extern void load_configuration(const char* file) {
   h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->load_configuration(
       file);
 }
-extern char* fix_filename(char* filename) {
+extern char* fix_filename(const char* filename) {
     std::filesystem::path posix_path{filename};
-    strcpy(filename, posix_path.generic_string().c_str());
-    return filename;
+    char* fixed = (char*)calloc(posix_path.generic_string().size(), sizeof(char));
+    strcpy(fixed, posix_path.generic_string().c_str());
+    return fixed;
 }
 void h5intent::ConfigurationManager::load_configuration(
     const std::string& configuration_file) {
@@ -153,27 +154,33 @@ void h5intent::ConfigurationManager::load_configuration(
   t.read(&buffer[0], size);
   t.close();
   json read_json = json::parse(buffer);
-  read_json.get_to(properties);
-  printf("# of datasets %d, # of files %d, from conf %s\n", properties.datasets.size(),
-         properties.files.size(),
+  read_json.get_to(intents);
+  printf("# of datasets %d, # of files %d, from conf %s\n", intents.datasets.size(),
+         intents.files.size(),
          configuration_file.c_str());
 }
-bool get_dataset_properties(const char* dataset_name, DatasetProperties *datasetProperties) {
-  auto properties = h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->properties;
-  auto iter = properties.datasets.find(dataset_name);
-  if (iter == properties.datasets.end()) return false;
+DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
+    return DatasetProperties();
+}
+FileProperties to_file_properties(FileIOIntents &intents) {
+    return FileProperties();
+}
+bool get_dataset_properties(const char* dataset_name, struct DatasetProperties *datasetProperties) {
+  auto intents = h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->intents;
+  auto iter = intents.datasets.find(dataset_name);
+  if (iter == intents.datasets.end()) return false;
   else {
-    *datasetProperties = iter->second;
+    *datasetProperties = to_dataset_properties(iter->second);
     return true;
   }
 }
 bool get_file_properties(const char* filename, struct FileProperties* fileProperties) {
   std::filesystem::path posix_path{filename};
-  auto properties = h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->properties;
-  auto iter = properties.files.find(posix_path.generic_string());
-  if (iter == properties.files.end()) return false;
+  auto intents = h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->intents;
+  auto iter = intents.files.find(posix_path.generic_string());
+  if (iter == intents.files.end()) return false;
   else {
-    *fileProperties = iter->second;
+    *fileProperties = to_file_properties(iter->second);
     return true;
   }
 }

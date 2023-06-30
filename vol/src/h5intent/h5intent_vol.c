@@ -1266,7 +1266,7 @@ static void *H5VL_intent_dataset_create(void *obj,
   H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL DATASET Create");
 #endif
   char parent[256];
-  int name_size = 0;
+    size_t name_size = 0;
   H5VL_object_get_args_t args;
   args.op_type = H5VL_OBJECT_GET_NAME;
   args.args.get_name.buf = parent;
@@ -1598,7 +1598,7 @@ static void *H5VL_intent_dataset_open(void *obj,
   H5INTENT_LOGINFO_SIMPLE("DATASET Open");
 #endif
     char parent[256];
-    int name_size = 0;
+    size_t name_size = 0;
     H5VL_object_get_args_t args;
     args.op_type = H5VL_OBJECT_GET_NAME;
     args.args.get_name.buf = parent;

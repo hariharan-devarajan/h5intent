@@ -50,3 +50,5 @@
 /venv-lassen/
 /external/h5bench/build/
 /runtime-logs/
+/external/h5bench/build/
+/h5intent/intent_generator/.ipynb_checkpoints/
