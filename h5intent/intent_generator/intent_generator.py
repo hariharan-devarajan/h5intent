@@ -1,10 +1,123 @@
-import os
+'''
+Import
+'''
 import darshan
-import numpy as np
+from enum import Enum
 import json
-from pathlib import Path
 import argparse
+import os
+import numpy as np
+from pathlib import Path
+'''
+Data Structures
+'''
+class SharingPattern(Enum):
+    INDEPENDENT=0
+    COLLECTIVE=1
+    OTHER=2
+class FileMode(Enum):
+    WRITE_ONLY=0
+    READ_ONLY=1
+    READ_WRITE=2
+    APPEND=3
+class AccessPatternType(Enum):
+    WRITE_ONLY = 0
+    READ_ONLY = 1
+    RAW = 2
+    OTHER = 3
+class MultiSessionIO:
+    open_timestamp: tuple() = (0,0)
+    close_timestamp: tuple() = (0,0)
+    read_timestamp: tuple() = (0,0)
+    write_timestamp: tuple() = (0,0)
+        
+    def __repr__(self):
+        return str(self.json())
 
+    def json(self):
+        return {
+            'open_timestamp': [self.open_timestamp[0], self.open_timestamp[1]],
+            'close_timestamp': [self.close_timestamp[0], self.close_timestamp[1]],
+            'read_timestamp': [self.read_timestamp[0], self.read_timestamp[1]],
+            'write_timestamp': [self.write_timestamp[0], self.write_timestamp[1]],
+        }
+
+class DatasetIOIntents:
+    #metadata
+    filename = None
+    dataset_name = None
+    ndims = 1
+    # primary
+    session_io: MultiSessionIO = MultiSessionIO()
+    type: AccessPatternType = AccessPatternType.OTHER
+    top_accessed_segments = {}
+    transfer_size_dist = {}
+    process_sharing = []
+    fs_size = 0
+    sharing_pattern:SharingPattern = SharingPattern.OTHER
+    # secondary
+    mode: FileMode = FileMode.READ_WRITE
+    def __repr__(self):
+        return str(self.json())
+
+    def json(self):
+        return {
+            'filename': self.filename,
+            'dataset_name': self.dataset_name,
+            'ndims': self.ndims,
+            'session_io': self.session_io.json(),
+            'type': self.type.value,
+            'top_accessed_segments': self.top_accessed_segments,
+            'transfer_size_dist': self.transfer_size_dist,
+            'process_sharing': self.process_sharing,
+            'fs_size': self.fs_size,
+            'sharing_pattern': self.sharing_pattern.value,
+            'mode': self.mode.value,
+        }
+
+class FileIOIntents:
+    #metadata
+    filename = None
+    # primary
+    session_io: MultiSessionIO = MultiSessionIO()
+    mode: FileMode = FileMode.READ_WRITE
+    fs_size = 0
+    sharing_pattern:SharingPattern = SharingPattern.OTHER
+    # secondary
+    ap_distribution = {}
+    top_accessed_segments = {}
+    transfer_size_dist = {}
+    process_sharing = []
+    ds_size_dist = {}
+    def __repr__(self):
+        return str(self.json())
+
+    def json(self):
+        return {
+            'session_io': self.session_io.json(),
+            'mode': self.mode.value,
+            'process_sharing': self.process_sharing,
+            'fs_size': self.fs_size,
+            'sharing_pattern': self.sharing_pattern.value,
+            'ap_distribution': self.ap_distribution,
+            'top_accessed_segments': self.top_accessed_segments,
+            'transfer_size_dist': self.transfer_size_dist,
+            'process_sharing': self.process_sharing,
+            'ds_size_dist': self.ds_size_dist,
+        }
+class Intents:
+    def __init__(self):
+        self.files = {}
+        self.datasets = {}
+
+    def __repr__(self):
+        return str(self.json())
+
+    def json(self):
+        return {
+            'files': self.files,
+            'datasets': self.datasets
+        }
 '''
 Constants
 '''
@@ -12,10 +125,7 @@ KB = 1024
 MB = 1024 * 1024
 GB = 1024 * 1024 * 1024
 AVAIL_NODE_MEMORY_BYTES = 200 * GB
-
 ''' encoder '''
-
-
 class NpEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.bool_):
@@ -29,188 +139,17 @@ class NpEncoder(json.JSONEncoder):
         if hasattr(obj, 'json'):
             return obj.json()
         return super(NpEncoder, self).default(obj)
-
-
-'''
-Data structures
-'''
-
-
-class DatasetAccessProperties:
-    def __init__(self):
-        self.append_flush = None
-        self.chunk_cache = None
-        self.virtual_view = None
-        self.filter_avail = None
-        self.gzip = None
-        self.layout = None
-        self.chunk = None
-        self.szip = None
-
-    def __repr__(self):
-        return str(self.json())
-
-    def json(self):
-        return {
-            'append_flush': self.append_flush,
-            'chunk_cache': self.chunk_cache,
-            'virtual_view': self.virtual_view,
-            'filter_avail': self.filter_avail,
-            'gzip': self.gzip,
-            'layout': self.layout,
-            'chunk': self.chunk,
-            'szip': self.szip,
-        }
-
-
-class DatasetTransferProperties:
-    def __init__(self):
-        self.dmpiio = None
-        self.buffer = None
-        self.edc_check = None
-        self.hyper_vector = None
-        self.mem_manager = None
-        self.dataset_io_hyperslab_selection = None
-
-    def __repr__(self):
-        return str(self.json())
-
-    def json(self):
-        return {
-            'dmpiio': self.dmpiio,
-            'buffer': self.buffer,
-            'edc_check': self.edc_check,
-            'hyper_vector': self.hyper_vector,
-            'mem_manager': self.mem_manager,
-            'dataset_io_hyperslab_selection': self.dataset_io_hyperslab_selection
-        }
-
-
-class DataSet:
-    def __init__(self):
-        self.filename = None
-        self.dataset_name = None
-        self.access = DatasetAccessProperties()
-        self.transfer = DatasetTransferProperties()
-
-    def __repr__(self):
-        return str(self.json())
-
-    def json(self):
-        return {
-            'filename': self.filename,
-            'dataset_name': self.dataset_name,
-            'access': self.access.json(),
-            'transfer': self.transfer.json()
-        }
-
-
-class FileAccessProperties:
-    def __init__(self):
-        self.core = None
-        self.direct = None
-        self.family = None
-        self.log = None
-        self.fmpiio = None
-        self.split = None
-        self.stdio = None
-        self.cache = None
-        self.write_tracking = None
-        self.close = None
-        self.file_image = None
-        self.optimizations = None
-        self.metadata = None
-        self.page_buffer = None
-        self.alignment = None
-
-    def __repr__(self):
-        return str(self.json())
-
-    def json(self):
-        return {
-            'core': self.core,
-            'direct': self.direct,
-            'family': self.family,
-            'log': self.log,
-            'fmpiio': self.fmpiio,
-            'split': self.split,
-            'stdio': self.stdio,
-            'cache': self.cache,
-            'write_tracking': self.write_tracking,
-            'close': self.close,
-            'file_image': self.file_image,
-            'optimizations': self.optimizations,
-            'metadata': self.metadata,
-            'page_buffer': self.page_buffer,
-            'alignment': self.alignment
-        }
-
-
-class FileCreationProperties:
-    def __init__(self):
-        self.file_space = None
-        self.istore = None
-        self.sizes = None
-
-    def __repr__(self):
-        return str(self.json())
-
-    def json(self):
-        return {
-            'file_space': self.file_space,
-            'istore': self.istore,
-            'sizes': self.sizes,
-        }
-
-
-class File:
-    def __init__(self):
-        self.filename = None
-        self.size = None
-        self.ts = None
-        self.access = FileAccessProperties()
-        self.creation = FileCreationProperties()
-
-    def __repr__(self):
-        return str(self.json())
-
-    def json(self):
-        return {
-            'filename': self.filename,
-            'size':self.size,
-            'ts': self.ts,
-            'access': self.access.json(),
-            'creation': self.creation.json()
-        }
-
-
-class Configuration:
-    def __init__(self):
-        self.files = {}
-        self.datasets = {}
-
-    def __repr__(self):
-        return str(self.json())
-
-    def json(self):
-        return {
-            'files': self.files,
-            'datasets': self.datasets
-        }
-
-
 '''
 Main Class
 '''
-
-
 class IntentGenerator:
-    def __init__(self, base_path, darshan_logs, property_json, workflow):
+    def __init__(self, base_path, darshan_logs, property_json, workflow, data_dirs):
         self.base_path = base_path
         self.darshan_logs = darshan_logs
         self.property_json = property_json
         self.workflow = workflow
         self.app = {}
+        self.data_dirs = data_dirs.split(":")
 
     def parse_apps(self):
         folder = f"{self.base_path}/{self.darshan_logs}/{self.workflow}"
@@ -227,7 +166,7 @@ class IntentGenerator:
                                       'h5d_df_c': None,
                                       'h5f_df_fc': None,
                                       'h5d_df_fc': None,
-                                      'configuration': Configuration()
+                                      'configuration': Intents()
                                       }
         # print(self.app)
         return self.app
@@ -259,17 +198,16 @@ class IntentGenerator:
         self.app[app_name]['num_processes'] = report.data['metadata']['job']['nprocs']
 
         for key, value in report.data['name_records'].items():
-            if "/p/gpfs1" in value or "/home/haridev/temp" in value:
-                self.app[app_name]['relevant_ids'].append(key)
-                self.app[app_name]['name_to_id_map'][value] = key
+            for data_dir in self.data_dirs:
+                #print(data_dir, value)
+                if data_dir in value:
+                    self.app[app_name]['relevant_ids'].append(key)
+                    self.app[app_name]['name_to_id_map'][value] = key                
         print(report.modules.keys())
         self.found_hdf5 = True
         if "H5F" not in report.modules:
             print(f"No HDF5 Module found for {self.workflow}")
             self.found_hdf5 = False
-        # report.mod_read_all_records('POSIX')
-        # report.mod_read_all_records('STDIO')
-        # report.mod_read_all_records('MPI-IO')
         if self.found_hdf5:
             report.mod_read_all_records('H5F')
             report.mod_read_all_records('H5D')
@@ -283,7 +221,7 @@ class IntentGenerator:
             self.app[app_name]['h5d_df_fc'] = h5d_df_fc[h5d_df_fc['id'].isin(self.app[app_name]['relevant_ids'])]
         self.app[app_name]['report'] = report
         return report
-
+    
     def read_dataset(self, app_name, initial=True):
         h5f_df_c = self.app[app_name]['h5f_df_c']
         h5d_df_c = self.app[app_name]['h5d_df_c']
@@ -291,168 +229,102 @@ class IntentGenerator:
         h5d_df_fc = self.app[app_name]['h5d_df_fc']
         report = self.app[app_name]['report']
         file_agg = {}
+        #print(h5d_df_c)
         for ind in h5d_df_c.index:
             ds_id = h5d_df_c['id'][ind]
             dataset_fqn = report.data['name_records'][ds_id]
             #print(dataset_fqn)
-            dataset = DataSet()
             dset_split_fqn = dataset_fqn.split(":")
-            dataset.filename = dset_split_fqn[0]
-            dataset.dataset_name = dataset_fqn
-            file_id = self.app[app_name]['name_to_id_map'][dataset.filename]
+            
+            dataset_intents = DatasetIOIntents()
+            dataset_intents.filename = dset_split_fqn[0]
+            dataset_intents.dataset_name = dataset_fqn
+            file_id = self.app[app_name]['name_to_id_map'][dataset_intents.filename]
             if file_id not in file_agg:
                 file_agg[file_id] = {
-                    'file_size': 0,
-                    'write-only': True,
-                    'read-only': True,
-                    'raw': False,
-                    'close': 0,
-                    'ts_sum': 0,
-                    'ts_count': 0,
-                    'dsets':[]
-
+                    'fs_size': 0,
+                    'mode': {str(FileMode.READ_ONLY.value): 0,
+                            str(FileMode.WRITE_ONLY.value): 0,
+                            str(FileMode.READ_WRITE.value): 0,
+                            str(FileMode.APPEND.value): 0},
+                    'ap_distribution': {str(AccessPatternType.READ_ONLY.value): 0,
+                                        str(AccessPatternType.WRITE_ONLY.value): 0,
+                                        str(AccessPatternType.RAW.value): 0,
+                                        str(AccessPatternType.OTHER.value): 0},
+                    'top_accessed_segments': {},
+                    'transfer_size_dist': {"1":{"sum":0, "count":0}, "2":{"sum":0, "count":0},
+                                            "3":{"sum":0, "count":0},"4":{"sum":0, "count":0}},
+                    'process_sharing': set(),
+                    'ds_size_dist': {"sum":0, "count":0},
                 }
-            file_agg[file_id]['dsets'].append(dataset_fqn)
+            
+            
             find = h5d_df_fc[h5d_df_fc['id'] == ds_id].index[0]
-            # print(find, h5d_df_fc['id'][find])
-            file_agg[file_id]['close'] = h5d_df_fc['H5D_F_CLOSE_END_TIMESTAMP'][find] if \
-            h5d_df_fc['H5D_F_CLOSE_END_TIMESTAMP'][find] > file_agg[file_id]['close'] else file_agg[file_id]['close']
-            file_agg[file_id]['file_size'] = file_agg[file_id]['file_size'] + h5d_df_c['H5D_BYTES_WRITTEN'][ind]
+            dataset_intents.session_io.open_timestamp = (h5d_df_fc['H5D_F_OPEN_START_TIMESTAMP'][find],
+                                                        h5d_df_fc['H5D_F_OPEN_END_TIMESTAMP'][find])
+            dataset_intents.session_io.close_timestamp = (h5d_df_fc['H5D_F_CLOSE_START_TIMESTAMP'][find],
+                                                        h5d_df_fc['H5D_F_CLOSE_END_TIMESTAMP'][find])
+            dataset_intents.session_io.read_timestamp = (h5d_df_fc['H5D_F_READ_START_TIMESTAMP'][find],
+                                                        h5d_df_fc['H5D_F_READ_END_TIMESTAMP'][find])
+            dataset_intents.session_io.write_timestamp = (h5d_df_fc['H5D_F_WRITE_START_TIMESTAMP'][find],
+                                                        h5d_df_fc['H5D_F_WRITE_END_TIMESTAMP'][find])
             dtype_size = h5d_df_c['H5D_DATATYPE_SIZE'][ind]
-            # print(h5d_df_c['H5D_DATATYPE_SIZE'][ind], h5d_df_c['H5D_BYTES_WRITTEN'][ind], h5d_df_c['H5D_BYTES_READ'][ind])
             num_elements_written = h5d_df_c['H5D_BYTES_WRITTEN'][ind] / dtype_size
             num_elements_read = h5d_df_c['H5D_BYTES_READ'][ind] / dtype_size
-
-            if num_elements_written == 0 and num_elements_read > 0:
-                file_agg[file_id]['write-only'] = False
-            else:
-                file_agg[file_id]['read-only'] = False
-
-            if h5d_df_fc['H5D_F_READ_START_TIMESTAMP'][find] > h5d_df_fc['H5D_F_WRITE_END_TIMESTAMP'][find]:
-                file_agg[file_id]['raw'] = True
-
-            ndims = h5d_df_c['H5D_DATASPACE_NDIMS'][ind]
-            boundary = [0] * ndims
-            chunks = [0] * ndims
-            stride = [0] * ndims
-            start = [0] * ndims
-            count = [1] * ndims
-            ts = 1
-            procs_accessing_ds = 1
-            if h5d_df_c['rank'][ind] == -1:
-                procs_accessing_ds = self.app[app_name]['num_processes']
-            for dim_ind in range(0, ndims):
-                end_dim = 5 - dim_ind
-                boundary[dim_ind] = h5d_df_c[f'H5D_ACCESS1_LENGTH_D{end_dim}'][ind] * h5d_df_c['H5D_ACCESS1_COUNT'][ind]
-                chunks[dim_ind] = h5d_df_c[f'H5D_ACCESS1_LENGTH_D{end_dim}'][ind]
-                stride[dim_ind] = h5d_df_c[f'H5D_ACCESS1_STRIDE_D{end_dim}'][ind]
-                ts = ts * chunks[dim_ind]
-            enable_chunking=True
-            if procs_accessing_ds > 1:
-                if ts > 32*MB:
-                    enable_chunking = False
-                elif ts*procs_accessing_ds > 1*MB:
-                    for dim_ind in range(0, ndims):
-                        chunks[dim_ind] = 16*MB                
-                else:                    
-                    chunks[dim_ind] = ts*procs_accessing_ds
-            file_agg[file_id]['ts_sum'] = file_agg[file_id]['ts_sum'] + ts
-            file_agg[file_id]['ts_count'] = file_agg[file_id]['ts_count'] + 1
-
-            dataset.access.append_flush = {'use': True,
-                                           'ndims': ndims,
-                                           'boundary': boundary
-                                           }
-            rdcc_w0 = 0
-
-            if num_elements_read == h5d_df_c['H5D_DATASPACE_NPOINTS'][ind] or num_elements_written == \
-                    h5d_df_c['H5D_DATASPACE_NPOINTS'][ind]:
-                rdcc_w0 = 1
-            elif num_elements_written == 0 or num_elements_read == 0:
-                rdcc_w0 = 1
-            else:
-                per_re_read = num_elements_written * 1.0 / (num_elements_written + num_elements_read)
-                per_re_write = num_elements_read * 1.0 / (num_elements_written + num_elements_read)
-                rdcc_w0 = per_re_read if per_re_read > per_re_write else per_re_write
             
-            dataset.access.chunk_cache = {'use': enable_chunking,
-                                          'rdcc_nslots': procs_accessing_ds,
-                                          'rdcc_nbytes': ts,
-                                          'rdcc_w0': rdcc_w0
-                                          }
-            raw_data_size = h5d_df_c['H5D_DATASPACE_NPOINTS'][ind] * dtype_size
-            # TODO(hari) set  H5D_CONTIGUOUS VS H5D_CHUNKED based on for certain things we need 
-            # chunking (filtering extending, compression) row-major access is better is better 
-            # contiguous vs if we access chunk or strides then we should chunk dataset according.
-            # TODO(hari) for H5Pset_dxpl_mpio_chunk_opt, H5Pset_dxpl_mpio_chunk_opt_num, 
-            # H5Pset_dxpl_mpio_chunk_opt_ratio See page 83 ff. of this presentation
-            # https://urldefense.us/v3/__https://www.alcf.anl.gov/files/Parallel_HDF5_1.pdf__;!!G2kpM7uM-TzIFchu!h30Sfdy1_Q-CXHTkSCJ-VzPvGcxB5_djNTSI2Five-xaaE8j2tyan9AYZJQZUAsm-h4W$ 
-            # 
-            layout = 0
-            if raw_data_size <= 65520:
-                layout = 1
-            elif raw_data_size <= 4 * 1024 * 1024 * 1024:
-                layout = 2
+            if num_elements_written == 0 and num_elements_read > 0:
+                dataset_intents.mode = FileMode.READ_ONLY
+                dataset_intents.type = AccessPatternType.READ_ONLY
+                file_agg[file_id]['ap_distribution'][str(AccessPatternType.READ_ONLY.value)] += 1
+                file_agg[file_id]['mode'][str(FileMode.READ_ONLY.value)] += 1
+            elif num_elements_written > 0 and num_elements_read == 0:
+                dataset_intents.mode = FileMode.WRITE_ONLY
+                dataset_intents.type = AccessPatternType.WRITE_ONLY
+                file_agg[file_id]['ap_distribution'][str(AccessPatternType.WRITE_ONLY.value)] += 1
+                file_agg[file_id]['mode'][str(FileMode.WRITE_ONLY.value)] += 1
             else:
-                layout = 3
-            dataset.access.layout = {
-                'use': True,
-                'layout': layout
-            }
-            dataset.access.chunk = {
-                'use': enable_chunking,
-                'ndims': ndims,
-                'dim': chunks,
-            }
-            if procs_accessing_ds == 1:
-                dataset.transfer.dmpiio = {
-                    'use': False
-                }
-            else:
-                dataset.transfer.dmpiio = {
-                    'use': True,
-                    'xfer_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
-                    'coll_opt_mode': h5d_df_c['H5D_USE_MPIIO_COLLECTIVE'][ind],
-                    # TODO(hari): set chunk_opt_mode
-                    'num_chunk_per_proc': h5d_df_c['H5D_ACCESS1_COUNT'][ind] / procs_accessing_ds,
-                    'percent_num_proc_per_chunk': procs_accessing_ds * 100 / self.app[app_name]['num_processes']
-                }
-            # TODO(hari): set this for specific apps where read needs to be correct
-            dataset.transfer.edc_check = {
-                'use': True,
-                'check': False
-            }
-            dataset.transfer.hyper_vector = {
-                'use': True,
-                'size': boundary,
-                'ndims': ndims
-            }
-            # TODO(hari): Check if datatype of dataset is variable on runtime.
-            dataset.transfer.mem_manager = {
-                'use': False
-            }
-
-            ops = -1
-            if num_elements_written > 0 and num_elements_read == 0:
-                ops = 0
-            elif num_elements_read > 0 and num_elements_written == 0:
-                ops = 1
-            else:
-                ops = 2
-
-            dataset.transfer.dataset_io_hyperslab_selection = {
-                'use': True,
-                'rank': ndims,
-                'op': 1,  # H5S_SELECT_OR
-                'start': start,
-                'stride': stride,
-                'count': count,
-                'block': chunks
-            }
-            self.app[app_name]['configuration'].datasets[dataset.dataset_name] = dataset
+                dataset_intents.mode = FileMode.READ_WRITE
+                file_agg[file_id]['mode'][str(FileMode.READ_WRITE.value)] += 1
+                if h5d_df_fc['H5D_F_READ_START_TIMESTAMP'][find] > h5d_df_fc['H5D_F_WRITE_END_TIMESTAMP'][find]:
+                    dataset_intents.type = AccessPatternType.RAW
+                    file_agg[file_id]['ap_distribution'][str(AccessPatternType.RAW.value)] += 1
+                else:
+                    dataset_intents.type = AccessPatternType.OTHER
+                    file_agg[file_id]['ap_distribution'][str(AccessPatternType.OTHER.value)] += 1
+            dataset_intents.ndims = h5d_df_c['H5D_DATASPACE_NDIMS'][ind]
+            dataset_intents.top_accessed_segments = {}
+            dataset_intents.transfer_size_dist = {}
+            for i in range(1,4):
+                dataset_intents.top_accessed_segments[str(i)] = {"length": [],
+                                           "count": h5d_df_c[f'H5D_ACCESS{i}_COUNT'][ind],
+                                           "stride": [],
+                                           "access": h5d_df_c[f'H5D_ACCESS{i}_ACCESS'][ind]}
+                dataset_intents.transfer_size_dist[str(i)] = 1
+                for dim_ind in range(0, dataset_intents.ndims):
+                    end_dim = 5 - dim_ind
+                    dataset_intents.top_accessed_segments[str(i)]["length"].append(h5d_df_c[f'H5D_ACCESS{i}_LENGTH_D{end_dim}'][ind])
+                    dataset_intents.top_accessed_segments[str(i)]["stride"].append(h5d_df_c[f'H5D_ACCESS{i}_STRIDE_D{end_dim}'][ind])
+                    dataset_intents.transfer_size_dist[str(i)] *= h5d_df_c[f'H5D_ACCESS{i}_LENGTH_D{end_dim}'][ind]
+                file_agg[file_id]['transfer_size_dist'][str(i)]["sum"] += dataset_intents.transfer_size_dist[str(i)]
+                file_agg[file_id]['transfer_size_dist'][str(i)]["count"] += 1
+                
+            dataset_intents.process_sharing = [h5d_df_c['rank'][ind]]
+            dataset_intents.sharing_pattern = SharingPattern.INDEPENDENT
+            if h5d_df_c['rank'][ind] == -1:
+                dataset_intents.sharing_pattern = SharingPattern.COLLECTIVE
+                dataset_intents.process_sharing = list(range(self.app[app_name]['num_processes']))
+            file_agg[file_id]['process_sharing'].update(dataset_intents.process_sharing)
+            dataset_intents.fs_size = h5d_df_c['H5D_BYTES_WRITTEN'][ind] \
+                                        if h5d_df_c['H5D_BYTES_WRITTEN'][ind] > h5d_df_c['H5D_BYTES_READ'][ind] \
+                                        else h5d_df_c['H5D_BYTES_READ'][ind]
+            file_agg[file_id]["fs_size"] += dataset_intents.fs_size
+            file_agg[file_id]["ds_size_dist"]["sum"] += dataset_intents.fs_size
+            file_agg[file_id]["ds_size_dist"]["count"] += 1
+            self.app[app_name]['configuration'].datasets[dataset_intents.dataset_name] = dataset_intents
+            #print(dataset_intents)
         self.app[app_name]['file_agg'] = file_agg
         return self.app[app_name]['configuration'], self.app[app_name]['file_agg']
-
+            
     def read_file(self, app_name):
         h5f_df_c = self.app[app_name]['h5f_df_c']
         h5d_df_c = self.app[app_name]['h5d_df_c']
@@ -463,119 +335,30 @@ class IntentGenerator:
         for ind in h5f_df_c.index:
             file_id = h5f_df_c['id'][ind]
             file_agg_item = file_agg[file_id]
-            file_item = File()
+            find = h5f_df_fc[h5f_df_fc['id'] == file_id].index[0]
+            file_item = FileIOIntents()
             file_item.filename = report.data['name_records'][file_id]
-            file_item.size = file_agg[file_id]['file_size']
-            file_item.ts = file_agg[file_id]['ts_sum'] / file_agg[file_id]['ts_count']
-            is_shared_access = h5f_df_c['rank'][ind] == -1
-            file_item.access.alignment = {
-                'use': True,
-                'threshold': file_item.ts,
-                'alignment': 1 * MB
-            }
-            if not is_shared_access and file_item.size < AVAIL_NODE_MEMORY_BYTES and file_item.ts < 4*MB:
-                #print(file_item.size, AVAIL_NODE_MEMORY_BYTES)
-                file_item.access.core = {
-                    'use': True,
-                    'increment': file_agg[file_id]['file_size'],
-                    'backing_store': not file_agg[file_id]['read-only']
-                }
+            file_item.session_io.open_timestamp = (h5f_df_fc['H5F_F_OPEN_START_TIMESTAMP'][find],
+                                                    h5f_df_fc['H5F_F_OPEN_END_TIMESTAMP'][find])
+            file_item.session_io.close_timestamp = (h5f_df_fc['H5F_F_CLOSE_START_TIMESTAMP'][find],
+                                                    h5f_df_fc['H5F_F_CLOSE_END_TIMESTAMP'][find])
+            if file_agg_item["mode"][str(FileMode.READ_ONLY.value)] == 0:
+                file_item.mode = FileMode.WRITE_ONLY
+            elif file_agg_item["mode"][str(FileMode.WRITE_ONLY.value)] == 0:
+                file_item.mode = FileMode.READ_ONLY
             else:
-                file_item.access.core = {
-                    'use': False
-                }
-            if file_item.access.core['use']:
-                for dset in file_agg[file_id]['dsets']:
-                    self.app[app_name]['configuration'].datasets.pop(dset)
-            else:
-                if is_shared_access:
-                    file_item.access.fmpiio = {
-                        'use': True,
-                        'comm': 'MPI_COMM_WORLD'
-                    }
-                else:
-                    file_item.access.fmpiio = {
-                        'use': False
-                    }
-                file_item.access.split = {
-                    'use': True if not file_item.access.core['use'] and file_agg[file_id]['read-only'] else False
-                }
-                file_item.access.stdio = {
-                    'use': True if not file_item.access.core['use'] and file_agg[file_id]['write-only'] else False
-                }
-                file_item.access.cache = {
-                    'use': True,
-                    'rdcc_nslots': 0,
-                    'rdcc_nbytes': 0,
-                    'rdcc_w0': 0
-                }
-                is_stride_used = False
-                for key, value in self.app[app_name]['configuration'].datasets.items():
-                    cache = self.app[app_name]['configuration'].datasets[key].access.chunk_cache
-                    file_item.access.cache['use'] = file_item.access.cache['use'] and cache['use']
-                    file_item.access.cache['rdcc_nslots'] = file_item.access.cache['rdcc_nslots'] + cache['rdcc_nslots']
-                    file_item.access.cache['rdcc_nbytes'] = file_item.access.cache['rdcc_nbytes'] + cache['rdcc_nbytes']
-                    file_item.access.cache['rdcc_w0'] = max(file_item.access.cache['rdcc_w0'], cache['rdcc_w0'])
-                    hyperslab_selection = self.app[app_name]['configuration'].datasets[
-                        key].transfer.dataset_io_hyperslab_selection
-                    for dim in range(hyperslab_selection['rank']):
-                        if hyperslab_selection['stride'][dim] > 0:
-                            is_stride_used = True
-                # TODO: write_tracking when to enable
-                file_item.access.close = {
-                    'use': True,
-                    'evict': True if file_agg[file_id]['read-only'] or file_agg[file_id]['write-only'] else False,
-                    'degree': 'H5F_CLOSE_STRONG' if file_agg[file_id]['close'] < h5f_df_fc['H5F_F_CLOSE_END_TIMESTAMP'][
-                        ind] else 'H5F_CLOSE_WEAK',
-                }
-                file_item.access.file_image = {
-                    'use': file_agg[file_id]['file_size'] < AVAIL_NODE_MEMORY_BYTES,
-                    'buf_len': file_agg[file_id]['file_size']
-                }
-                file_item.access.optimization = {
-                    'use': True,
-                    'file_locking': not file_agg[file_id]['read-only'],
-                    'gc_ref': False,  # TODO(hari) fix me
-                    'sieve_buf_size': 0 if not is_stride_used else file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id][
-                        'ts_count'],
-                    'small_data_block_size': 0 if file_agg[file_id]['file_size'] > GB else file_agg[file_id]['file_size'],
-                    'enable_object_flush_cb': True if not file_agg[file_id]['read-only'] else False
-                }
-                file_item.access.page_buffer = {
-                    'use': True,
-                    'buf_size': file_agg[file_id]['file_size'] if file_agg[file_id][
-                                                                      'file_size'] < AVAIL_NODE_MEMORY_BYTES else AVAIL_NODE_MEMORY_BYTES,
-                    'min_raw_per': 100 if file_agg[file_id]['file_size'] < AVAIL_NODE_MEMORY_BYTES else int(
-                        file_agg[file_id]['file_size'] * 100.0 / AVAIL_NODE_MEMORY_BYTES),
-                    'min_meta_per': 0,  # TODO(hari) fix me
-                }
-                file_item.creation.file_space = {
-                    'use': True,
-                    'file_space_page_size': file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id]['ts_count'],
-                    'strategy': 1,
-                    'persist': True,
-                    'threshold': file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id]['ts_count'],
-                }
-                offset_bytes_needed = 0
-                offset = file_agg[file_id]['ts_sum']
-                while offset != 0:
-                    offset = offset >> 8;
-                    offset_bytes_needed = offset_bytes_needed + 1
-                length_bytes_needed = 0
-                ts = int(file_agg[file_id]['ts_sum'] * 1.0 / file_agg[file_id]['ts_count'])
-                while ts != 0:
-                    ts = ts >> 8;
-                    length_bytes_needed = length_bytes_needed + 1;
-
-                file_item.creation.sizes = {
-                    'use': True,
-                    'sizeof_addr': offset_bytes_needed,
-                    'sizeof_size': length_bytes_needed + 1
-                }
+                file_item.mode = FileMode.READ_WRITE
+            file_item.fs_size = file_agg_item["fs_size"]
+            file_item.process_sharing = list(file_agg_item["process_sharing"])
+            file_item.sharing_pattern = SharingPattern.INDEPENDENT
+            if len(file_item.process_sharing) > 1:
+                file_item.sharing_pattern = SharingPattern.COLLECTIVE
+            file_item.ap_distribution = file_agg_item["ap_distribution"]
+            file_item.top_accessed_segments = file_agg_item["top_accessed_segments"]
+            file_item.transfer_size_dist = file_agg_item["transfer_size_dist"]
+            file_item.ds_size_dist = file_agg_item["ds_size_dist"]
             self.app[app_name]['configuration'].files[file_item.filename] = file_item
         return self.app[app_name]['configuration']
-
-
 def parse_args():
     parser = argparse.ArgumentParser(description='Generate H5Bench Config')
     parser.add_argument("--base-path", default="", type=str,
@@ -595,7 +378,7 @@ def main():
         generator.load_apps()
         generator.write_configurations()
 
-
+        
 if __name__ == '__main__':
     main()
     exit(0)
