@@ -144,7 +144,7 @@ extern char* fix_filename(const char* filename) {
     strcpy(fixed, posix_path.generic_string().c_str());
     return fixed;
 }
-void h5intent::ConfigurationManager::load_configuration(
+void h5intent::ConfigurationManager::                                                                                                                                                                                                                                                                                                                         load_configuration(
     const std::string& configuration_file) {
   std::ifstream t(configuration_file);
   t.seekg(0, std::ios::end);

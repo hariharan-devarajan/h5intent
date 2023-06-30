@@ -249,8 +249,9 @@ enum AccessPatternType{
     AP_WRITE_ONLY = 0,
     AP_READ_ONLY = 1,
     AP_RAW = 2,
-    AP_OTHER = 3,
+    AP_OTHER = 3
 };
+
 struct MultiSessionIO {
     float* open_timestamp;
     float* close_timestamp;
@@ -280,7 +281,7 @@ struct FileIOIntents {
     FileMode mode;
     size_t fs_size;
     SharingPattern sharing_pattern;
-    std::unordered_map<AccessPatternType, size_t> ap_distribution;
+    std::unordered_map<std::string, size_t> ap_distribution;
     std::unordered_map<std::string, std::unordered_map<std::string,size_t>> transfer_size_dist;
     std::vector<size_t> process_sharing;
     std::unordered_map<std::string,size_t> ds_size_dist;
@@ -327,6 +328,7 @@ auto as_integer(Enumeration const value) -> typename std::underlying_type<Enumer
 
 #define TO_JSON_D(ATTR) j[#ATTR] = p.ATTR
 #define TO_JSON_D_OBJ(ATTR)  to_json(j[#ATTR], p.ATTR)
+#define FROM_JSON_D_OBJ(ATTR)  from_json(j[#ATTR], p.ATTR)
 #define FROM_JSON_D(ATTR) \
   if (j.contains(#ATTR) && !j.at(#ATTR).is_null()) \
     j.at(#ATTR).get_to(p.ATTR);
@@ -372,6 +374,48 @@ inline void from_json(const json& j, myType*& array, int expected_length) {
     }
 }
 
+inline void from_json(const json& j, long unsigned int& p) {
+    j.get_to(p);
+}
+
+template <class Value>
+inline void from_json(const json& j, std::vector<Value>& p) {
+    auto vec = j.get<std::vector<Value>>();
+    p = std::vector<Value>();
+    p.insert(p.end(), vec.begin(), vec.end());
+}
+inline void from_json(const json& j, std::any& p) {
+    if (j.type() == json::value_t::array) {
+        auto vec = std::vector<int>();
+        from_json(j, vec);
+        p = vec;
+    } else if (j.type() == json::value_t::number_unsigned) {
+        int a;
+        j.get_to(a);
+        p = a;
+    }
+}
+template <class Key, class Value>
+inline void from_json(const json& j, std::unordered_map<Key,Value>& p) {
+    //auto jmap = j.get<std::unordered_map<Key,json>>();
+    p = std::unordered_map<Key,Value>();
+    for (auto& el : j.items()){
+        Value val;
+        if (el.value().type() == json::value_t::object or std::is_same<Value, std::any>::value) {
+            from_json(el.value(), val);
+        } else {
+            el.value().get_to(val);
+        }
+
+        p.emplace(el.key(), val);
+    }
+}
+
+
+inline void to_json(json& j, const long unsigned int& p) {
+    j = json();
+    j = p;
+}
 #define ANY_CAST(lhs, rhs, TYPE) \
 if (rhs.type() == typeid(TYPE)) lhs = std::any_cast<TYPE>(rhs);
 inline void to_json(json& j, const std::any& p) {
@@ -386,6 +430,14 @@ inline void to_json(json& j, const std::unordered_map<Key,Value>& p) {
     for (auto it: p) {
         to_json(j[it.first], it.second);
     }
+}
+template <class Value>
+inline void to_json(json& j, const std::vector<Value>& p) {
+    j = json::array();
+    for (auto val:p) {
+        j.push_back(val);
+    }
+
 }
 
 inline void to_json(json& j, const MultiSessionIO& p) {
@@ -411,8 +463,8 @@ inline void to_json(json& j, const DatasetIOIntents& p) {
   TO_JSON_D(multiSessionIo);
   TO_JSON_D_ENUM(type);
   TO_JSON_D_OBJ(top_accessed_segments);
-  TO_JSON_D(transfer_size_dist);
-  TO_JSON_D(process_sharing);
+  TO_JSON_D_OBJ(transfer_size_dist);
+  TO_JSON_D_OBJ(process_sharing);
   TO_JSON_D(fs_size);
   TO_JSON_D_ENUM(sharing_pattern);
   TO_JSON_D_ENUM(mode);
@@ -424,9 +476,9 @@ inline void from_json(const json& j, DatasetIOIntents& p) {
   FROM_JSON_D(ndims);
   FROM_JSON_D(multiSessionIo);
   FROM_JSON_D_ENUM(type);
-  FROM_JSON_D(top_accessed_segments);
-  FROM_JSON_D(transfer_size_dist);
-  FROM_JSON_D(process_sharing);
+  FROM_JSON_D_OBJ(top_accessed_segments);
+  FROM_JSON_D_OBJ(transfer_size_dist);
+  FROM_JSON_D_OBJ(process_sharing);
   FROM_JSON_D(fs_size);
   FROM_JSON_D_ENUM(sharing_pattern);
   FROM_JSON_D_ENUM(mode);
@@ -439,10 +491,10 @@ inline void to_json(json& j, const FileIOIntents& p) {
     TO_JSON_D_ENUM(mode);
     TO_JSON_D(fs_size);
     TO_JSON_D_ENUM(sharing_pattern);
-    TO_JSON_D(ap_distribution);
-    TO_JSON_D(transfer_size_dist);
-    TO_JSON_D(process_sharing);
-    TO_JSON_D(ds_size_dist);
+    TO_JSON_D_OBJ(ap_distribution);
+    TO_JSON_D_OBJ(transfer_size_dist);
+    TO_JSON_D_OBJ(process_sharing);
+    TO_JSON_D_OBJ(ds_size_dist);
 }
 inline void from_json(const json& j, FileIOIntents& p) {
     FROM_JSON_D(filename);
@@ -450,10 +502,10 @@ inline void from_json(const json& j, FileIOIntents& p) {
     FROM_JSON_D_ENUM(mode);
     FROM_JSON_D(fs_size);
     FROM_JSON_D_ENUM(sharing_pattern);
-    FROM_JSON_D(ap_distribution);
-    FROM_JSON_D(transfer_size_dist);
-    FROM_JSON_D(process_sharing);
-    FROM_JSON_D(ds_size_dist);
+    FROM_JSON_D_OBJ(ap_distribution);
+    FROM_JSON_D_OBJ(transfer_size_dist);
+    FROM_JSON_D_OBJ(process_sharing);
+    FROM_JSON_D_OBJ(ds_size_dist);
 }
 inline void to_json(json& j, const Intents& p) {
   j = json();

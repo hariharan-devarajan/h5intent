@@ -4,7 +4,7 @@ foreach(example ${examples})
     target_link_libraries(${example} ${TEST_LIBS} h5intent)
     add_dependencies(${example} h5intent)
 
-    file(GLOB_RECURSE JSON_FILES ${CMAKE_SOURCE_DIR}/h5bench/property-json/*/*.json)
+    file(GLOB_RECURSE JSON_FILES ${CMAKE_SOURCE_DIR}/logs/property-json/*/*.json)
     foreach(json_file ${JSON_FILES})
 
         get_filename_component(json_directory_path "${json_file}" DIRECTORY)
