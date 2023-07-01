@@ -610,7 +610,7 @@ static herr_t H5VL_intent_init(hid_t vipl_id) {
 #ifdef ENABLE_INTENT_LOGGING
   H5INTENT_LOGINFO_SIMPLE("------- INTENT VOL INIT");
 #endif
-    //set_signal();
+  set_signal();
   /* Shut compiler up about unused parameter */
   (void)vipl_id;
 

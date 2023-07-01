@@ -218,7 +218,7 @@ FileProperties to_file_properties(FileIOIntents &intents) {
     bool is_read_only = intents.mode == FileMode::FILE_READ_ONLY;
     if (intents.fs_size < MEMORY_SIZE) {
         properties.access.core = {
-                true, intents.fs_size, 0
+                true, intents.fs_size + MB, !is_read_only
         };
     }
     return properties;
