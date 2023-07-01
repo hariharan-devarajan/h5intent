@@ -52,3 +52,7 @@
 /runtime-logs/
 /external/h5bench/build/
 /h5intent/intent_generator/.ipynb_checkpoints/
+/logs/h5bench_confs/lassen/sync_none_intent_1_40/sync-write-1d-strided-large-col-h5bench.log
+/logs/h5bench_confs/lassen/sync_none_intent_1_40/sync-write-1d-strided-large-h5bench.log
+/logs/h5bench_confs/lassen/sync_none_intent_1_40/sync-write-1d-strided-medium-col-h5bench.log
+/logs/h5bench_confs/lassen/sync_none_intent_1_40/sync-write-1d-strided-small-h5bench.log
