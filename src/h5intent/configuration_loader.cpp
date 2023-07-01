@@ -140,11 +140,10 @@ extern void load_configuration(const char* file) {
   h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->load_configuration(
       file);
 }
-extern char* fix_filename(const char* filename) {
+extern char* fix_filename(char* filename) {
     std::filesystem::path posix_path{filename};
-    char* fixed = (char*)calloc(posix_path.generic_string().size(), sizeof(char));
-    strcpy(fixed, posix_path.generic_string().c_str());
-    return fixed;
+    strcpy(filename, posix_path.generic_string().c_str());
+    return filename;
 }
 void h5intent::ConfigurationManager::                                                                                                                                                                                                                                                                                                                         load_configuration(
     const std::string& configuration_file) {
@@ -170,7 +169,10 @@ DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
     size_t ndims = intents.ndims;
     auto chunks = std::vector<size_t>(ndims);
     auto lengths_any = most_common_segments.find("length")->second;
-    auto lengths = std::any_cast<std::vector<size_t>>(lengths_any);
+    auto lengths = std::vector<int>(ndims);
+    if (lengths_any.type() == typeid(std::vector<int>)) {
+        lengths = std::any_cast<std::vector<int>>(lengths_any);
+    }
     for(int d=0;d<ndims;++d) chunks[d] = lengths[d];
     if(intents.process_sharing.size() > 1) {
         if (most_common_ts > 32 * MB) {
@@ -216,7 +218,7 @@ FileProperties to_file_properties(FileIOIntents &intents) {
     bool is_read_only = intents.mode == FileMode::FILE_READ_ONLY;
     if (intents.fs_size < MEMORY_SIZE) {
         properties.access.core = {
-                true, intents.fs_size, !is_read_only
+                true, intents.fs_size, 0
         };
     }
     return properties;
