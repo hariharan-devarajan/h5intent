@@ -48,7 +48,7 @@ if (${HDF5_VERSION} MATCHES ${VOL_COMPATIBLE_VERSION})
         message(FATAL_ERROR "-- [H5Intent-VOL] cpp-logger is needed for ${PROJECT_NAME} build")
     endif ()
 
-    message(STATUS "-- [H5Intent-VOL] Dependency ${DEPENDENCY_LIB}")
+    message(STATUS "[H5Intent-VOL] Dependency Libraries ${DEPENDENCY_LIB}")
     target_compile_definitions(h5intent_vol PRIVATE ENABLE_INTENT_LOGGING)
     target_link_libraries(h5intent_vol ${DEPENDENCY_LIB})
     target_link_libraries(h5intent_vol h5intent)

@@ -157,7 +157,8 @@ void h5intent::ConfigurationManager::                                           
   t.close();
   json read_json = json::parse(buffer);
   read_json.get_to(intents);
-  printf("# of datasets %d, # of files %d, from conf %s\n", intents.datasets.size(),
+
+  INTENT_LOGINFO("# of datasets %d, # of files %d, from conf %s", intents.datasets.size(),
          intents.files.size(),
          configuration_file.c_str());
 }
