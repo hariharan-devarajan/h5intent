@@ -8,6 +8,8 @@
 #include "property_dds.h"
 #include "singleton.h"
 #include <filesystem>
+#define GB 1024L*1024L*1024L
+#define MB 1024L*1024L
 std::string getexepath() {
     char result[PATH_MAX];
     ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
@@ -143,7 +145,7 @@ extern char* fix_filename(char* filename) {
     strcpy(filename, posix_path.generic_string().c_str());
     return filename;
 }
-void h5intent::ConfigurationManager::load_configuration(
+void h5intent::ConfigurationManager::                                                                                                                                                                                                                                                                                                                         load_configuration(
     const std::string& configuration_file) {
   std::ifstream t(configuration_file);
   t.seekg(0, std::ios::end);
@@ -153,27 +155,90 @@ void h5intent::ConfigurationManager::load_configuration(
   t.read(&buffer[0], size);
   t.close();
   json read_json = json::parse(buffer);
-  read_json.get_to(properties);
-  printf("# of datasets %d, # of files %d, from conf %s\n", properties.datasets.size(),
-         properties.files.size(),
+  read_json.get_to(intents);
+
+  INTENT_LOGINFO("# of datasets %d, # of files %d, from conf %s", intents.datasets.size(),
+         intents.files.size(),
          configuration_file.c_str());
 }
-bool get_dataset_properties(const char* dataset_name, DatasetProperties *datasetProperties) {
-  auto properties = h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->properties;
-  auto iter = properties.datasets.find(dataset_name);
-  if (iter == properties.datasets.end()) return false;
+DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
+    auto properties = DatasetProperties();
+    bool enable_chunking = true;
+    auto most_common_ts = intents.transfer_size_dist.find("1")->second;
+    auto most_common_segments = intents.top_accessed_segments.find("1")->second;
+    size_t ndims = intents.ndims;
+    auto chunks = std::vector<size_t>(ndims);
+    auto lengths_any = most_common_segments.find("length")->second;
+    auto lengths = std::vector<int>(ndims);
+    if (lengths_any.type() == typeid(std::vector<int>)) {
+        lengths = std::any_cast<std::vector<int>>(lengths_any);
+    }
+    for(int d=0;d<ndims;++d) chunks[d] = lengths[d];
+    if(intents.process_sharing.size() > 1) {
+        if (most_common_ts > 32 * MB) {
+            enable_chunking = false;
+        } else if (most_common_ts * intents.process_sharing.size() > 1*MB) {
+            chunks[0] = 16 * MB;
+            for(int d  = 1; d < ndims; ++d) {
+                chunks[d] = 1;
+            }
+        }else {
+            chunks[0] = most_common_ts * intents.process_sharing.size();
+            for(int d  = 1; d < ndims; ++d) {
+                chunks[d] = 1;
+            }
+        }
+    }
+    float rdcc_w0 = 0;
+    if (intents.mode == FILE_WRITE_ONLY || intents.mode == FILE_READ_ONLY)
+        rdcc_w0 = 1;
+
+    properties.access.chunk_cache = {
+            enable_chunking, intents.process_sharing.size(), most_common_ts, rdcc_w0
+    };
+    properties.access.chunk = {
+            enable_chunking, (int)ndims, chunks.data(),
+    };
+    if (intents.process_sharing.size() == 1) {
+        properties.transfer.dmpiio.use = false;
+    } else {
+        properties.transfer.dmpiio.use = true;
+        properties.transfer.dmpiio.xfer_mode = H5FD_MPIO_COLLECTIVE;
+        properties.transfer.dmpiio.coll_opt_mode = H5FD_MPIO_COLLECTIVE_IO;
+        properties.transfer.dmpiio.chunk_opt_mode = H5FD_MPIO_CHUNK_MULTI_IO;
+        properties.transfer.dmpiio.num_chunk_per_proc = most_common_ts / intents.process_sharing.size();
+        properties.transfer.dmpiio.percent_num_proc_per_chunk = 100;
+    }
+    return properties;
+}
+
+FileProperties to_file_properties(FileIOIntents &intents) {
+    const size_t MEMORY_SIZE = 200 * GB;
+    auto properties = FileProperties();
+    bool is_read_only = intents.mode == FileMode::FILE_READ_ONLY;
+    if (intents.fs_size < MEMORY_SIZE) {
+        properties.access.core = {
+                true, intents.fs_size + MB, !is_read_only
+        };
+    }
+    return properties;
+}
+bool get_dataset_properties(const char* dataset_name, struct DatasetProperties *datasetProperties) {
+  auto intents = h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->intents;
+  auto iter = intents.datasets.find(dataset_name);
+  if (iter == intents.datasets.end()) return false;
   else {
-    *datasetProperties = iter->second;
+    *datasetProperties = to_dataset_properties(iter->second);
     return true;
   }
 }
 bool get_file_properties(const char* filename, struct FileProperties* fileProperties) {
   std::filesystem::path posix_path{filename};
-  auto properties = h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->properties;
-  auto iter = properties.files.find(posix_path.generic_string());
-  if (iter == properties.files.end()) return false;
+  auto intents = h5intent::Singleton<h5intent::ConfigurationManager>::get_instance()->intents;
+  auto iter = intents.files.find(posix_path.generic_string());
+  if (iter == intents.files.end()) return false;
   else {
-    *fileProperties = iter->second;
+    *fileProperties = to_file_properties(iter->second);
     return true;
   }
 }

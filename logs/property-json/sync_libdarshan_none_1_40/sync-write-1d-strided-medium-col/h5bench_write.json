@@ -1,0 +1,948 @@
+{
+  "files": {
+    "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5": {
+      "session_io": {
+        "open_timestamp": [
+          2.2689316272735596,
+          2.7484500408172607
+        ],
+        "close_timestamp": [
+          12.591358661651611,
+          12.591997861862183
+        ],
+        "read_timestamp": [
+          0,
+          0
+        ],
+        "write_timestamp": [
+          0,
+          0
+        ]
+      },
+      "mode": 0,
+      "process_sharing": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "fs_size": 10737418240,
+      "sharing_pattern": 1,
+      "ap_distribution": {
+        "1": 0,
+        "0": 8,
+        "2": 0,
+        "3": 0
+      },
+      "top_accessed_segments": {},
+      "transfer_size_dist": {
+        "1": {
+          "sum": 67108864,
+          "count": 8
+        },
+        "2": {
+          "sum": 0,
+          "count": 8
+        },
+        "3": {
+          "sum": 0,
+          "count": 8
+        },
+        "4": {
+          "sum": 0,
+          "count": 0
+        }
+      },
+      "ds_size_dist": {
+        "sum": 10737418240,
+        "count": 8
+      }
+    }
+  },
+  "datasets": {
+    "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0z": {
+      "filename": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5",
+      "dataset_name": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0z",
+      "ndims": 1,
+      "session_io": {
+        "open_timestamp": [
+          2.7482080459594727,
+          2.748912811279297
+        ],
+        "close_timestamp": [
+          12.170328378677368,
+          12.17097282409668
+        ],
+        "read_timestamp": [
+          0.0,
+          0.0
+        ],
+        "write_timestamp": [
+          11.919053077697754,
+          12.142894506454468
+        ]
+      },
+      "type": 0,
+      "top_accessed_segments": {
+        "1": {
+          "length": [
+            8388608
+          ],
+          "count": 40,
+          "stride": [
+            65536
+          ],
+          "access": 33554432
+        },
+        "2": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        },
+        "3": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        }
+      },
+      "transfer_size_dist": {
+        "1": 8388608,
+        "2": 0,
+        "3": 0
+      },
+      "process_sharing": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "fs_size": 1342177280,
+      "sharing_pattern": 1,
+      "mode": 0
+    },
+    "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0pz": {
+      "filename": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5",
+      "dataset_name": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0pz",
+      "ndims": 1,
+      "session_io": {
+        "open_timestamp": [
+          2.7482080459594727,
+          2.748912811279297
+        ],
+        "close_timestamp": [
+          12.170328378677368,
+          12.17097282409668
+        ],
+        "read_timestamp": [
+          0.0,
+          0.0
+        ],
+        "write_timestamp": [
+          11.919053077697754,
+          12.142894506454468
+        ]
+      },
+      "type": 0,
+      "top_accessed_segments": {
+        "1": {
+          "length": [
+            8388608
+          ],
+          "count": 40,
+          "stride": [
+            65536
+          ],
+          "access": 33554432
+        },
+        "2": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        },
+        "3": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        }
+      },
+      "transfer_size_dist": {
+        "1": 8388608,
+        "2": 0,
+        "3": 0
+      },
+      "process_sharing": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "fs_size": 1342177280,
+      "sharing_pattern": 1,
+      "mode": 0
+    },
+    "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0id_2": {
+      "filename": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5",
+      "dataset_name": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0id_2",
+      "ndims": 1,
+      "session_io": {
+        "open_timestamp": [
+          2.7482080459594727,
+          2.748912811279297
+        ],
+        "close_timestamp": [
+          12.170328378677368,
+          12.17097282409668
+        ],
+        "read_timestamp": [
+          0.0,
+          0.0
+        ],
+        "write_timestamp": [
+          11.919053077697754,
+          12.142894506454468
+        ]
+      },
+      "type": 0,
+      "top_accessed_segments": {
+        "1": {
+          "length": [
+            8388608
+          ],
+          "count": 40,
+          "stride": [
+            65536
+          ],
+          "access": 33554432
+        },
+        "2": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        },
+        "3": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        }
+      },
+      "transfer_size_dist": {
+        "1": 8388608,
+        "2": 0,
+        "3": 0
+      },
+      "process_sharing": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "fs_size": 1342177280,
+      "sharing_pattern": 1,
+      "mode": 0
+    },
+    "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0px": {
+      "filename": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5",
+      "dataset_name": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0px",
+      "ndims": 1,
+      "session_io": {
+        "open_timestamp": [
+          2.7482080459594727,
+          2.748912811279297
+        ],
+        "close_timestamp": [
+          12.170328378677368,
+          12.17097282409668
+        ],
+        "read_timestamp": [
+          0.0,
+          0.0
+        ],
+        "write_timestamp": [
+          11.919053077697754,
+          12.142894506454468
+        ]
+      },
+      "type": 0,
+      "top_accessed_segments": {
+        "1": {
+          "length": [
+            8388608
+          ],
+          "count": 40,
+          "stride": [
+            65536
+          ],
+          "access": 33554432
+        },
+        "2": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        },
+        "3": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        }
+      },
+      "transfer_size_dist": {
+        "1": 8388608,
+        "2": 0,
+        "3": 0
+      },
+      "process_sharing": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "fs_size": 1342177280,
+      "sharing_pattern": 1,
+      "mode": 0
+    },
+    "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0x": {
+      "filename": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5",
+      "dataset_name": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0x",
+      "ndims": 1,
+      "session_io": {
+        "open_timestamp": [
+          2.7482080459594727,
+          2.748912811279297
+        ],
+        "close_timestamp": [
+          12.170328378677368,
+          12.17097282409668
+        ],
+        "read_timestamp": [
+          0.0,
+          0.0
+        ],
+        "write_timestamp": [
+          11.919053077697754,
+          12.142894506454468
+        ]
+      },
+      "type": 0,
+      "top_accessed_segments": {
+        "1": {
+          "length": [
+            8388608
+          ],
+          "count": 40,
+          "stride": [
+            65536
+          ],
+          "access": 33554432
+        },
+        "2": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        },
+        "3": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        }
+      },
+      "transfer_size_dist": {
+        "1": 8388608,
+        "2": 0,
+        "3": 0
+      },
+      "process_sharing": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "fs_size": 1342177280,
+      "sharing_pattern": 1,
+      "mode": 0
+    },
+    "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0py": {
+      "filename": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5",
+      "dataset_name": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0py",
+      "ndims": 1,
+      "session_io": {
+        "open_timestamp": [
+          2.7482080459594727,
+          2.748912811279297
+        ],
+        "close_timestamp": [
+          12.170328378677368,
+          12.17097282409668
+        ],
+        "read_timestamp": [
+          0.0,
+          0.0
+        ],
+        "write_timestamp": [
+          11.919053077697754,
+          12.142894506454468
+        ]
+      },
+      "type": 0,
+      "top_accessed_segments": {
+        "1": {
+          "length": [
+            8388608
+          ],
+          "count": 40,
+          "stride": [
+            65536
+          ],
+          "access": 33554432
+        },
+        "2": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        },
+        "3": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        }
+      },
+      "transfer_size_dist": {
+        "1": 8388608,
+        "2": 0,
+        "3": 0
+      },
+      "process_sharing": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "fs_size": 1342177280,
+      "sharing_pattern": 1,
+      "mode": 0
+    },
+    "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0y": {
+      "filename": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5",
+      "dataset_name": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0y",
+      "ndims": 1,
+      "session_io": {
+        "open_timestamp": [
+          2.7482080459594727,
+          2.748912811279297
+        ],
+        "close_timestamp": [
+          12.170328378677368,
+          12.17097282409668
+        ],
+        "read_timestamp": [
+          0.0,
+          0.0
+        ],
+        "write_timestamp": [
+          11.919053077697754,
+          12.142894506454468
+        ]
+      },
+      "type": 0,
+      "top_accessed_segments": {
+        "1": {
+          "length": [
+            8388608
+          ],
+          "count": 40,
+          "stride": [
+            65536
+          ],
+          "access": 33554432
+        },
+        "2": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        },
+        "3": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        }
+      },
+      "transfer_size_dist": {
+        "1": 8388608,
+        "2": 0,
+        "3": 0
+      },
+      "process_sharing": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "fs_size": 1342177280,
+      "sharing_pattern": 1,
+      "mode": 0
+    },
+    "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0id_1": {
+      "filename": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5",
+      "dataset_name": "/p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_1_40/test.h5:/Timestep_0id_1",
+      "ndims": 1,
+      "session_io": {
+        "open_timestamp": [
+          2.7482080459594727,
+          2.748912811279297
+        ],
+        "close_timestamp": [
+          12.170328378677368,
+          12.17097282409668
+        ],
+        "read_timestamp": [
+          0.0,
+          0.0
+        ],
+        "write_timestamp": [
+          11.919053077697754,
+          12.142894506454468
+        ]
+      },
+      "type": 0,
+      "top_accessed_segments": {
+        "1": {
+          "length": [
+            8388608
+          ],
+          "count": 40,
+          "stride": [
+            65536
+          ],
+          "access": 33554432
+        },
+        "2": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        },
+        "3": {
+          "length": [
+            0
+          ],
+          "count": 0,
+          "stride": [
+            0
+          ],
+          "access": 0
+        }
+      },
+      "transfer_size_dist": {
+        "1": 8388608,
+        "2": 0,
+        "3": 0
+      },
+      "process_sharing": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ],
+      "fs_size": 1342177280,
+      "sharing_pattern": 1,
+      "mode": 0
+    }
+  }
+}

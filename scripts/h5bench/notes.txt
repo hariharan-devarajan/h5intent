@@ -1,0 +1,9 @@
+H5INTENT_DIR=/usr/WS2/iopp/software/h5intent
+pushd ${H5INTENT_DIR}/scripts/h5bench
+./script.sh ${H5INTENT_DIR}/logs/h5bench_confs/quartz/sync_none_none_1_36 1 1
+
+
+#manual
+CONF=/usr/WS2/iopp/software/h5intent/logs/h5bench_confs/samples/sync-write-1d-strided-small.json
+CASE=sync-write-1d-strided-small
+DARSHAN=0

@@ -40,7 +40,7 @@ TEST_CASE("TestConfig", CONVERT_STR(workflow, args.json_file)){
   auto config_loader = h5intent::ConfigurationManager();
   config_loader.load_configuration(args.json_file);
   printf("# of file %zu, # of datasets %zu in %s\n",
-         config_loader.properties.files.size(),
-         config_loader.properties.datasets.size(),
+         config_loader.intents.files.size(),
+         config_loader.intents.datasets.size(),
          args.json_file.c_str());
 }

@@ -4,7 +4,6 @@
 
 #ifndef H5INTENT_PROPERTY_DDS_H
 #define H5INTENT_PROPERTY_DDS_H
-
 #include <hdf5.h>
 
 struct DatasetAccessProperties {
@@ -209,7 +208,7 @@ struct FileProperties {
 #ifdef __cplusplus
 #include <nlohmann/json.hpp>
 #include <string>
-
+#include <any>
 struct HDF5Properties {
   std::unordered_map<std::string,DatasetProperties> datasets;
   std::unordered_map<std::string,FileProperties> files;
@@ -234,8 +233,88 @@ struct HDF5Properties {
     return *this;
   }
 };
+enum SharingPattern {
+    INDEPENDENT=0,
+    COLLECTIVE=1,
+    OTHER=2
+};
+
+enum FileMode{
+    FILE_WRITE_ONLY=0,
+    FILE_READ_ONLY=1,
+    FILE_READ_WRITE=2,
+    FILE_APPEND=3,
+};
+enum AccessPatternType{
+    AP_WRITE_ONLY = 0,
+    AP_READ_ONLY = 1,
+    AP_RAW = 2,
+    AP_OTHER = 3
+};
+
+struct MultiSessionIO {
+    float* open_timestamp;
+    float* close_timestamp;
+    float* read_timestamp;
+    float* write_timestamp;
+};
+
+typedef std::unordered_map<std::string, std::unordered_map<std::string, std::any>> TopAccessedSegments;
+
+struct DatasetIOIntents {
+    std::string filename;
+    std::string dataset_name;
+    size_t ndims;
+    MultiSessionIO multiSessionIo;
+    AccessPatternType type;
+    TopAccessedSegments top_accessed_segments;
+    std::unordered_map<std::string, size_t> transfer_size_dist;
+    std::vector<size_t> process_sharing;
+    size_t fs_size;
+    SharingPattern sharing_pattern;
+    FileMode mode;
+};
+
+struct FileIOIntents {
+    std::string filename;
+    MultiSessionIO session_io;
+    FileMode mode;
+    size_t fs_size;
+    SharingPattern sharing_pattern;
+    std::unordered_map<std::string, size_t> ap_distribution;
+    std::unordered_map<std::string, std::unordered_map<std::string,size_t>> transfer_size_dist;
+    std::vector<size_t> process_sharing;
+    std::unordered_map<std::string,size_t> ds_size_dist;
+};
+
+struct Intents {
+    std::unordered_map<std::string, DatasetIOIntents> datasets;
+    std::unordered_map<std::string, FileIOIntents> files;
+    Intents() : datasets(), files() {}
+    Intents(const Intents& other)
+            : datasets(other.datasets),
+              files(other.files) {}
+    Intents(const Intents&& other)
+            : datasets(other.datasets),
+              files(other.files) {}
+    Intents& operator=(const Intents& other) {
+        this->datasets = other.datasets;
+        this->files = other.files;
+        return *this;
+    }
+};
+
 using json = nlohmann::json;
 
+template <typename Enumeration>
+auto as_integer(Enumeration const value) -> typename std::underlying_type<Enumeration>::type {
+    return static_cast<typename std::underlying_type<Enumeration>::type>(value);
+}
+
+#define TO_JSON_D_ENUM(ATTR) j[#ATTR] = as_integer(p.ATTR)
+#define FROM_JSON_D_ENUM(ATTR) \
+  if (j.contains(#ATTR) && !j.at(#ATTR).is_null()) \
+      j.at(#ATTR).get_to(p.ATTR);
 #define TO_JSON(CAT, ATTR) j[#CAT][#ATTR] = p.CAT.ATTR
 #define TO_JSON_S(CAT, ATTR) j[#CAT][#ATTR] = std::string(p.CAT.ATTR)
 #define FROM_JSON(CAT, ATTR) \
@@ -248,6 +327,8 @@ using json = nlohmann::json;
       strcpy(p.CAT.ATTR, j[#CAT].at(#ATTR).get_ref<const std::string&>().c_str());
 
 #define TO_JSON_D(ATTR) j[#ATTR] = p.ATTR
+#define TO_JSON_D_OBJ(ATTR)  to_json(j[#ATTR], p.ATTR)
+#define FROM_JSON_D_OBJ(ATTR)  from_json(j[#ATTR], p.ATTR)
 #define FROM_JSON_D(ATTR) \
   if (j.contains(#ATTR) && !j.at(#ATTR).is_null()) \
     j.at(#ATTR).get_to(p.ATTR);
@@ -257,501 +338,183 @@ using json = nlohmann::json;
 
 #define TO_JSON_ARRAY(CAT, ATTR, SIZE) \
   to_json(j[#CAT][#ATTR], p.CAT.ATTR, p.CAT.SIZE)
+#define TO_JSON_D_ARRAY(ATTR, SIZE) \
+  to_json(j[#ATTR], p.ATTR, p.ATTR.SIZE)
+#define TO_JSON_D_ARRAY_FIXED(ATTR, SIZE) \
+  to_json(j[#ATTR], p.ATTR, SIZE)
+
 #define FROM_JSON_ARRAY(CAT, ATTR, SIZE) \
   if (j.contains(#CAT) && !j[#CAT].is_null() && \
       j[#CAT].contains(#ATTR) && !j[#CAT].at(#ATTR).is_null()) \
     from_json(j[#CAT][#ATTR], p.CAT.ATTR, p.CAT.SIZE)
 
-inline void to_json(json& j, hsize_t* array, const unsigned len) {
-  j = json::array();
-  for (int i = 0; i < len; ++i) {
-    j.push_back(array[i]);
-  }
+#define FROM_JSON_D_ARRAY(ATTR, SIZE) \
+  if (j.contains(#ATTR) && !j.at(#ATTR).is_null()) \
+    from_json(j[#ATTR], p.ATTR, p.SIZE)
+
+#define FROM_JSON_D_ARRAY_FIXED(ATTR, SIZE) \
+  if (j.contains(#ATTR) && !j.at(#ATTR).is_null()) \
+    from_json(j[#ATTR], p.ATTR, SIZE)
+
+template <class myType>
+inline void to_json(json& j, myType* array, const unsigned len) {
+    j = json::array();
+    for (int i = 0; i < len; ++i) {
+        j.push_back(array[i]);
+    }
 }
-inline void from_json(const json& j, hsize_t*& array, int expected_length) {
-  auto vec = j.get<std::vector<hsize_t>>();
-  int actual_length = vec.size();
-  assert(actual_length == expected_length);
-  array = new hsize_t[actual_length];
-  for (int i = 0; i < actual_length; ++i) {
-    array[i] = vec[i];
-  }
+template <class myType>
+inline void from_json(const json& j, myType*& array, int expected_length) {
+    auto vec = j.get<std::vector<myType>>();
+    int actual_length = vec.size();
+    assert(actual_length == expected_length);
+    array = new myType[actual_length];
+    for (int i = 0; i < actual_length; ++i) {
+        array[i] = vec[i];
+    }
 }
-inline void to_json(json& j, const DatasetAccessProperties& p) {
+
+inline void from_json(const json& j, long unsigned int& p) {
+    j.get_to(p);
+}
+
+template <class Value>
+inline void from_json(const json& j, std::vector<Value>& p) {
+    auto vec = j.get<std::vector<Value>>();
+    p = std::vector<Value>();
+    p.insert(p.end(), vec.begin(), vec.end());
+}
+inline void from_json(const json& j, std::any& p) {
+    if (j.type() == json::value_t::array) {
+        auto vec = std::vector<int>();
+        from_json(j, vec);
+        p = vec;
+    } else if (j.type() == json::value_t::number_unsigned) {
+        int a;
+        j.get_to(a);
+        p = a;
+    }
+}
+template <class Key, class Value>
+inline void from_json(const json& j, std::unordered_map<Key,Value>& p) {
+    //auto jmap = j.get<std::unordered_map<Key,json>>();
+    p = std::unordered_map<Key,Value>();
+    for (auto& el : j.items()){
+        Value val;
+        if (el.value().type() == json::value_t::object or std::is_same<Value, std::any>::value) {
+            from_json(el.value(), val);
+        } else {
+            el.value().get_to(val);
+        }
+
+        p.emplace(el.key(), val);
+    }
+}
+
+
+inline void to_json(json& j, const long unsigned int& p) {
+    j = json();
+    j = p;
+}
+#define ANY_CAST(lhs, rhs, TYPE) \
+if (rhs.type() == typeid(TYPE)) lhs = std::any_cast<TYPE>(rhs);
+inline void to_json(json& j, const std::any& p) {
+    j = json();
+    ANY_CAST(j,p,int);
+    ANY_CAST(j,p,size_t);
+    ANY_CAST(j,p,std::vector<int>);
+}
+template <class Key, class Value>
+inline void to_json(json& j, const std::unordered_map<Key,Value>& p) {
+    j = json();
+    for (auto it: p) {
+        to_json(j[it.first], it.second);
+    }
+}
+template <class Value>
+inline void to_json(json& j, const std::vector<Value>& p) {
+    j = json::array();
+    for (auto val:p) {
+        j.push_back(val);
+    }
+
+}
+
+inline void to_json(json& j, const MultiSessionIO& p) {
+    j = json();
+    TO_JSON_D_ARRAY_FIXED(open_timestamp, 2);
+    TO_JSON_D_ARRAY_FIXED(close_timestamp, 2);
+    TO_JSON_D_ARRAY_FIXED(read_timestamp, 2);
+    TO_JSON_D_ARRAY_FIXED(write_timestamp, 2);
+}
+
+inline void from_json(const json& j, MultiSessionIO& p) {
+    FROM_JSON_D_ARRAY_FIXED(open_timestamp, 2);
+    FROM_JSON_D_ARRAY_FIXED(close_timestamp, 2);
+    FROM_JSON_D_ARRAY_FIXED(read_timestamp, 2);
+    FROM_JSON_D_ARRAY_FIXED(write_timestamp, 2);
+}
+
+inline void to_json(json& j, const DatasetIOIntents& p) {
   j = json();
-  /* append_flush */
-  j["append_flush"] = json();
-  TO_JSON(append_flush, use);
-  TO_JSON(append_flush, ndims);
-  TO_JSON_ARRAY(append_flush, boundary, ndims);
-
-  /* chunk_cache */
-  j["chunk_cache"] = json();
-  TO_JSON(chunk_cache, use);
-  TO_JSON(chunk_cache, rdcc_nslots);
-  TO_JSON(chunk_cache, rdcc_nbytes);
-  TO_JSON(chunk_cache, rdcc_w0);
-
-  /* virtual_view */
-  j["virtual_view"] = json();
-  TO_JSON(virtual_view, use);
-  TO_JSON(virtual_view, view);
-
-  /* filter_avail */
-  j["filter_avail"] = json();
-  TO_JSON(filter_avail, use);
-
-  /* layout */
-  j["layout"] = json();
-  TO_JSON(layout, use);
-  TO_JSON(layout, layout);
-
-  /* chunk */
-  j["chunk"] = json();
-  TO_JSON(chunk, use);
-  TO_JSON(chunk, ndims);
-  TO_JSON_ARRAY(chunk, dim, ndims);
-  TO_JSON(chunk, opts);
-
-  /* szip */
-  j["szip"] = json();
-  TO_JSON(szip, use);
-  TO_JSON(szip, options_mask);
-  TO_JSON(szip, pixels_per_block);
+  TO_JSON_D(filename);
+  TO_JSON_D(dataset_name);
+  TO_JSON_D(ndims);
+  TO_JSON_D(multiSessionIo);
+  TO_JSON_D_ENUM(type);
+  TO_JSON_D_OBJ(top_accessed_segments);
+  TO_JSON_D_OBJ(transfer_size_dist);
+  TO_JSON_D_OBJ(process_sharing);
+  TO_JSON_D(fs_size);
+  TO_JSON_D_ENUM(sharing_pattern);
+  TO_JSON_D_ENUM(mode);
 }
 
-inline void from_json(const json& j, DatasetAccessProperties& p) {
-  /* append_flush */
-  FROM_JSON(append_flush, use);
-  FROM_JSON(append_flush, ndims);
-  FROM_JSON_ARRAY(append_flush, boundary, ndims);
-
-  /* chunk_cache */
-  FROM_JSON(chunk_cache, use);
-  FROM_JSON(chunk_cache, rdcc_nslots);
-  FROM_JSON(chunk_cache, rdcc_nbytes);
-  FROM_JSON(chunk_cache, rdcc_w0);
-
-  /* virtual_view */
-  FROM_JSON(virtual_view, use);
-  FROM_JSON(virtual_view, view);
-
-  /* filter_avail */
-  FROM_JSON(filter_avail, use);
-
-  /* layout */
-  FROM_JSON(layout, use);
-  FROM_JSON(layout, layout);
-
-  /* chunk */
-  FROM_JSON(chunk, use);
-  FROM_JSON(chunk, ndims);
-  FROM_JSON_ARRAY(chunk, dim, ndims);
-  FROM_JSON(chunk, opts);
-
-  /* szip */
-  FROM_JSON(szip, use);
-  FROM_JSON(szip, options_mask);
-  FROM_JSON(szip, pixels_per_block);
+inline void from_json(const json& j, DatasetIOIntents& p) {
+  FROM_JSON_D(filename);
+  FROM_JSON_D(dataset_name);
+  FROM_JSON_D(ndims);
+  FROM_JSON_D(multiSessionIo);
+  FROM_JSON_D_ENUM(type);
+  FROM_JSON_D_OBJ(top_accessed_segments);
+  FROM_JSON_D_OBJ(transfer_size_dist);
+  FROM_JSON_D_OBJ(process_sharing);
+  FROM_JSON_D(fs_size);
+  FROM_JSON_D_ENUM(sharing_pattern);
+  FROM_JSON_D_ENUM(mode);
 }
 
-inline void to_json(json& j, const DatasetTransferProperties& p) {
+inline void to_json(json& j, const FileIOIntents& p) {
+    j = json();
+    TO_JSON_D(filename);
+    TO_JSON_D(session_io);
+    TO_JSON_D_ENUM(mode);
+    TO_JSON_D(fs_size);
+    TO_JSON_D_ENUM(sharing_pattern);
+    TO_JSON_D_OBJ(ap_distribution);
+    TO_JSON_D_OBJ(transfer_size_dist);
+    TO_JSON_D_OBJ(process_sharing);
+    TO_JSON_D_OBJ(ds_size_dist);
+}
+inline void from_json(const json& j, FileIOIntents& p) {
+    FROM_JSON_D(filename);
+    FROM_JSON_D(session_io);
+    FROM_JSON_D_ENUM(mode);
+    FROM_JSON_D(fs_size);
+    FROM_JSON_D_ENUM(sharing_pattern);
+    FROM_JSON_D_OBJ(ap_distribution);
+    FROM_JSON_D_OBJ(transfer_size_dist);
+    FROM_JSON_D_OBJ(process_sharing);
+    FROM_JSON_D_OBJ(ds_size_dist);
+}
+inline void to_json(json& j, const Intents& p) {
   j = json();
-  /*mpiio*/
-  j["mpiio"] = json();
-  TO_JSON(dmpiio, use);
-  TO_JSON(dmpiio, xfer_mode);
-  TO_JSON(dmpiio, coll_opt_mode);
-  TO_JSON(dmpiio, chunk_opt_mode);
-  TO_JSON(dmpiio, num_chunk_per_proc);
-  TO_JSON(dmpiio, percent_num_proc_per_chunk);
-
-  /*buffer*/
-  j["buffer"] = json();
-  TO_JSON(buffer, use);
-  TO_JSON(buffer, size);
-  TO_JSON(buffer, expression);
-
-  /*edc_check*/
-  j["edc_check"] = json();
-  TO_JSON(edc_check, use);
-  TO_JSON(edc_check, check);
-
-  /*hyper_vector*/
-  j["hyper_vector"] = json();
-  TO_JSON(hyper_vector, use);
-  TO_JSON(hyper_vector, ndims);
-  TO_JSON_ARRAY(hyper_vector, size, ndims);
-
-  /*mem_manager*/
-  j["mem_manager"] = json();
-  TO_JSON(mem_manager, use);
-
-  /*dataset_io_hyperslab_selection*/
-  j["dataset_io_hyperslab_selection"] = json();
-  TO_JSON(dataset_io_hyperslab_selection, use);
-  TO_JSON(dataset_io_hyperslab_selection, rank);
-  TO_JSON(dataset_io_hyperslab_selection, op);
-  TO_JSON_ARRAY(dataset_io_hyperslab_selection, start, rank);
-  TO_JSON_ARRAY(dataset_io_hyperslab_selection, stride, rank);
-  TO_JSON_ARRAY(dataset_io_hyperslab_selection, count, rank);
-  TO_JSON_ARRAY(dataset_io_hyperslab_selection, block, rank);
-}
-inline void from_json(const json& j, DatasetTransferProperties& p) {
-  /*mpiio*/
-  FROM_JSON(dmpiio, use);
-  FROM_JSON(dmpiio, xfer_mode);
-  FROM_JSON(dmpiio, coll_opt_mode);
-  FROM_JSON(dmpiio, chunk_opt_mode);
-  FROM_JSON(dmpiio, num_chunk_per_proc);
-  FROM_JSON(dmpiio, percent_num_proc_per_chunk);
-
-  /*buffer*/
-  FROM_JSON(buffer, use);
-  FROM_JSON(buffer, size);
-  FROM_JSON(buffer, expression);
-
-  /*edc_check*/
-  FROM_JSON(edc_check, use);
-  FROM_JSON(edc_check, check);
-
-  /*hyper_vector*/
-  FROM_JSON(hyper_vector, use);
-  FROM_JSON(hyper_vector, ndims);
-  FROM_JSON_ARRAY(hyper_vector, size, ndims);
-
-  /*mem_manager*/
-  FROM_JSON(mem_manager, use);
-
-  /*dataset_io_hyperslab_selection*/
-  FROM_JSON(dataset_io_hyperslab_selection, use);
-  FROM_JSON(dataset_io_hyperslab_selection, rank);
-  FROM_JSON(dataset_io_hyperslab_selection, op);
-  FROM_JSON_ARRAY(dataset_io_hyperslab_selection, start, rank);
-  FROM_JSON_ARRAY(dataset_io_hyperslab_selection, stride, rank);
-  FROM_JSON_ARRAY(dataset_io_hyperslab_selection, count, rank);
-  FROM_JSON_ARRAY(dataset_io_hyperslab_selection, block, rank);
-}
-inline void to_json(json& j, const H5AC_cache_config_t& p) {
-  j = json();
-  TO_JSON_D(version);
-  TO_JSON_D(rpt_fcn_enabled);
-  TO_JSON_D(open_trace_file);
-  TO_JSON_D(close_trace_file);
-  TO_JSON_D(trace_file_name);
-  TO_JSON_D(evictions_enabled);
-  TO_JSON_D(set_initial_size);
-  TO_JSON_D(initial_size);
-  TO_JSON_D(min_clean_fraction);
-  TO_JSON_D(max_size);
-  TO_JSON_D(min_size);
-  TO_JSON_D(epoch_length);
-  TO_JSON_D(incr_mode);
-  TO_JSON_D(lower_hr_threshold);
-  TO_JSON_D(increment);
-  TO_JSON_D(apply_max_increment);
-  TO_JSON_D(max_increment);
-  TO_JSON_D(flash_incr_mode);
-  TO_JSON_D(flash_multiple);
-  TO_JSON_D(flash_threshold);
-  TO_JSON_D(decr_mode);
-  TO_JSON_D(upper_hr_threshold);
-  TO_JSON_D(decrement);
-  TO_JSON_D(apply_max_decrement);
-  TO_JSON_D(max_decrement);
-  TO_JSON_D(epochs_before_eviction);
-  TO_JSON_D(apply_empty_reserve);
-  TO_JSON_D(empty_reserve);
-  TO_JSON_D(dirty_bytes_threshold);
-  TO_JSON_D(metadata_write_strategy);
-}
-inline void from_json(const json& j, H5AC_cache_config_t& p) {
-  FROM_JSON_D(version);
-  FROM_JSON_D(rpt_fcn_enabled);
-  FROM_JSON_D(open_trace_file);
-  FROM_JSON_D(close_trace_file);
-  FROM_JSON_D(trace_file_name);
-  FROM_JSON_D(evictions_enabled);
-  FROM_JSON_D(set_initial_size);
-  FROM_JSON_D(initial_size);
-  FROM_JSON_D(min_clean_fraction);
-  FROM_JSON_D(max_size);
-  FROM_JSON_D(min_size);
-  FROM_JSON_D(epoch_length);
-  FROM_JSON_D(incr_mode);
-  FROM_JSON_D(lower_hr_threshold);
-  FROM_JSON_D(increment);
-  FROM_JSON_D(apply_max_increment);
-  FROM_JSON_D(max_increment);
-  FROM_JSON_D(flash_incr_mode);
-  FROM_JSON_D(flash_multiple);
-  FROM_JSON_D(flash_threshold);
-  FROM_JSON_D(decr_mode);
-  FROM_JSON_D(upper_hr_threshold);
-  FROM_JSON_D(decrement);
-  FROM_JSON_D(apply_max_decrement);
-  FROM_JSON_D(max_decrement);
-  FROM_JSON_D(epochs_before_eviction);
-  FROM_JSON_D(apply_empty_reserve);
-  FROM_JSON_D(empty_reserve);
-  FROM_JSON_D(dirty_bytes_threshold);
-  FROM_JSON_D(metadata_write_strategy);
-}
-inline void to_json(json& j, const FileAccessProperties& p) {
-  j = json();
-  /*alignment*/
-  j["alignment"] = json();
-  TO_JSON(alignment, use);
-  TO_JSON(alignment, threshold);
-  TO_JSON(alignment, alignment_value);
-  /*core*/
-  j["core"] = json();
-  TO_JSON(core, use);
-  TO_JSON(core, increment);
-  TO_JSON(core, backing_store);
-
-  /*family*/
-  j["family"] = json();
-  TO_JSON(family, use);
-  TO_JSON(family, memb_size);
-  TO_JSON(family, memb_fapl_id);
-
-  /*log*/
-  j["log"] = json();
-  TO_JSON(log, use);
-  TO_JSON(log, logfile);
-  TO_JSON(log, flags);
-  TO_JSON(log, buf_size);
-
-  /*mpiio*/
-  j["mpiio"] = json();
-  TO_JSON(fmpiio, use);
-  TO_JSON_S(fmpiio, comm);
-
-  /*split*/
-  j["split"] = json();
-  TO_JSON(split, use);
-
-  /*stdio*/
-  j["stdio"] = json();
-  TO_JSON(stdio, use);
-
-  /*cache*/
-  j["cache"] = json();
-  TO_JSON(cache, use);
-  TO_JSON(cache, mdc_nelmts);
-  TO_JSON(cache, rdcc_nslots);
-  TO_JSON(cache, rdcc_nbytes);
-  TO_JSON(cache, rdcc_w0);
-
-  /*write_tracking*/
-  j["write_tracking"] = json();
-  TO_JSON(write_tracking, use);
-  TO_JSON(write_tracking, page_size);
-
-  /*close*/
-  j["close"] = json();
-  TO_JSON(close, use);
-  TO_JSON(close, evict);
-  TO_JSON(close, degree);
-
-  /*file_image*/
-  j["file_image"] = json();
-  TO_JSON(file_image, use);
-  TO_JSON(file_image, buf_len);
-
-  /*optimizations*/
-  j["optimizations"] = json();
-  TO_JSON(optimizations, use);
-  TO_JSON(optimizations, file_locking);
-  TO_JSON(optimizations, gc_ref);
-  TO_JSON(optimizations, sieve_buf_size);
-  TO_JSON(optimizations, small_data_block_size);
-  TO_JSON(optimizations, enable_object_flush_cb);
-
-  /*metadata*/
-  j["metadata"] = json();
-  TO_JSON(metadata, use);
-  // TO_JSON(metadata, config_ptr);
-  TO_JSON(metadata, enable_logging);
-  TO_JSON(metadata, meta_block_size);
-  TO_JSON(metadata, enable_coll_metadata_write);
-
-  /*metadata*/
-  j["page_buffer"] = json();
-  TO_JSON(page_buffer, use);
-  TO_JSON(page_buffer, buf_size);
-  TO_JSON(page_buffer, min_meta_per);
-  TO_JSON(page_buffer, min_raw_per);
-}
-inline void from_json(const json& j, FileAccessProperties& p) {
-
-  /*alignment*/
-  FROM_JSON(alignment, use);
-  FROM_JSON(alignment, threshold);
-  FROM_JSON(alignment, alignment_value);
-  /*core*/
-  FROM_JSON(core, use);
-  FROM_JSON(core, increment);
-  FROM_JSON(core, backing_store);
-
-  /*family*/
-  FROM_JSON(family, use);
-  FROM_JSON(family, memb_size);
-  FROM_JSON(family, memb_fapl_id);
-
-  /*log*/
-  FROM_JSON(log, use);
-  FROM_JSON(log, logfile);
-  FROM_JSON(log, flags);
-  FROM_JSON(log, buf_size);
-
-  /*mpiio*/
-  FROM_JSON(fmpiio, use);
-  FROM_JSON_S(fmpiio, comm);
-
-  /*split*/
-  FROM_JSON(split, use);
-
-  /*stdio*/
-  FROM_JSON(stdio, use);
-
-  /*cache*/
-  FROM_JSON(cache, use);
-  FROM_JSON(cache, mdc_nelmts);
-  FROM_JSON(cache, rdcc_nslots);
-  FROM_JSON(cache, rdcc_nbytes);
-  FROM_JSON(cache, rdcc_w0);
-
-  /*write_tracking*/
-  FROM_JSON(write_tracking, use);
-  FROM_JSON(write_tracking, page_size);
-
-  /*close*/
-  FROM_JSON(close, use);
-  FROM_JSON(close, evict);
-  FROM_JSON_S(close, degree);
-
-  /*file_image*/
-  FROM_JSON(file_image, use);
-  FROM_JSON(file_image, buf_len);
-
-  /*optimizations*/
-  FROM_JSON(optimizations, use);
-  FROM_JSON(optimizations, file_locking);
-  FROM_JSON(optimizations, gc_ref);
-  FROM_JSON(optimizations, sieve_buf_size);
-  FROM_JSON(optimizations, small_data_block_size);
-  FROM_JSON(optimizations, enable_object_flush_cb);
-
-  /*metadata*/
-  FROM_JSON(metadata, use);
-  // FROM_JSON(metadata, config_ptr);
-  FROM_JSON(metadata, enable_logging);
-  FROM_JSON(metadata, meta_block_size);
-  FROM_JSON(metadata, enable_coll_metadata_write);
-
-  /*metadata*/
-  FROM_JSON(page_buffer, use);
-  FROM_JSON(page_buffer, buf_size);
-  FROM_JSON(page_buffer, min_meta_per);
-  FROM_JSON(page_buffer, min_raw_per);
-}
-inline void to_json(json& j, const FileCreationProperties& p) {
-  j = json();
-  /*file_space*/
-  j["file_space"] = json();
-  TO_JSON(file_space, use);
-  TO_JSON(file_space, file_space_page_size);
-  TO_JSON(file_space, strategy);
-  TO_JSON(file_space, persist);
-  TO_JSON(file_space, threshold);
-
-  /*istore*/
-  j["istore"] = json();
-  TO_JSON(istore, use);
-  TO_JSON(istore, ik);
-
-  /*sizes*/
-  j["sizes"] = json();
-  TO_JSON(sizes, use);
-  TO_JSON(sizes, sizeof_addr);
-  TO_JSON(sizes, sizeof_size);
-}
-inline void from_json(const json& j, FileCreationProperties& p) {
-  /*file_space*/
-  FROM_JSON(file_space, use);
-  FROM_JSON(file_space, file_space_page_size);
-  FROM_JSON(file_space, strategy);
-  FROM_JSON(file_space, persist);
-  FROM_JSON(file_space, threshold);
-
-  /*istore*/
-  FROM_JSON(istore, use);
-  FROM_JSON(istore, ik);
-
-  /*sizes*/
-  FROM_JSON(sizes, use);
-  FROM_JSON(sizes, sizeof_addr);
-  FROM_JSON(sizes, sizeof_size);
-}
-inline void to_json(json& j, const MapAccessProperties& p) {
-  j = json();
-  /*map_iterate*/
-  j["map_iterate"] = json();
-  TO_JSON(map_iterate, use);
-  TO_JSON(map_iterate, key_prefetch_size);
-  TO_JSON(map_iterate, key_alloc_size);
-}
-inline void from_json(const json& j, MapAccessProperties& p) {
-  /*map_iterate*/
-  FROM_JSON(map_iterate, use);
-  FROM_JSON(map_iterate, key_prefetch_size);
-  FROM_JSON(map_iterate, key_alloc_size);
-}
-inline void to_json(json& j, const ObjectCreationProperties& p) {
-  j = json();
-  /*track_times*/
-  j["track_times"] = json();
-  TO_JSON(track_times, use);
-}
-inline void from_json(const json& j, ObjectCreationProperties& p) {
-  /*track_times*/
-  FROM_JSON(track_times, use);
-}
-
-inline void to_json(json& j, const DatasetProperties& p) {
-  j = json();
-  TO_JSON_D(access);
-  TO_JSON_D(transfer);
-}
-inline void from_json(const json& j, DatasetProperties& p) {
-  FROM_JSON_D(access);
-  FROM_JSON_D(transfer);
-}
-
-inline void to_json(json& j, const FileProperties& p) {
-  j = json();
-  TO_JSON_D(access);
-  TO_JSON_D(creation);
-}
-inline void from_json(const json& j, FileProperties& p) {
-  FROM_JSON_D(access);
-  FROM_JSON_D(creation);
-}
-
-inline void to_json(json& j, const HDF5Properties& p) {
-  j = json();
-  TO_JSON_D(datasets);
   TO_JSON_D(files);
-  TO_JSON_D(mAccess);
-  TO_JSON_D(oCreation);
+  TO_JSON_D(datasets);
 }
-inline void from_json(const json& j, HDF5Properties& p) {
-  FROM_JSON_D_V(datasets);
-  FROM_JSON_D_V(files);
-  FROM_JSON_D(mAccess);
-  FROM_JSON_D(oCreation);
+inline void from_json(const json& j, Intents& p) {
+  FROM_JSON_D(files);
+  FROM_JSON_D(datasets);
 }
 #endif
 

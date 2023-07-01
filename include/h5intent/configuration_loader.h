@@ -34,12 +34,12 @@ using json = nlohmann::json;
 namespace h5intent {
 class ConfigurationManager {
  public:
-  HDF5Properties properties;
-  ConfigurationManager():properties() {}
-  ConfigurationManager(const ConfigurationManager& other):properties(other.properties){}
-  ConfigurationManager(ConfigurationManager&& other):properties(other.properties){}
+  Intents intents;
+  ConfigurationManager():intents() {}
+  ConfigurationManager(const ConfigurationManager& other):intents(other.intents){}
+  ConfigurationManager(ConfigurationManager&& other):intents(other.intents){}
   ConfigurationManager& operator=(const ConfigurationManager& other) {
-    this->properties = other.properties;
+    this->intents = other.intents;
     return *this;
   }
   void load_configuration(const std::string& configuration_file);
@@ -53,7 +53,7 @@ extern "C" {
 void load_configuration(const char* file);
 char* fix_filename(char* file);
 bool get_dataset_properties(const char* dataset_name, struct DatasetProperties *properties);
-bool get_file_properties(const char* file, struct FileProperties *properties);
+bool get_file_properties(const char* file, struct FileProperties* properties);
 bool select_correct_conf(const char* confs, char** selected_conf);
 void signal_handler(int sig);
 void set_signal();
