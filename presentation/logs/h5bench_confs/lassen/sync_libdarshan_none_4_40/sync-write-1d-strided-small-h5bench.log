@@ -43,3 +43,33 @@
 2023-07-02 16:02:33,816 h5bench - INFO - Runtime: 20.4230382 seconds (elapsed time, includes allocation wait time)
 2023-07-02 16:02:33,817 h5bench - INFO - h5bench [write] - Complete
 2023-07-02 16:02:33,818 h5bench - INFO - Finishing h5bench Suite
+2023-07-02 16:27:05,327 h5bench - INFO - Starting h5bench Suite
+2023-07-02 16:27:05,379 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40
+2023-07-02 16:27:05,384 h5bench - INFO - Lustre support not detected
+2023-07-02 16:27:05,385 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-07-02 16:27:05,386 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-07-02 16:27:05,386 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-02 16:27:05,387 h5bench - INFO - JOBID: 4983539
+2023-07-02 16:27:05,387 h5bench - INFO - h5bench [write] - Starting
+2023-07-02 16:27:05,388 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/caf34c7a-4983539/
+2023-07-02 16:27:05,407 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 4 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-07-02 16:27:05,408 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 4 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/caf34c7a-4983539/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/test.h5
+2023-07-02 16:27:33,883 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/caf34c7a-4983539)
+2023-07-02 16:27:33,884 h5bench - INFO - Runtime: 28.4760015 seconds (elapsed time, includes allocation wait time)
+2023-07-02 16:27:33,885 h5bench - INFO - h5bench [write] - Complete
+2023-07-02 16:27:33,885 h5bench - INFO - Finishing h5bench Suite
+2023-07-02 16:27:59,911 h5bench - INFO - Starting h5bench Suite
+2023-07-02 16:27:59,911 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40
+2023-07-02 16:27:59,914 h5bench - INFO - Lustre support not detected
+2023-07-02 16:27:59,915 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-07-02 16:27:59,915 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-07-02 16:27:59,916 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-02 16:27:59,917 h5bench - INFO - JOBID: 4983539
+2023-07-02 16:27:59,917 h5bench - INFO - h5bench [write] - Starting
+2023-07-02 16:27:59,918 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/c08baf06-4983539/
+2023-07-02 16:27:59,936 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 4 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-07-02 16:27:59,937 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 4 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/c08baf06-4983539/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/test.h5
+2023-07-02 16:28:27,735 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/c08baf06-4983539)
+2023-07-02 16:28:27,737 h5bench - INFO - Runtime: 27.8005157 seconds (elapsed time, includes allocation wait time)
+2023-07-02 16:28:27,737 h5bench - INFO - h5bench [write] - Complete
+2023-07-02 16:28:27,738 h5bench - INFO - Finishing h5bench Suite
