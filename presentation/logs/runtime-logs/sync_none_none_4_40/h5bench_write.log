@@ -1,0 +1,20 @@
+/usr/workspace/iopp/software/h5intent/build/h5bench:10: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+  import distutils.spawn
+Traceback (most recent call last):
+  File "/usr/workspace/iopp/software/h5intent/build/h5bench", line 1017, in <module>
+    main()
+  File "/usr/workspace/iopp/software/h5intent/build/h5bench", line 1012, in main
+    BENCH = H5bench(ARGS.setup, ARGS.prefix, ARGS.debug, ARGS.abort, ARGS.validate, ARGS.filter)
+  File "/usr/workspace/iopp/software/h5intent/build/h5bench", line 43, in __init__
+    self.configure_log(debug)
+  File "/usr/workspace/iopp/software/h5intent/build/h5bench", line 89, in configure_log
+    handler = logging.handlers.RotatingFileHandler(
+  File "/usr/WS2/iopp/software/h5intent/dependency/.spack-env/._view/si73vanbaaicohk6iojy7fdwshdxx3wc/lib/python3.10/logging/handlers.py", line 155, in __init__
+    BaseRotatingHandler.__init__(self, filename, mode, encoding=encoding,
+  File "/usr/WS2/iopp/software/h5intent/dependency/.spack-env/._view/si73vanbaaicohk6iojy7fdwshdxx3wc/lib/python3.10/logging/handlers.py", line 58, in __init__
+    logging.FileHandler.__init__(self, filename, mode=mode,
+  File "/usr/WS2/iopp/software/h5intent/dependency/.spack-env/._view/si73vanbaaicohk6iojy7fdwshdxx3wc/lib/python3.10/logging/__init__.py", line 1169, in __init__
+    StreamHandler.__init__(self, self._open())
+  File "/usr/WS2/iopp/software/h5intent/dependency/.spack-env/._view/si73vanbaaicohk6iojy7fdwshdxx3wc/lib/python3.10/logging/__init__.py", line 1201, in _open
+    return open_func(self.baseFilename, self.mode,
+FileNotFoundError: [Errno 2] No such file or directory: '/usr/WS2/iopp/software/h5intent/presentation/logs/h5bench_confs/lassen/sync_none_none_4_40/usr/WS2/iopp/software/h5intent/presentation/logs/property-json/sync_libdarshan_none_4_40/sync-write-1d-strided-small/h5bench_write-h5bench.log'
