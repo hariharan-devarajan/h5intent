@@ -365,6 +365,7 @@ def parse_args():
                         help="Base path where darshan logs are present.")
     parser.add_argument("--darshan-logs", default="", type=str, help="Darshan log dir relative to base path")
     parser.add_argument("--property-json", default="", type=str, help="Property json dir relative to base path")
+    parser.add_argument("--data-dirs", default="/p/gpfs", type=str, help="Directory to include in analysis")
     return parser.parse_args()
 
 
@@ -373,7 +374,7 @@ def main():
     folder = f"{args.base_path}/{args.darshan_logs}"
     for workflow in os.listdir(folder):
         print(f"Generating config for workflow {workflow}")
-        generator = IntentGenerator(args.base_path, args.darshan_logs, args.property_json, workflow)
+        generator = IntentGenerator(args.base_path, args.darshan_logs, args.property_json, workflow, args.data_dirs)
         generator.parse_apps()
         generator.load_apps()
         generator.write_configurations()

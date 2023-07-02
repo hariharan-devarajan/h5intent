@@ -1,0 +1,19 @@
+/usr/workspace/iopp/software/h5intent/build/h5bench:10: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+  import distutils.spawn
+2023-07-02 11:50:49,801 h5bench - INFO - Starting h5bench Suite
+2023-07-02 11:50:49,802 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_4
+2023-07-02 11:50:49,805 h5bench - INFO - Lustre support not detected
+2023-07-02 11:50:49,806 h5bench - DEBUG - HDF5_PLUGIN_PATH: /usr/workspace/iopp/software/h5intent/build/lib
+2023-07-02 11:50:49,806 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/tce/packages/python/python-3.7.2/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 11:50:49,807 h5bench - DEBUG - DYLD_LIBRARY_PATH: :/usr/tce/packages/python/python-3.7.2/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 11:50:49,808 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-02 11:50:49,809 h5bench - INFO - JOBID: 4983283
+2023-07-02 11:50:49,810 h5bench - INFO - h5bench [write] - Starting
+2023-07-02 11:50:49,811 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_4/e550c553-4983283/
+2023-07-02 11:50:49,812 h5bench - INFO - Parallel setup: jsrun -r 1 -c 4 -a 4 -n 1 
+2023-07-02 11:50:49,813 h5bench - DEBUG - HDF5 VOL connector: intent under_vol=0;under_info={/usr/WS2/iopp/software/h5intent/presentation/logs/property-json/sync_libdarshan_none_1_4/sync-write-1d-strided-small/h5bench_write.json}
+2023-07-02 11:50:49,815 h5bench - INFO - jsrun -r 1 -c 4 -a 4 -n 1  h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_4/e550c553-4983283/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_4/test.h5
+2023-07-02 11:51:03,037 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_4/e550c553-4983283)
+2023-07-02 11:51:03,040 h5bench - INFO - Runtime: 13.2267439 seconds (elapsed time, includes allocation wait time)
+2023-07-02 11:51:03,041 h5bench - INFO - h5bench [write] - Complete
+2023-07-02 11:51:03,042 h5bench - INFO - Finishing h5bench Suite

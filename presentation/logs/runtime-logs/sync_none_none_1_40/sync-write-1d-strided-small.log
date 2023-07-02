@@ -1,0 +1,17 @@
+/usr/workspace/iopp/software/h5intent/build/h5bench:10: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+  import distutils.spawn
+2023-07-02 13:50:08,538 h5bench - INFO - Starting h5bench Suite
+2023-07-02 13:50:08,538 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_40
+2023-07-02 13:50:08,541 h5bench - INFO - Lustre support not detected
+2023-07-02 13:50:08,541 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-07-02 13:50:08,542 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-07-02 13:50:08,543 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-02 13:50:08,543 h5bench - INFO - JOBID: 4983433
+2023-07-02 13:50:08,544 h5bench - INFO - h5bench [write] - Starting
+2023-07-02 13:50:08,544 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_40/e9d6703f-4983433/
+2023-07-02 13:50:08,546 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 1 
+2023-07-02 13:50:08,547 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 1  h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_40/e9d6703f-4983433/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_40/test.h5
+2023-07-02 13:50:22,763 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_1_40/e9d6703f-4983433)
+2023-07-02 13:50:22,764 h5bench - INFO - Runtime: 14.2180305 seconds (elapsed time, includes allocation wait time)
+2023-07-02 13:50:22,765 h5bench - INFO - h5bench [write] - Complete
+2023-07-02 13:50:22,765 h5bench - INFO - Finishing h5bench Suite

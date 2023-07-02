@@ -81,6 +81,7 @@ enable_testing()
 include(CTest)
 add_subdirectory(vol)
 add_subdirectory(test)
+add_subdirectory(presentation)
 #------------------------------------------------------------------------------
 # Setup install and output Directories
 #------------------------------------------------------------------------------

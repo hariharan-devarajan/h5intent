@@ -10,6 +10,7 @@
 #include <filesystem>
 #define GB 1024L*1024L*1024L
 #define MB 1024L*1024L
+#define KB 1024L
 std::string getexepath() {
     char result[PATH_MAX];
     ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
@@ -60,66 +61,66 @@ extern void signal_handler(int sig){
         }
         case SIGTERM:{
             INTENT_LOGPRINT("terminate signal caught",0);
-            MPI_Finalize();
+            //MPI_Finalize();
             exit(0);
             break;
         }
         default:{
+            INTENT_LOGPRINT("signal caught %d",sig);
             //print_backtrace();
-            /*void *array[20];
+            void *array[20];
             size_t size;
             // get void*'s for all entries on the stack
             size = backtrace(array, 20);
             // print out all the frames to stderr
             backtrace_symbols_fd(array, size, STDERR_FILENO);
-            */
-            void *trace[16];
-            char **messages = (char **)NULL;
-            int i, trace_size = 0;
-
-            void *array[20];
-            size_t size;
-            size = backtrace(array, 20);
-            messages = backtrace_symbols(array, size);
-            /* skip first stack frame (points here) */
-            std::stringstream myString;
-            myString << "[bt] Execution path with signal "<<sig<< ":\n";
-            for (i=1; i<size; ++i)
-            {
-                //printf("%s\n", messages[i]);
-                std::string m_string(messages[i]);
-                //./prog(myfunc3+0x5c) [0x80487f0]
-                std::size_t open_paren = m_string.find_first_of("(");
-                if (open_paren == std::string::npos) {
-                    myString << "[bt] #"<< i <<" " << messages[i] << "\n";
-                    continue;
-                }
-                std::size_t plus = m_string.find_first_of("+");
-                std::size_t close_paren = m_string.find_first_of(")");
-                std::size_t open_square = m_string.find_first_of("[");
-                std::size_t close_square = m_string.find_first_of("]");
-                std::string prog_name = m_string.substr(0, open_paren);
-                std::string func_name = m_string.substr(open_paren + 1, plus - open_paren - 1);
-                std::string offset = m_string.substr(plus + 1, close_paren - plus -1);
-                std::string addr = m_string.substr(open_square + 1, close_square - open_square -1);
-                if (func_name.empty()) {
-                    myString << "[bt] #"<< i <<" " << messages[i] << "\n";
-                    continue;
-                }
-                char command[256];
-                sprintf(command,"nm %s | grep \"\\s%s$\" | awk '{print $1}'", prog_name.c_str(), func_name.c_str());
-                std::string base_addr=sh(command);
-                sprintf(command,"python2 -c \"print hex(0x%s+%s)\"", base_addr.c_str(), offset.c_str());
-                std::string hex_val=sh(command);
-                sprintf(command,"addr2line -e %s %s", prog_name.c_str(), hex_val.c_str());
-                std::string line=sh(command); // line has a new line char already
-                myString << "[bt] #"<< i <<" " << prog_name << "(" << func_name  << "+" << offset << ")" << line;
-            }
-            //std::string str = myString.str();
-            //WISIO_LOGERROR("%s\n", str.c_str());
-            std::string res = myString.str();
-            std::cout << res;
-            ::raise(SIGTERM);
+//            void *trace[16];
+//            char **messages = (char **)NULL;
+//            int i, trace_size = 0;
+//
+//            void *array[20];
+//            size_t size;
+//            size = backtrace(array, 20);
+//            messages = backtrace_symbols(array, size);
+//            /* skip first stack frame (points here) */
+//            std::stringstream myString;
+//            myString << "[bt] Execution path with signal "<<sig<< ":\n";
+//            for (i=1; i<size; ++i)
+//            {
+//                //printf("%s\n", messages[i]);
+//                std::string m_string(messages[i]);
+//                //./prog(myfunc3+0x5c) [0x80487f0]
+//                std::size_t open_paren = m_string.find_first_of("(");
+//                if (open_paren == std::string::npos) {
+//                    myString << "[bt] #"<< i <<" " << messages[i] << "\n";
+//                    continue;
+//                }
+//                std::size_t plus = m_string.find_first_of("+");
+//                std::size_t close_paren = m_string.find_first_of(")");
+//                std::size_t open_square = m_string.find_first_of("[");
+//                std::size_t close_square = m_string.find_first_of("]");
+//                std::string prog_name = m_string.substr(0, open_paren);
+//                std::string func_name = m_string.substr(open_paren + 1, plus - open_paren - 1);
+//                std::string offset = m_string.substr(plus + 1, close_paren - plus -1);
+//                std::string addr = m_string.substr(open_square + 1, close_square - open_square -1);
+//                if (func_name.empty()) {
+//                    myString << "[bt] #"<< i <<" " << messages[i] << "\n";
+//                    continue;
+//                }
+//                char command[256];
+//                sprintf(command,"nm %s | grep \"\\s%s$\" | awk '{print $1}'", prog_name.c_str(), func_name.c_str());
+//                std::string base_addr=sh(command);
+//                sprintf(command,"python2 -c \"print hex(0x%s+%s)\"", base_addr.c_str(), offset.c_str());
+//                std::string hex_val=sh(command);
+//                sprintf(command,"addr2line -e %s %s", prog_name.c_str(), hex_val.c_str());
+//                std::string line=sh(command); // line has a new line char already
+//                myString << "[bt] #"<< i <<" " << prog_name << "(" << func_name  << "+" << offset << ")" << line;
+//            }
+//            //std::string str = myString.str();
+//            //WISIO_LOGERROR("%s\n", str.c_str());
+//            std::string res = myString.str();
+//            std::cout << res;
+//            ::raise(SIGTERM);
         }
 
     }
@@ -162,6 +163,7 @@ void h5intent::ConfigurationManager::                                           
          configuration_file.c_str());
 }
 DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
+    const int PPN=40;
     auto properties = DatasetProperties();
     bool enable_chunking = true;
     auto most_common_ts = intents.transfer_size_dist.find("1")->second;
@@ -188,6 +190,16 @@ DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
                 chunks[d] = 1;
             }
         }
+    } else {
+      if (most_common_ts > 32 * MB) {
+        enable_chunking = false; 
+      } else {
+        chunks[0] = 32 * MB;
+        for(int d  = 1; d < ndims; ++d) {
+           chunks[d] = 1;
+        }
+      }
+
     }
     float rdcc_w0 = 0;
     if (intents.mode == FILE_WRITE_ONLY || intents.mode == FILE_READ_ONLY)
@@ -196,9 +208,11 @@ DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
     properties.access.chunk_cache = {
             enable_chunking, intents.process_sharing.size(), most_common_ts, rdcc_w0
     };
+    INTENT_LOGINFO("Chunk cache for dataset %s has size %d", intents.dataset_name.c_str(), most_common_ts)
     properties.access.chunk = {
             enable_chunking, (int)ndims, chunks.data(),
     };
+    INTENT_LOGINFO("Chunk for dataset %s has size %d", intents.dataset_name.c_str(), chunks[0])
     if (intents.process_sharing.size() == 1) {
         properties.transfer.dmpiio.use = false;
     } else {
@@ -206,20 +220,20 @@ DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
         properties.transfer.dmpiio.xfer_mode = H5FD_MPIO_COLLECTIVE;
         properties.transfer.dmpiio.coll_opt_mode = H5FD_MPIO_COLLECTIVE_IO;
         properties.transfer.dmpiio.chunk_opt_mode = H5FD_MPIO_CHUNK_MULTI_IO;
-        properties.transfer.dmpiio.num_chunk_per_proc = most_common_ts / intents.process_sharing.size();
-        properties.transfer.dmpiio.percent_num_proc_per_chunk = 100;
+        properties.transfer.dmpiio.num_chunk_per_proc = 1;
+        properties.transfer.dmpiio.percent_num_proc_per_chunk = PPN/intents.process_sharing.size()*100;
     }
     return properties;
 }
 
 FileProperties to_file_properties(FileIOIntents &intents) {
-    const size_t MEMORY_SIZE = 200 * GB;
+    const size_t MEMORY_SIZE = 5 * GB;
     auto properties = FileProperties();
     bool is_read_only = intents.mode == FileMode::FILE_READ_ONLY;
-    if (intents.fs_size < MEMORY_SIZE) {
-        properties.access.core = {
-                true, intents.fs_size + MB, !is_read_only
-        };
+    if (intents.process_sharing.size() == 1 && MEMORY_SIZE > intents.fs_size) {
+        properties.access.core = { true, intents.fs_size + MB, !is_read_only };
+        INTENT_LOGINFO("Core VFD is set to increment %d and flush %d for file %s",
+                       properties.access.core.increment, properties.access.core.backing_store, intents.filename.c_str())
     }
     return properties;
 }
@@ -228,6 +242,7 @@ bool get_dataset_properties(const char* dataset_name, struct DatasetProperties *
   auto iter = intents.datasets.find(dataset_name);
   if (iter == intents.datasets.end()) return false;
   else {
+    iter->second.dataset_name = std::string(dataset_name);
     *datasetProperties = to_dataset_properties(iter->second);
     return true;
   }
@@ -238,6 +253,7 @@ bool get_file_properties(const char* filename, struct FileProperties* fileProper
   auto iter = intents.files.find(posix_path.generic_string());
   if (iter == intents.files.end()) return false;
   else {
+    iter->second.filename = posix_path.generic_string();
     *fileProperties = to_file_properties(iter->second);
     return true;
   }

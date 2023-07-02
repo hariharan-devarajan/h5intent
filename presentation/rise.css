@@ -1,0 +1,15 @@
+.footer { width: 100%; position: fixed; bottom:50px; font-family:"Lato, sans-serif"; font-weight:normal;}
+.title-theme {position: fixed; top:50px;}
+.top-absolute {position: fixed!important; top:50px; height:80%; overflow:auto; left:50%}
+.hide-highlights {border-width:0px!important}
+.hide-highlights::before {background-color:white!important}
+.left { text-align: left;}
+.right { text-align: right;}
+.center { text-align: center;}
+.table-theme th { text-align: center;}
+.footer .logo {height: 35px; overflow: hidden; width: 321px;}
+.footer .left {width:700px; font-size:small; float: left;}
+.footer .right {width:300px; float: right;}
+.container.slides .celltoolbar, .container.slides .hide-in-slideshow {
+    display: None ! important;
+}

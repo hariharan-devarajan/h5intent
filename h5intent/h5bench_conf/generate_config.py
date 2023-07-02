@@ -51,7 +51,7 @@ def main():
             env = f"--env LD_PRELOAD={args.profiler}"
         mpi = {
             "command": "jsrun",
-            "configuration": f"-r 1 -c {args.processes_per_node} -a {args.processes_per_node} {env}"
+            "configuration": f"-r 1 -c {args.processes_per_node} -a {args.processes_per_node} -n {args.nodes} {env}"
         }
     elif args.scheduler == "slurm":
         if args.profiler:

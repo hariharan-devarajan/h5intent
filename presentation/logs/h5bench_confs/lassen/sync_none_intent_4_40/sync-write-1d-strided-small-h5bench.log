@@ -1,0 +1,85 @@
+2023-07-02 14:15:22,581 h5bench - INFO - Starting h5bench Suite
+2023-07-02 14:15:22,582 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40
+2023-07-02 14:15:22,585 h5bench - INFO - Lustre support not detected
+2023-07-02 14:15:22,586 h5bench - DEBUG - HDF5_PLUGIN_PATH: /usr/workspace/iopp/software/h5intent/build/lib
+2023-07-02 14:15:22,586 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 14:15:22,587 h5bench - DEBUG - DYLD_LIBRARY_PATH: :/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 14:15:22,588 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-02 14:15:22,588 h5bench - INFO - JOBID: 4983477
+2023-07-02 14:15:22,589 h5bench - INFO - h5bench [write] - Starting
+2023-07-02 14:15:22,590 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/2e0413d9-4983477/
+2023-07-02 14:15:22,616 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 4 
+2023-07-02 14:15:22,616 h5bench - DEBUG - HDF5 VOL connector: intent under_vol=0;under_info={/usr/WS2/iopp/software/h5intent/presentation/logs/property-json/sync_libdarshan_none_4_40/sync-write-1d-strided-small/h5bench_write.json}
+2023-07-02 14:15:22,618 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 4  h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/2e0413d9-4983477/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/test.h5
+2023-07-02 14:15:55,818 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/2e0413d9-4983477)
+2023-07-02 14:15:55,821 h5bench - INFO - Runtime: 33.2046573 seconds (elapsed time, includes allocation wait time)
+2023-07-02 14:15:55,822 h5bench - INFO - h5bench [write] - Complete
+2023-07-02 14:15:55,822 h5bench - INFO - Finishing h5bench Suite
+2023-07-02 14:20:12,011 h5bench - INFO - Starting h5bench Suite
+2023-07-02 14:20:12,012 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40
+2023-07-02 14:20:12,015 h5bench - INFO - Lustre support not detected
+2023-07-02 14:20:12,016 h5bench - DEBUG - HDF5_PLUGIN_PATH: /usr/workspace/iopp/software/h5intent/build/lib
+2023-07-02 14:20:12,016 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 14:20:12,017 h5bench - DEBUG - DYLD_LIBRARY_PATH: :/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 14:20:12,018 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-02 14:20:12,018 h5bench - INFO - JOBID: 4983477
+2023-07-02 14:20:12,019 h5bench - INFO - h5bench [write] - Starting
+2023-07-02 14:20:12,020 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/745bea69-4983477/
+2023-07-02 14:20:12,057 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 4 
+2023-07-02 14:20:12,057 h5bench - DEBUG - HDF5 VOL connector: intent under_vol=0;under_info={/usr/WS2/iopp/software/h5intent/presentation/logs/property-json/sync_libdarshan_none_4_40/sync-write-1d-strided-small/h5bench_write.json}
+2023-07-02 14:20:12,098 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 4  h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/745bea69-4983477/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/test.h5
+2023-07-02 14:20:35,829 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/745bea69-4983477)
+2023-07-02 14:20:35,830 h5bench - INFO - Runtime: 23.7725630 seconds (elapsed time, includes allocation wait time)
+2023-07-02 14:20:35,831 h5bench - INFO - h5bench [write] - Complete
+2023-07-02 14:20:35,832 h5bench - INFO - Finishing h5bench Suite
+2023-07-02 14:26:46,248 h5bench - INFO - Starting h5bench Suite
+2023-07-02 14:26:46,249 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40
+2023-07-02 14:26:46,252 h5bench - INFO - Lustre support not detected
+2023-07-02 14:26:46,253 h5bench - DEBUG - HDF5_PLUGIN_PATH: /usr/workspace/iopp/software/h5intent/build/lib
+2023-07-02 14:26:46,254 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 14:26:46,254 h5bench - DEBUG - DYLD_LIBRARY_PATH: :/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 14:26:46,255 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-02 14:26:46,256 h5bench - INFO - JOBID: 4983477
+2023-07-02 14:26:46,257 h5bench - INFO - h5bench [write] - Starting
+2023-07-02 14:26:46,257 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/c166cfbb-4983477/
+2023-07-02 14:26:46,261 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 4 
+2023-07-02 14:26:46,262 h5bench - DEBUG - HDF5 VOL connector: intent under_vol=0;under_info={/usr/WS2/iopp/software/h5intent/presentation/logs/property-json/sync_libdarshan_none_4_40/sync-write-1d-strided-small/h5bench_write.json}
+2023-07-02 14:26:46,263 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 4  h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/c166cfbb-4983477/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/test.h5
+2023-07-02 14:27:20,241 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/c166cfbb-4983477)
+2023-07-02 14:27:20,243 h5bench - INFO - Runtime: 33.9812491 seconds (elapsed time, includes allocation wait time)
+2023-07-02 14:27:20,244 h5bench - INFO - h5bench [write] - Complete
+2023-07-02 14:27:20,244 h5bench - INFO - Finishing h5bench Suite
+2023-07-02 15:20:45,468 h5bench - INFO - Starting h5bench Suite
+2023-07-02 15:20:45,469 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40
+2023-07-02 15:20:45,472 h5bench - INFO - Lustre support not detected
+2023-07-02 15:20:45,473 h5bench - DEBUG - HDF5_PLUGIN_PATH: /usr/workspace/iopp/software/h5intent/build/lib
+2023-07-02 15:20:45,473 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 15:20:45,474 h5bench - DEBUG - DYLD_LIBRARY_PATH: :/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 15:20:45,475 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-02 15:20:45,476 h5bench - INFO - JOBID: 4983477
+2023-07-02 15:20:45,476 h5bench - INFO - h5bench [write] - Starting
+2023-07-02 15:20:45,477 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/eb6ccfa3-4983477/
+2023-07-02 15:20:45,501 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 4 
+2023-07-02 15:20:45,502 h5bench - DEBUG - HDF5 VOL connector: intent under_vol=0;under_info={/usr/WS2/iopp/software/h5intent/presentation/logs/property-json/sync_libdarshan_none_4_40/sync-write-1d-strided-small/h5bench_write.json}
+2023-07-02 15:20:45,504 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 4  h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/eb6ccfa3-4983477/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/test.h5
+2023-07-02 15:21:24,446 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/eb6ccfa3-4983477)
+2023-07-02 15:21:24,449 h5bench - INFO - Runtime: 38.9467006 seconds (elapsed time, includes allocation wait time)
+2023-07-02 15:21:24,450 h5bench - INFO - h5bench [write] - Complete
+2023-07-02 15:21:24,450 h5bench - INFO - Finishing h5bench Suite
+2023-07-02 15:22:44,544 h5bench - INFO - Starting h5bench Suite
+2023-07-02 15:22:44,545 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40
+2023-07-02 15:22:44,548 h5bench - INFO - Lustre support not detected
+2023-07-02 15:22:44,549 h5bench - DEBUG - HDF5_PLUGIN_PATH: /usr/workspace/iopp/software/h5intent/build/lib
+2023-07-02 15:22:44,549 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 15:22:44,550 h5bench - DEBUG - DYLD_LIBRARY_PATH: :/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64:/usr/workspace/iopp/software/h5intent/build/lib:
+2023-07-02 15:22:44,551 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-02 15:22:44,552 h5bench - INFO - JOBID: 4983477
+2023-07-02 15:22:44,552 h5bench - INFO - h5bench [write] - Starting
+2023-07-02 15:22:44,553 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/55eb0a95-4983477/
+2023-07-02 15:22:44,556 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 4 
+2023-07-02 15:22:44,557 h5bench - DEBUG - HDF5 VOL connector: intent under_vol=0;under_info={/usr/WS2/iopp/software/h5intent/presentation/logs/property-json/sync_libdarshan_none_4_40/sync-write-1d-strided-small/h5bench_write.json}
+2023-07-02 15:22:44,558 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 4  h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/55eb0a95-4983477/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/test.h5
+2023-07-02 15:23:20,251 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/55eb0a95-4983477)
+2023-07-02 15:23:20,253 h5bench - INFO - Runtime: 35.6959052 seconds (elapsed time, includes allocation wait time)
+2023-07-02 15:23:20,254 h5bench - INFO - h5bench [write] - Complete
+2023-07-02 15:23:20,254 h5bench - INFO - Finishing h5bench Suite

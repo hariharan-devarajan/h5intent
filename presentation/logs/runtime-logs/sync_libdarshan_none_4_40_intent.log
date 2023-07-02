@@ -1,0 +1,3 @@
+Generating config for workflow sync-write-1d-strided-small-col
+Generating config for workflow sync-write-1d-strided-small
+dict_keys(['POSIX', 'H5F', 'H5D', 'STDIO', 'HEATMAP'])
