@@ -179,13 +179,13 @@ DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
     if(intents.process_sharing.size() > 1) {
         if (most_common_ts > 32 * MB) {
             enable_chunking = false;
-        } else if (most_common_ts * intents.process_sharing.size() > 1*MB) {
+        } else if (most_common_ts * intents.process_sharing.size() > 16*MB) {
             chunks[0] = 16 * MB;
             for(int d  = 1; d < ndims; ++d) {
                 chunks[d] = 1;
             }
         }else {
-            chunks[0] = most_common_ts * intents.process_sharing.size();
+            chunks[0] = most_common_ts;
             for(int d  = 1; d < ndims; ++d) {
                 chunks[d] = 1;
             }
@@ -206,9 +206,9 @@ DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
         rdcc_w0 = 1;
 
     properties.access.chunk_cache = {
-            enable_chunking, intents.process_sharing.size(), most_common_ts, rdcc_w0
+            enable_chunking, intents.fs_size / intents.process_sharing.size() * most_common_ts, intents.fs_size, rdcc_w0
     };
-    INTENT_LOGINFO("Chunk cache for dataset %s has size %d", intents.dataset_name.c_str(), most_common_ts)
+    INTENT_LOGINFO("Chunk cache for dataset %s has size %d", intents.dataset_name.c_str(), properties.access.chunk_cache.rdcc_nbytes)
     properties.access.chunk = {
             enable_chunking, (int)ndims, chunks.data(),
     };
@@ -219,9 +219,9 @@ DatasetProperties to_dataset_properties(DatasetIOIntents &intents) {
         properties.transfer.dmpiio.use = true;
         properties.transfer.dmpiio.xfer_mode = H5FD_MPIO_COLLECTIVE;
         properties.transfer.dmpiio.coll_opt_mode = H5FD_MPIO_COLLECTIVE_IO;
-        properties.transfer.dmpiio.chunk_opt_mode = H5FD_MPIO_CHUNK_MULTI_IO;
-        properties.transfer.dmpiio.num_chunk_per_proc = 1;
-        properties.transfer.dmpiio.percent_num_proc_per_chunk = PPN/intents.process_sharing.size()*100;
+        properties.transfer.dmpiio.chunk_opt_mode = H5FD_MPIO_CHUNK_ONE_IO;
+        properties.transfer.dmpiio.num_chunk_per_proc = 64;
+        properties.transfer.dmpiio.percent_num_proc_per_chunk = 1/intents.process_sharing.size()*100;
     }
     return properties;
 }

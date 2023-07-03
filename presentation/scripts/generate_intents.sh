@@ -1,5 +1,6 @@
 node=$1
 ppn=$2
+case=$3
 
 H5INTENT_DIR=/usr/workspace/iopp/software/h5intent
 PYTHON_EXE=/usr/WS2/iopp/software/venvs/h5bench-py/bin/python
@@ -14,7 +15,8 @@ $PYTHON_EXE $H5INTENT_DIR/h5intent/intent_generator/intent_generator.py \
 --base-path $base_path \
 --darshan-logs $darshan_logs \
 --property-json $property_json \
---data-dirs $data_dirs > $LOG
-intent_file=`ls ${H5INTENT_DIR}/presentation/${property_json}/*`
+--data-dirs $data_dirs \
+--workflow $case > $LOG
+intent_file=`ls ${H5INTENT_DIR}/presentation/${property_json}/${case}`
 echo "Generated intents file $intent_file"
 
