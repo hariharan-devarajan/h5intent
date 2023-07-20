@@ -1,0 +1,68 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+
+The following have been reloaded with a version change:
+  1) cmake/3.23.1 => cmake/3.20.2
+
+BBATH is set to '/mnt/bb_28ed9bc1a221220e2f0c4bcdb27ae403'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/logs/darshan/sync_libdarshan_none_4_40/sync-write-1d-strided-medium
+/usr/WS2/iopp/software/h5intent/logs/h5bench_confs/lassen/sync_libdarshan_none_4_40/sync-write-1d-strided-medium.json
+/usr/workspace/iopp/software/h5intent/build-profile/h5bench --debug /usr/WS2/iopp/software/h5intent/logs/h5bench_confs/lassen/sync_libdarshan_none_4_40/sync-write-1d-strided-medium.json
+/usr/workspace/iopp/software/h5intent/build-profile/h5bench:10: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+  import distutils.spawn
+2023-06-29 16:16:58,118 h5bench - INFO - Starting h5bench Suite
+2023-06-29 16:16:58,166 h5bench - INFO - Lustre support not detected
+2023-06-29 16:16:58,167 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-06-29 16:16:58,168 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-06-29 16:16:58,168 h5bench - DEBUG - LD_PRELOAD: 
+2023-06-29 16:16:58,169 h5bench - INFO - JOBID: 4976220
+2023-06-29 16:16:58,170 h5bench - INFO - h5bench [write] - Starting
+2023-06-29 16:16:58,170 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium_4_40/d52578c2-4976220/
+2023-06-29 16:16:58,171 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-06-29 16:16:58,172 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium_4_40/d52578c2-4976220/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium_4_40/test.h5
+2023-06-29 16:17:11,721 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium_4_40/d52578c2-4976220)
+2023-06-29 16:17:11,721 h5bench - INFO - Runtime: 13.5496135 seconds (elapsed time, includes allocation wait time)
+2023-06-29 16:17:11,722 h5bench - INFO - h5bench [write] - Complete
+2023-06-29 16:17:11,723 h5bench - INFO - Finishing h5bench Suite
+logout
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4976220: <sync-write-1d-strided-medium> in cluster <lassen> Done
+
+Job <sync-write-1d-strided-medium> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Thu Jun 29 16:09:57 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Thu Jun 29 16:16:37 2023
+                            <40*lassen438>
+                            <40*lassen799>
+                            <40*lassen141>
+                            <40*lassen630>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/scripts/h5bench> was used as the working directory.
+Started at Thu Jun 29 16:16:37 2023
+Terminated at Thu Jun 29 16:17:15 2023
+Results reported at Thu Jun 29 16:17:15 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/WS2/iopp/software/h5intent/scripts/h5bench/main.sh /usr/WS2/iopp/software/h5intent/logs/h5bench_confs/lassen/sync_libdarshan_none_4_40/sync-write-1d-strided-medium.json sync_libdarshan_none_4_40 1
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.39 sec.
+    Max Memory :                                 49 MB
+    Average Memory :                             47.86 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1380 MB
+    Max Processes :                              5
+    Max Threads :                                23
+    Run time :                                   36 sec.
+    Turnaround time :                            438 sec.
+
+The output (if any) is above this job summary.
+

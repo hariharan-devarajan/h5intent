@@ -1,0 +1,189 @@
+/etc/bash_completion.d/yum-utils.bash: line 2: /yum: No such file or directory
+
+The following have been reloaded with a version change:
+  1) cmake/3.23.1 => cmake/3.20.2
+
+BBATH is set to '/mnt/bb_f42ba498d42c389074160bf0447e4a54'
+enabled_darshan
+DARSHAN_LOG_DIR_PATH=/usr/workspace/iopp/software/h5intent/logs/darshan/sync_libdarshan_none_128_40/sync-write-1d-strided-medium-col
+/usr/WS2/iopp/software/h5intent/logs/h5bench_confs/lassen/sync_libdarshan_none_128_40/sync-write-1d-strided-medium-col.json
+/usr/workspace/iopp/software/h5intent/build-profile/h5bench --debug /usr/WS2/iopp/software/h5intent/logs/h5bench_confs/lassen/sync_libdarshan_none_128_40/sync-write-1d-strided-medium-col.json
+/usr/workspace/iopp/software/h5intent/build-profile/h5bench:10: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+  import distutils.spawn
+2023-06-29 17:58:59,584 h5bench - INFO - Starting h5bench Suite
+2023-06-29 17:58:59,685 h5bench - INFO - Lustre support not detected
+2023-06-29 17:58:59,685 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-06-29 17:58:59,686 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-06-29 17:58:59,687 h5bench - DEBUG - LD_PRELOAD: 
+2023-06-29 17:58:59,688 h5bench - INFO - JOBID: 4976261
+2023-06-29 17:58:59,688 h5bench - INFO - h5bench [write] - Starting
+2023-06-29 17:58:59,689 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_128_40/8f733589-4976261/
+2023-06-29 17:58:59,690 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-06-29 17:58:59,692 h5bench - INFO - jsrun -r 1 -c 40 -a 40 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_128_40/8f733589-4976261/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-medium-col_128_40/test.h5
+User defined signal 2
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@lassen710>
+Subject: Job 4976261: <sync-write-1d-strided-medium-col> in cluster <lassen> Exited
+
+Job <sync-write-1d-strided-medium-col> was submitted from host <lassen708> by user <haridev> in cluster <lassen> at Thu Jun 29 16:21:01 2023
+Job was executed on host(s) <1*lassen710>, in queue <pbatch>, as user <haridev> in cluster <lassen> at Thu Jun 29 17:58:28 2023
+                            <40*lassen405>
+                            <40*lassen406>
+                            <40*lassen250>
+                            <40*lassen736>
+                            <40*lassen580>
+                            <40*lassen737>
+                            <40*lassen252>
+                            <40*lassen582>
+                            <40*lassen253>
+                            <40*lassen254>
+                            <40*lassen584>
+                            <40*lassen257>
+                            <40*lassen587>
+                            <40*lassen588>
+                            <40*lassen589>
+                            <40*lassen80>
+                            <40*lassen412>
+                            <40*lassen743>
+                            <40*lassen745>
+                            <40*lassen416>
+                            <40*lassen260>
+                            <40*lassen746>
+                            <40*lassen590>
+                            <40*lassen417>
+                            <40*lassen261>
+                            <40*lassen747>
+                            <40*lassen591>
+                            <40*lassen418>
+                            <40*lassen262>
+                            <40*lassen748>
+                            <40*lassen592>
+                            <40*lassen593>
+                            <40*lassen264>
+                            <40*lassen594>
+                            <40*lassen265>
+                            <40*lassen266>
+                            <40*lassen267>
+                            <40*lassen596>
+                            <40*lassen268>
+                            <40*lassen597>
+                            <40*lassen269>
+                            <40*lassen599>
+                            <40*lassen90>
+                            <40*lassen91>
+                            <40*lassen92>
+                            <40*lassen93>
+                            <40*lassen94>
+                            <40*lassen95>
+                            <40*lassen97>
+                            <40*lassen98>
+                            <40*lassen99>
+                            <40*lassen421>
+                            <40*lassen750>
+                            <40*lassen422>
+                            <40*lassen751>
+                            <40*lassen423>
+                            <40*lassen752>
+                            <40*lassen424>
+                            <40*lassen753>
+                            <40*lassen425>
+                            <40*lassen426>
+                            <40*lassen272>
+                            <40*lassen758>
+                            <40*lassen759>
+                            <40*lassen275>
+                            <40*lassen277>
+                            <40*lassen100>
+                            <40*lassen102>
+                            <40*lassen760>
+                            <40*lassen432>
+                            <40*lassen103>
+                            <40*lassen761>
+                            <40*lassen104>
+                            <40*lassen762>
+                            <40*lassen105>
+                            <40*lassen106>
+                            <40*lassen281>
+                            <40*lassen438>
+                            <40*lassen111>
+                            <40*lassen440>
+                            <40*lassen771>
+                            <40*lassen778>
+                            <40*lassen295>
+                            <40*lassen296>
+                            <40*lassen297>
+                            <40*lassen298>
+                            <40*lassen600>
+                            <40*lassen601>
+                            <40*lassen120>
+                            <40*lassen605>
+                            <40*lassen121>
+                            <40*lassen450>
+                            <40*lassen606>
+                            <40*lassen122>
+                            <40*lassen607>
+                            <40*lassen780>
+                            <40*lassen123>
+                            <40*lassen452>
+                            <40*lassen608>
+                            <40*lassen781>
+                            <40*lassen782>
+                            <40*lassen784>
+                            <40*lassen127>
+                            <40*lassen785>
+                            <40*lassen458>
+                            <40*lassen614>
+                            <40*lassen615>
+                            <40*lassen460>
+                            <40*lassen616>
+                            <40*lassen462>
+                            <40*lassen618>
+                            <40*lassen134>
+                            <40*lassen794>
+                            <40*lassen795>
+                            <40*lassen468>
+                            <40*lassen797>
+                            <40*lassen798>
+                            <40*lassen799>
+                            <40*lassen622>
+                            <40*lassen623>
+                            <40*lassen625>
+                            <40*lassen141>
+                            <40*lassen626>
+                            <40*lassen142>
+                            <40*lassen471>
+                            <40*lassen627>
+                            <40*lassen628>
+                            <40*lassen475>
+</g/g92/haridev> was used as the home directory.
+</usr/workspace/iopp/software/h5intent/scripts/h5bench> was used as the working directory.
+Started at Thu Jun 29 17:58:28 2023
+Terminated at Thu Jun 29 18:29:13 2023
+Results reported at Thu Jun 29 18:29:13 2023
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/usr/WS2/iopp/software/h5intent/scripts/h5bench/main.sh /usr/WS2/iopp/software/h5intent/logs/h5bench_confs/lassen/sync_libdarshan_none_128_40/sync-write-1d-strided-medium-col.json sync_libdarshan_none_128_40 1
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   6.00 sec.
+    Max Memory :                                 73 MB
+    Average Memory :                             72.45 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   1432 MB
+    Max Processes :                              4
+    Max Threads :                                27
+    Run time :                                   1846 sec.
+    Turnaround time :                            7692 sec.
+
+The output (if any) is above this job summary.
+
