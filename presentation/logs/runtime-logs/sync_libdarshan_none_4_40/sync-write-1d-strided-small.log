@@ -1,17 +1,17 @@
 /usr/workspace/iopp/software/h5intent/build-profile/h5bench:10: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
   import distutils.spawn
-2023-07-02 20:20:12,922 h5bench - INFO - Starting h5bench Suite
-2023-07-02 20:20:12,923 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40
-2023-07-02 20:20:12,925 h5bench - INFO - Lustre support not detected
-2023-07-02 20:20:12,926 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
-2023-07-02 20:20:12,927 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
-2023-07-02 20:20:12,927 h5bench - DEBUG - LD_PRELOAD: 
-2023-07-02 20:20:12,928 h5bench - INFO - JOBID: 4983558
-2023-07-02 20:20:12,929 h5bench - INFO - h5bench [write] - Starting
-2023-07-02 20:20:12,929 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/e71349fc-4983558/
-2023-07-02 20:20:12,953 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 4 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
-2023-07-02 20:20:12,954 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 4 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/e71349fc-4983558/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/test.h5
-2023-07-02 20:20:39,958 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/e71349fc-4983558)
-2023-07-02 20:20:39,959 h5bench - INFO - Runtime: 27.0051210 seconds (elapsed time, includes allocation wait time)
-2023-07-02 20:20:39,960 h5bench - INFO - h5bench [write] - Complete
-2023-07-02 20:20:39,960 h5bench - INFO - Finishing h5bench Suite
+2023-07-06 11:41:32,576 h5bench - INFO - Starting h5bench Suite
+2023-07-06 11:41:32,793 h5bench - WARNING - Base directory already exists: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40
+2023-07-06 11:41:32,800 h5bench - INFO - Lustre support not detected
+2023-07-06 11:41:32,800 h5bench - DEBUG - LD_LIBRARY_PATH: /usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib:/usr/tce/packages/python/python-3.7.2/lib:/opt/ibm/spectrumcomputing/lsf/10.1.0.10/linux3.10-glibc2.17-ppc64le-csm/lib:/usr/tce/packages/cuda/cuda-10.1.243/lib64
+2023-07-06 11:41:32,801 h5bench - DEBUG - DYLD_LIBRARY_PATH: 
+2023-07-06 11:41:32,802 h5bench - DEBUG - LD_PRELOAD: 
+2023-07-06 11:41:32,803 h5bench - INFO - JOBID: 4998440
+2023-07-06 11:41:32,803 h5bench - INFO - h5bench [write] - Starting
+2023-07-06 11:41:32,804 h5bench - INFO - h5bench [write] - DIR: /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/8dcbee18-4998440/
+2023-07-06 11:41:32,868 h5bench - INFO - Parallel setup: jsrun -r 1 -c 40 -a 40 -n 4 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so
+2023-07-06 11:41:32,869 h5bench - INFO - jsrun -r 1 -c 40 -a 40 -n 4 --env LD_PRELOAD=/usr/workspace/iopp/software/h5intent/dependency-profile/.spack-env/view/lib/libdarshan.so h5bench_write /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/8dcbee18-4998440/h5bench.cfg /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/test.h5
+2023-07-06 11:41:52,282 h5bench - INFO - SUCCESS (all output files are located at /p/gpfs1/haridev/temp/h5bench/sync-write-1d-strided-small_4_40/8dcbee18-4998440)
+2023-07-06 11:41:52,282 h5bench - INFO - Runtime: 19.4137082 seconds (elapsed time, includes allocation wait time)
+2023-07-06 11:41:52,283 h5bench - INFO - h5bench [write] - Complete
+2023-07-06 11:41:52,284 h5bench - INFO - Finishing h5bench Suite

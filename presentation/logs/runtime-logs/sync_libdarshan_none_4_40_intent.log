@@ -1,2 +1,2 @@
-Generating config for workflow sync-write-1d-strided-small-col
-dict_keys(['POSIX', 'MPI-IO', 'H5F', 'H5D', 'STDIO', 'HEATMAP'])
+Generating config for workflow sync-write-1d-strided-small
+dict_keys(['POSIX', 'H5F', 'H5D', 'STDIO', 'HEATMAP'])
